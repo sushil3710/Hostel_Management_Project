@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://cdn.syncfusion.com/ej2/material.css");
+@import "@material-tailwind/react/tailwind.css";
+
+@layer base {
+  @font-face {
+    font-family: Cereal Font;
+    font-weight: 400;
+    src: url(/src/fonts/AirbnbCereal_W_Bd.woff) format("woff");
+  }
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+@media print {
+  .do-not-print-me {
+    display: none;
+  }
+}
