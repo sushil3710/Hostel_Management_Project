@@ -41,6 +41,8 @@ app.post("/contact-us", auth.contact_us);
 
 app.post("/complaintSection/savedata",complaintSection.save_data);
 
+app.post("/complaints/solve/:id",complaintSection.solveIt);
+
 
 app.post(
   "/save-personal-info",
@@ -75,6 +77,10 @@ app.get("/get-admins", admindB.get_admins);
 app.get("/get-admin-profile", admindB.get_admin_profile);
 
 app.get ("/admin/getcomplaints",complaintSection.get_all_complaints);
+
+app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints);
+
+app.get("/complaints/:id",complaintSection.get_complaints)
 
 
 if (process.env.NODE_ENV === "production") {

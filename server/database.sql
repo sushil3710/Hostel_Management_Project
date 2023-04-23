@@ -60,9 +60,10 @@ CREATE TABLE admins(
   
 );
 
-CREATE TABLE complaint_details(
+CREATE TABLE complaint_details (
+  complaint_id SERIAL PRIMARY KEY,
   name TEXT, 
-  email_id TEXT PRIMARY KEY,
+  email_id TEXT UNIQUE,
   hostel_name TEXT,
   wing_side TEXT,
   room_number TEXT,
@@ -72,6 +73,7 @@ CREATE TABLE complaint_details(
   complaint_status TEXT DEFAULT 'pending',
   complaint_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 
 -- 0 for super-admin, 1 for faculty-admins, 2 for applicant, 3 for Staff

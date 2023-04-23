@@ -16,6 +16,7 @@ import Info from "./components/Landing/Info";
 import Complaint from "./components/complaint";
 import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
+import SolvedComplaint from "./components/Admin/SolvedComplaints";
 // import Electricity from "./components/forms/electricity";
 // import Furniture from "./components/forms/furniture";
 // import Equipments from "./components/forms/equipment";
@@ -106,6 +107,15 @@ function App() {
             element={
               <PrivateRoute>
                 <SeeComplaint />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
+            path="/admin/solvedcomplaints"
+            element={
+              <PrivateRoute>
+                <SolvedComplaint />
               </PrivateRoute>
             }
           />

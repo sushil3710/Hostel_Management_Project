@@ -20,6 +20,45 @@ async function get_all_complaints(req, res) {
     }
 }
 
+async function get_complaints(req, res) {
+    const { id } = req.params;
+    try {
+        const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_id=$1",[id]);
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error getting the complaint.");
+    }
+}
+
+async function get_all_solved_complaints(req, res) {
+    try {
+        const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_status='done'");
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error getting all complaints.");
+    }
+}
+
+async function solveIt(req, res) {
+    const { id } = req.params;
+  
+    try {
+      const { rowCount } = await pool.query("UPDATE complaint_details SET complaint_status='done' WHERE complaint_id=$1", [id]);
+  
+      if (rowCount === 1) {
+        res.status(200).send(`Complaint with id ${id} has been marked as solved`);
+      } else {
+        res.status(404).send(`Complaint with id ${id} not found`);
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).send("Error updating complaint status.");
+    }
+  }
+  
+
 
 async function save_data(req, res) {
     var info = req.body;
@@ -50,5 +89,8 @@ async function save_data(req, res) {
 
 module.exports = {
     save_data,
-    get_all_complaints
+    get_all_complaints,
+    get_complaints,
+    get_all_solved_complaints,
+    solveIt
 };

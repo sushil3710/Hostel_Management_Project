@@ -4,15 +4,14 @@ import axios from "axios";
 import ComplaintCard from "./ComplaintCard";
 
 
-const SeeComplaint = () => {
+const SolvedComplaint = () => {
 
 
     const [complaints, setComplaints] = useState([]);
 
     useEffect(() => {
-        axios.get("/admin/getcomplaints")
+        axios.get("/admin/solvedcomplaints")
             .then((response) => {
-                console.log(response.data);
                 setComplaints(response.data);
             })
             .catch((error) => {
@@ -28,7 +27,7 @@ const SeeComplaint = () => {
             <div>
                 {complaints.map((complaint) => (
                     <ComplaintCard
-                        id={complaint.complaint_id}
+                        key={complaint.id}
                         name={complaint.name}
                         description={complaint.complaint_details}
                         date={complaint.complaint_date}
@@ -40,4 +39,4 @@ const SeeComplaint = () => {
 
 };
 
-export default SeeComplaint;
+export default SolvedComplaint;

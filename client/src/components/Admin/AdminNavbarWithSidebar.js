@@ -85,7 +85,7 @@ export default function AdminNavbarWithSidebar() {
                 </NavLink>
               </li>
 
-              <li className="rounded-lg mb-2 text-gray-700">
+              {/* <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/solvedcomplaints"
                   exact="true"
@@ -98,7 +98,7 @@ export default function AdminNavbarWithSidebar() {
                   <AccountCircleIcon size="2xl" />
                   Solved Complaints
                 </NavLink>
-              </li>
+              </li> */}
               
             </ul>
           </div>
