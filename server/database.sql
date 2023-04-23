@@ -57,7 +57,23 @@ CREATE TABLE admins(
   email_id TEXT PRIMARY KEY,
   passwd TEXT,
   admin_type INT NOT NULL
+  
 );
+
+CREATE TABLE complaint_details(
+  name TEXT, 
+  email_id TEXT PRIMARY KEY,
+  hostel_name TEXT,
+  wing_side TEXT,
+  room_number TEXT,
+  floor_number TEXT,
+  complaint_type TEXT,
+  complaint_details TEXT,
+  complaint_status TEXT DEFAULT 'pending',
+  complaint_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
 -- 0 for super-admin, 1 for faculty-admins, 2 for applicant, 3 for Staff
 
 CREATE OR REPLACE FUNCTION insert_into_login_verification()

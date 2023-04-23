@@ -1,0 +1,117 @@
+
+
+/* interview.css */
+.menu-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 160px;
+    padding: 20px;
+    background-color: transparent;
+    width: 250px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start; /* Adjusted to position menu at the top */
+    z-index: 999; /* Add a higher z-index to ensure the menu is displayed above other elements */
+    font-size: 18px; /* Increased font size */
+    font-family: 'Montserrat', sans-serif; /* Stylish font */
+    font-weight: bold; /* Added font weight */
+    color: #333; /* Changed text color */
+  }
+  
+  .menu-container a {
+    color: #333;
+    text-decoration: none;
+    font-size: 18px; /* Increased font size */
+    margin-bottom: 10px;
+    transition: color 0.3s ease-in-out;
+    margin-bottom: 20px;
+  }
+  .menu-box {
+    padding: 1rem; /* Add padding for the boxes */
+    background-color: #f7f7f7; /* Set background color for the boxes */
+    border-radius: 8px; /* Add border radius to create rounded corners */
+    transition: transform 0.2s ease-in-out;
+    margin-bottom: 1rem; /* Add margin bottom to create gaps between the boxes */
+  }
+  .menu-container a:hover {
+    color: #007bff;
+  }
+  
+  .top-asked-questions-title,
+.interview-tips-title {
+  font-size: 2rem;
+  /* margin-bottom: 2rem; */
+  margin-top: 0rem;
+  margin-left: -2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  color: #4b9fe3;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: #f7f9fc; /* Set desired background color */
+  padding: 3rem 1rem; /* Add padding for spacing */
+  border-radius: 8px; /* Add border radius for rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+}
+
+  
+  .top-asked-questions-list,
+  .interview-tips-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+  
+  .top-asked-questions-item,
+.interview-tips-item {
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 20px;
+  transition: transform 0.2s ease-in-out;
+  /* margin-left: 16rem; */
+  /* margin-right: 3rem; */
+  font-family: 'Georgia', serif;
+  border: 1px solid #cfdfe6; /* Add border with desired color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+}
+ 
+  
+  .top-asked-questions-item:hover,
+  .interview-tips-item:hover {
+    transform: translateY(-4px);
+    background-color: #f7f7f7; /* Changed background color on hover */
+  }
+  
+  .top-asked-questions-item-title,
+  .interview-tips-item-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    font-family: 'Helvetica', sans-serif;
+  }
+  
+  .top-asked-questions-item-answer,
+  .interview-tips-item-description {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-family: 'Arial', sans-serif;
+  }
+  
+
+  .interview-tips-container {
+    margin-left: 16rem;
+    margin-right: 6rem;
+    margin-top: 10px;
+    background-color: #f8f8f8; /* Set desired background color */
+    padding-left: 2rem; /* Add padding for spacing */
+    border-radius: 4px; /* Add border radius for rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth */
+  }
+  

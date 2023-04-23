@@ -179,7 +179,7 @@ const get_profile_info = async (req, res) => {
    * Verify using authToken
    */
   authToken = req.headers.authorization;
-  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY; 
 
   var verified = null;
 
@@ -246,10 +246,44 @@ const get_user_info = async (req, res) => {
   return res.send(results.rows[0]);
 };
 
+const get_user_email = async (req, res) => {
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
+
+  // /** Get role */
+  // var userRole = jwt.decode(authToken).userRole;
+  // if (userRole !== 2) {
+  //   return res.send("1");
+  // }
+
+  var email = jwt.decode(authToken).userEmail;
+
+  console.log(email);
+
+  // const results = await pool.query(
+  //   "SELECT full_name, profile_image_url, email_id FROM student_info WHERE email_id = $1;",
+  //   [email]
+  // );
+
+  return res.send(email);
+};
 
 module.exports = {
   save_personal_info,
   save_communication_details,
   get_profile_info,
   get_user_info,
+  get_user_email
 };

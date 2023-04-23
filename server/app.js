@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const auth = require("./auth");
 const path = require("path");
+const complaintSection = require("./complaintSection");
 const multer = require("multer");
 const upload = multer();
 const applicantdB = require("./applicant-db");
@@ -22,14 +23,14 @@ if (process.env.NODE_ENV === "production") {
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
-});
+}); 
 
 app.post("/auth/signin/otp", auth.signin_otp);
 
 app.post("/auth/signin/verify", auth.signin_verify);
 
 app.post("/auth/forgotpassword/otp", auth.forgot_password_otp);
-
+ 
 app.post("/auth/forgotpassword/verify", auth.forgot_password_verify);
 
 app.post("/auth/signup/otp", auth.signup_otp);
@@ -37,6 +38,9 @@ app.post("/auth/signup/otp", auth.signup_otp);
 app.post("/auth/signup/verify", auth.signup_verify);
 
 app.post("/contact-us", auth.contact_us);
+
+app.post("/complaintSection/savedata",complaintSection.save_data);
+
 
 app.post(
   "/save-personal-info",
@@ -56,6 +60,7 @@ app.get("/get-profile-info", applicantdB.get_profile_info);
 
 app.get("/get-user-info", applicantdB.get_user_info);
 
+app.get("/get-user-email", applicantdB.get_user_email);
 
 app.post("/add-admin", upload.fields([]), admindB.add_admin);
 
@@ -68,6 +73,8 @@ app.post("/edit-admin-profile", upload.fields([]), admindB.edit_admin_profile);
 app.get("/get-admins", admindB.get_admins);
 
 app.get("/get-admin-profile", admindB.get_admin_profile);
+
+app.get ("/admin/getcomplaints",complaintSection.get_all_complaints);
 
 
 if (process.env.NODE_ENV === "production") {

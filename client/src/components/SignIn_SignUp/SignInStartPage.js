@@ -36,7 +36,7 @@ function SignInStartPage() {
       .post("/auth/signin/verify", {
         email: email,
         password: pass
-      })
+      }) 
       .then((response) => {
         setIsLoadingEmail(false);
         if (response.data.result === 1) {

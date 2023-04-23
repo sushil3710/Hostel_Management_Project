@@ -69,6 +69,36 @@ export default function AdminNavbarWithSidebar() {
                   Profile
                 </NavLink>
               </li>
+
+              <li className="rounded-lg mb-2 text-gray-700">
+                <NavLink
+                  to="/admin/complaints"
+                  exact="true"
+                  className={
+                    location !== "/admin/complaints"
+                      ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                  }
+                >
+                  <AccountCircleIcon size="2xl" />
+                  Complaints
+                </NavLink>
+              </li>
+
+              <li className="rounded-lg mb-2 text-gray-700">
+                <NavLink
+                  to="/admin/solvedcomplaints"
+                  exact="true"
+                  className={
+                    location !== "/admin/solvedcomplaints"
+                      ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                  }
+                >
+                  <AccountCircleIcon size="2xl" />
+                  Solved Complaints
+                </NavLink>
+              </li>
               
             </ul>
           </div>

@@ -1,0 +1,135 @@
+// import React from "react";
+// import { useState, useEffect } from 'react';
+// import axios from "axios";
+// import get_user_info from "../../../../server/applicant-db";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import DashboardNavBar from "../Applicant/DashboardNavBar";
+
+
+export default function Water(props) {
+
+    const [username, setUserName] = useState('');
+    const [emailid, setEmailId] = useState('');
+    const [hostel, setHostel] = useState('');
+    const [wing, setWing] = useState('');
+    const [room, setRoom] = useState('');
+    const [floor, setFloor] = useState('');
+    const [complainttype, setComplaintType] = useState('');
+    const [complaint, setComplaint] = useState('');
+
+
+    var email ="";
+
+
+    // useEffect(() => {
+    //     axios.get("/get-user-email")
+    //       .then(response => {
+    //         // const email = response.data.email;
+    //         // setEmailId(email);
+    //         console.log(response);
+    //       })
+    //       .catch(error => {
+    //         console.error(error);
+    //       });
+    //   }, []);
+
+
+    const handleSubmit = (event) => {
+        // event.preventDefault(); // prevent default form submission behavior
+      
+        // create an object containing the form data
+        const formData = {
+          username,
+          emailid,
+          hostel,
+          wing, 
+          room,
+          floor,
+          complainttype,
+          complaint,
+        };
+      
+        // send the form data to the backend
+        axios.post("/complaintSection/savedata", formData)
+          .then((response) => {
+            console.log(response.data); // log the response data
+            // if the request was successful, show a success message to the user
+            alert("Complaint submitted successfully!");
+          })
+          .catch((error) => {
+            console.log(error); // log any errors
+            // if there was an error, show an error message to the user
+            alert("Error submitting complaint. Please try again later.");
+          });
+      };
+      
+
+
+    return (
+
+        <>
+            <DashboardNavBar currentFlag={0} />
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800" >
+                    <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Complaint Form</h2>
+
+                    <form onSubmit={handleSubmit}>
+                        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="username">Username</label>
+                                <input id="username" type="text" required value={username} onChange={(e) => setUserName(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="emailAddress">Email Address</label>
+                                <input id="emailAddress" type="email" required value={emailid} onChange={(e) => setEmailId(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="username">Hostel Name</label>
+                                <input id="hostelname" type="text" required value={hostel} onChange={(e) => setHostel(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="username">Wing Side</label>
+                                <input id="wing" type="text" required value={wing} onChange={(e) => setWing(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="username">Room Number</label>
+                                <input id="room" type="text" required value={room} onChange={(e) => setRoom(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="username">Floor Number</label>
+                                <input id="floor" type="text" required value={floor} onChange={(e) => setFloor(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                            </div>
+
+                            <div>
+                                <label class="text-gray-700 dark:text-gray-200" for="complaintType">Type of Complaint</label>
+                                <select id="complaintType" name="complaintType" required value={complainttype} onChange={(e) => setComplaintType(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
+                                    <option value="" disabled selected>Select a type</option>
+                                    <option value="water">Water Related</option>
+                                    <option value="electricity">Electricity Related</option>
+                                    <option value="furniture">Furniture Related</option>
+                                    <option value="equipments">Electrical Equipments</option>
+                                    <option value="general">General</option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <br></br>
+                        <label htmlFor="experience" >Enter your Complaint:</label>
+                        <textarea id="experience" name="experience" required value={complaint} onChange={(e) => setComplaint(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"></textarea>
+
+
+                        <div class="flex justify-end mt-6">
+                            <button class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Submit</button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </>
+    );
+}

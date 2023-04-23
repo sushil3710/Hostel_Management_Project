@@ -33,7 +33,7 @@ function ForgotPasswordPage() {
         setMsgSignin("Please enter your email.");
         setColorEmail(1);
         setIsLoadingEmail(false);
-      } else if (response.data === 1) {
+      } else if (response.data === 1) { 
         setMsgSignin(
         "This account is not Registered");
         setColorEmail(1);
