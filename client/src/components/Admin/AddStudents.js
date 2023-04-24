@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 import adminsPic from "../../images/manage-admins.svg";
 import UploadExcelModal from "./UploadExcelModal";
+import AddStudentModal from "./AddStudentModal";
 
 export default function AddStudents() {
   // ek list with email id, role and (if faculty then department)
@@ -127,7 +128,11 @@ export default function AddStudents() {
           <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
             List of Excels
           </h3>
-          <UploadExcelModal />
+          <div className="flex space-x-4">
+    <AddStudentModal />
+    <div className="mx-4"></div>
+    <UploadExcelModal />
+  </div>
         </div>
         <div className="block w-full overflow-x-auto">
           <table className="items-center w-full bg-transparent border-collapse">

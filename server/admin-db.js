@@ -542,6 +542,62 @@ console.log(excelpath)
   return res.send("2");
 };
 
+const add_student = async (req, res) => {
+  /**
+   * 1. Perform jwt authentication
+   * 2. Add admin (before that check that no other admin has already this id)
+   */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+
+  /** Check if this email is already an admin */
+  const check = await pool.query(
+    "SELECT * FROM student_info WHERE email_id = $1;",
+    [info.email_id]
+  );
+
+  if (check.rows.length !== 0) {
+    return res.send("2"); /** Email ID already exists */
+  }
+
+  /** Add email_id */
+
+  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
+    const add = await pool.query(
+      "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd) VALUES($1, $2, $3, $4,$5 );",
+      [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
+    );
+    // "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd) VALUES ($1, $2, $3, $4,'root')",
+    // [Email_ID, Name, Entry_Number,Hostel_ID]
+  });
+
+
+  return res.send("Ok");
+};
 
 module.exports = {
   add_admin,
@@ -556,4 +612,5 @@ module.exports = {
   get_excel,
   add_students,
   delete_excel,
+  add_student,
 };
