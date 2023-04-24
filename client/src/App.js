@@ -18,6 +18,8 @@ import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
 import AddFees from "./components/Admin/AddFess";
 import SolvedComplaint from "./components/Admin/SolvedComplaints";
+import RoomChange from "./components/Applicant/roomChange";
+import MyComplaint from "./components/Applicant/MyComplaint";
 // import Electricity from "./components/forms/electricity";
 // import Furniture from "./components/forms/furniture";
 // import Equipments from "./components/forms/equipment";
@@ -63,6 +65,7 @@ function App() {
           }
         />
         <Route path="/registercomplaint" element={<Complaint />} />
+        <Route path="/roomchange" element={<RoomChange />} />
         <Route path="/waterform" element={<Water />} />
         {/* <Route path ="/electricityform" element={<Electricity/>}/>
         <Route path ="/furnitureform" element={<Furniture/>}/>
@@ -72,6 +75,14 @@ function App() {
           element={
             <PrivateRoute>
               <Profile />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/mycomplaint"
+          element={
+            <PrivateRoute>
+              <MyComplaint />
             </PrivateRoute>
           }
         />

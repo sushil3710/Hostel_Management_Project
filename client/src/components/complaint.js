@@ -139,7 +139,7 @@ const Complaint = () => {
 
 
     return (
-
+  
         <>
         <DashboardNavBar currentFlag={0} />
 
@@ -167,10 +167,11 @@ const Complaint = () => {
             <div id="interview-tips" className="interview-tips-container">
                 {/* Interview Tips section */}
                 <h3 className="interview-tips-title">Water Related</h3>
+                <br></br>
                 <button onClick={() => {
                     // setActiveComplaint("water");
                     handleComplaintForm("water");
-                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                     Complaint Here
                 </button>
                 <div className="interview-tips-list">
@@ -188,10 +189,11 @@ const Complaint = () => {
             <div id="top-asked-questions" className="interview-tips-container">
                 {/* Top Asked Questions section */}
                 <h1 className="top-asked-questions-title">Electricity Related</h1>
+                <br></br>
                 <button onClick={() => {
                     // setActiveComplaint("electricity");
                     handleComplaintForm("electricity");
-                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                     Complaint Here
                 </button>
                 <div className="top-asked-questions-list">
@@ -211,10 +213,11 @@ const Complaint = () => {
             <div id="sample-questions" className="interview-tips-container">
                 {/* Sample Questions section */}
                 <h1 className="top-asked-questions-title">Furniture Related</h1>
+                <br></br>
                 <button onClick={() => {
                     // setActiveComplaint("furniture");
                     handleComplaintForm("furniture");
-                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                     Complaint Here
                 </button>
                 <div className="top-asked-questions-list">
@@ -236,10 +239,11 @@ const Complaint = () => {
             <div id="interview-process" className="interview-tips-container">
                 {/* Interview Process section */}
                 <h1 className="top-asked-questions-title">Electrical Equipments</h1>
+                <br></br>
                 <button onClick={() => {
                     // setActiveComplaint("equipments");
                     handleComplaintForm("equipments");
-                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                     Complaint Here
                 </button>
                 <div className="top-asked-questions-list">

@@ -31,6 +31,19 @@ async function get_complaints(req, res) {
     }
 }
 
+async function get_my_complaints(req, res) {
+    const { id } = req.params;
+    console.log(id);
+    try {
+        const { rows } = await pool.query("SELECT * FROM complaint_details WHERE email_id=$1",[id]);
+        console.log(rows);
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error getting the complaint.");
+    }
+}
+
 async function get_all_solved_complaints(req, res) {
     try {
         const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_status='done'");
@@ -63,6 +76,7 @@ async function solveIt(req, res) {
 async function save_data(req, res) {
     var info = req.body;
 
+    console.log(info);
     try {
         await pool.query("INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details) VALUES($1,$2,$3,$4,$5,$6,$7,$8);",
             [
@@ -91,6 +105,7 @@ module.exports = {
     save_data,
     get_all_complaints,
     get_complaints,
+    get_my_complaints,
     get_all_solved_complaints,
     solveIt
 };

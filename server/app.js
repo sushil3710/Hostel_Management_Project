@@ -86,7 +86,9 @@ app.get ("/admin/getcomplaints",complaintSection.get_all_complaints);
 
 app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints);
 
-app.get("/complaints/:id",complaintSection.get_complaints)
+app.get("/complaints/:id",complaintSection.get_complaints);
+
+app.get("/getmycomplaints/:id",complaintSection.get_my_complaints);
 
 
 if (process.env.NODE_ENV === "production") {

@@ -11,6 +11,14 @@ CREATE TABLE forgot_password_verification (
     expiration_time TIMESTAMP
 );
 
+CREATE TABLE hostel_details (
+    email_id TEXT PRIMARY KEY,
+    hostel_name TEXT,
+    hostel_wing TEXT,
+    hostel_floor TEXT,
+    hostel_room TEXT,
+);
+
 CREATE TABLE login_verification (
     email_id TEXT PRIMARY KEY,
     hashed_otp TEXT,
@@ -71,7 +79,7 @@ CREATE TABLE fees_records(
 CREATE TABLE complaint_details (
   complaint_id SERIAL PRIMARY KEY,
   name TEXT, 
-  email_id TEXT UNIQUE,
+  email_id TEXT,
   hostel_name TEXT,
   wing_side TEXT,
   room_number TEXT,
