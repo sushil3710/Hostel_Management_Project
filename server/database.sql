@@ -17,7 +17,6 @@ CREATE TABLE hostel_details (
     hostel_wing TEXT,
     hostel_floor TEXT,
     hostel_room TEXT,
-    `
 );
 
 CREATE TABLE login_verification (
