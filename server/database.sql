@@ -60,6 +60,14 @@ CREATE TABLE admins(
   
 );
 
+CREATE TABLE fees_records(
+  fees_id SERIAL PRIMARY KEY,
+  fees_type TEXT,
+  year TEXT,
+  semester TEXT,
+  fees_amount TEXT
+);
+
 CREATE TABLE complaint_details (
   complaint_id SERIAL PRIMARY KEY,
   name TEXT, 
@@ -108,3 +116,5 @@ INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Sushil', '2020csb1
 INSERT INTO admins(name, email_id,passwd, admin_type) VALUES('Raghav',  '2020csb1115@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb1117@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root', 0);
+
+insert into fees_records(fees_type,year,semester,fees_amount) values('Mess','2023','2','1000');

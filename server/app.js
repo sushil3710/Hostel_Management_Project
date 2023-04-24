@@ -66,6 +66,8 @@ app.get("/get-user-email", applicantdB.get_user_email);
 
 app.post("/add-admin", upload.fields([]), admindB.add_admin);
 
+app.post("/add-fees-record", upload.fields([]), admindB.add_fees_record);
+
 app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
 
 app.post("/delete-admin", upload.fields([]), admindB.delete_admin);
@@ -75,6 +77,10 @@ app.post("/edit-admin-profile", upload.fields([]), admindB.edit_admin_profile);
 app.get("/get-admins", admindB.get_admins);
 
 app.get("/get-admin-profile", admindB.get_admin_profile);
+
+app.get("/get-admin-fees-record", admindB.get_fees_record);
+
+
 
 app.get ("/admin/getcomplaints",complaintSection.get_all_complaints);
 

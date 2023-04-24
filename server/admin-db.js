@@ -147,7 +147,78 @@ const get_admins = async (req, res) => {
 
   return res.send(results.rows);
 };
+const get_fees_record = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+    return res.send("1");
+  }
+
+  const results = await pool.query("SELECT * from fees_records;");
+
+  return res.send({ results: results.rows });
+
+};
+
+const add_fees_record = async (req, res) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+    return res.send("1");
+  }
+  console.log(req.body);
+  let info = req.body;
+
+  console.log(info);
+
+  const results = await pool.query(
+    "INSERT INTO" +
+    " fees_records(fees_type,year,semester,fees_amount) VALUES($1,$2,$3,$4);",
+    [
+      info.fees_type,
+      info.year,
+      info.semester,
+      info.amount,
+    ]
+  );
+  return res.send("Ok");
+};
 /** Delete admins */
 const delete_admin = async (req, res) => {
   /**
@@ -285,4 +356,6 @@ module.exports = {
   delete_admin,
   get_admin_profile,
   edit_admin_profile,
+  get_fees_record,
+  add_fees_record,
 };
