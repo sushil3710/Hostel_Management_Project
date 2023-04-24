@@ -6,6 +6,7 @@ import H6 from "@material-tailwind/react/Heading6";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { getAdminType } from "./AdminTypes";
+import EmailIcon from '@mui/icons-material/Email';
 
 export default function AdminNavbarWithSidebar() {
   const location = useLocation().pathname;
@@ -53,7 +54,26 @@ export default function AdminNavbarWithSidebar() {
                     Admins
                   </NavLink>
                 </li>
-              )}
+              )
+              }
+            
+              {admin_type === "0" &&( 
+              <li className="rounded-lg mb-2 text-gray-700">
+              <NavLink
+                to="/AddStudents/add-students"
+                exact="true"
+                className={
+                  location !== "/AddStudents/add-students"
+                    ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                    : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                }
+              >
+                <EmailIcon size="2xl" />
+                Add Students
+              </NavLink>
+            </li>
+            )}
+          
 
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink

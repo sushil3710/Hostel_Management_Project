@@ -2,7 +2,28 @@ const pool = require("./db");
 const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { format } = require("util");
 const saltRounds = 10;
+const path = require("path");
+const fs = require("fs");
+const nodemailer = require("nodemailer");
+const XLSX = require("xlsx");
+var Promise = require('promise');
+const handlebars = require("handlebars");
+
+
+const upDir = path.join(__dirname, 'public');
+if (!fs.existsSync(upDir)) {
+  fs.mkdirSync(upDir);
+  console.log(upDir);
+}
+
+const uploadDir = path.join(__dirname, 'public', 'HostelManagement');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+  console.log(uploadDir);
+}
+
 
 dotenv.config();
 
@@ -348,6 +369,179 @@ const edit_admin_profile = async (req, res) => {
   return res.send("Ok");
 };
 
+const add_excel = async (req, res) => {
+  
+  const uploadDir = path.join(__dirname,'public','HostelManagement', 'ExcelFiles');
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+  }
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+  let promises = [];
+  let vals=Object.values(req.files);
+
+  for (let f of vals) {
+    const filename = Date.now()+"_"+info.excelname;
+    const filepath = path.join(uploadDir, filename);
+
+
+    promises.push(
+      new Promise((resolve, reject) => {
+        fs.writeFile(filepath, f[0].buffer, async (err) => {
+          if (err) {
+            f[0].localStorageError = err;
+            next(err);
+            console.log(err);
+            reject(err);
+            return;
+          }
+          url = format(
+            `${process.env.STORAGE_BASE_URL}/HostelManagement/ExcelFiles/${filename}`);
+
+             await pool.query(
+              "Insert into excels(name, file_url) values($1,$2);",
+                [info.excelname,url]);
+          
+          //resolve();
+      
+        });
+      })
+    
+    );
+    
+    return res.send("Ok");
+    }
+};
+
+const get_excel = async (req, res) => {
+  
+  /**
+   * 1. Perform jwt auth
+   * 2. Return all the admins (except this one, so that he cannot delete himself)
+   */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail;
+
+  const results = await pool.query(
+    "SELECT * from excels;"
+  );
+  
+  return res.send(results.rows);
+};
+
+
+const delete_excel = async(req, res) => {
+  let info = req.body;
+ // console.log(info.excel_url)
+
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  /** Get email */
+
+
+  const delets = await pool.query(
+    "Delete from excels where file_url=$1;",
+    [info.excel_url]   
+  );
+  
+  return res.send("OK");
+};
+
+const add_students = async (req, res) => {
+  const url = req.body.fileurl;
+ // console.log(url)
+  if (url === "" || url==undefined) return res.send("0");
+
+  const excelpath = path.join(__dirname,'public','HostelManagement',url);
+console.log(excelpath)
+  const workbook = await XLSX.readFile(excelpath);
+
+  const sheet_name = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheet_name];
+  const emailColumn = "Email_ID";
+
+  const rows = XLSX.utils.sheet_to_json(worksheet)
+    .filter(row => row[emailColumn]); // Filter out rows without an email address
+  
+  for (const row of rows) {
+    const { Email_ID, Name, Entry_Number, Hostel_ID} = row;
+    if (Email_ID) {
+      // If the row has an email address, insert it and the other data into the database
+      const delets = await pool.query(
+        "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd) VALUES ($1, $2, $3, $4,'root')",
+        [Email_ID, Name, Entry_Number,Hostel_ID]
+      );
+    }
+  }
+
+ 
+  return res.send("2");
+};
+
 
 module.exports = {
   add_admin,
@@ -358,4 +552,8 @@ module.exports = {
   edit_admin_profile,
   get_fees_record,
   add_fees_record,
+  add_excel,
+  get_excel,
+  add_students,
+  delete_excel,
 };

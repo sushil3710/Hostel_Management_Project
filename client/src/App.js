@@ -28,6 +28,7 @@ import MyComplaint from "./components/Applicant/MyComplaint";
 import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
+import AddStudents from "./components/Admin/AddStudents";
 // import Complaint from "./components/complaint";
 
 function App() {
@@ -113,6 +114,16 @@ function App() {
               </PrivateRoute>
             }
           />
+                  <Route
+            path="/AddStudents/add-students/"
+            element={
+              <PrivateRoute>
+                <AddStudents />
+              </PrivateRoute>
+            }
+          
+          />
+
           <Route
             path="/admin/fees"
             element={
