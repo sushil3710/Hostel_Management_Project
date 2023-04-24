@@ -29,6 +29,7 @@ import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
 import AddStudents from "./components/Admin/AddStudents";
+import ViewStudents from "./components/Admin/ViewStudents";
 // import Complaint from "./components/complaint";
 
 function App() {
@@ -123,7 +124,15 @@ function App() {
             }
           
           />
-
+                  <Route
+            path="/ViewStudents/view-students/"
+            element={
+              <PrivateRoute>
+                <ViewStudents />
+              </PrivateRoute>
+            }
+          
+          />
           <Route
             path="/admin/fees"
             element={

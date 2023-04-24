@@ -238,7 +238,7 @@ export default function AddStudentModal() {
                         <option value={1}>SATLUJ</option>
                         <option value={2}>BEAS</option>
                         <option value={3}>CHENAB</option>
-                        <option value={4}>RAVI</option>
+                        <option value={4}>RAAVI</option>
                         <option value={5}>BRAHMAPUTRA</option>
                         <option value={6}>JHELUM</option>
                       </select>

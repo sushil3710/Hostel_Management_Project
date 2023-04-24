@@ -30,7 +30,8 @@ CREATE TABLE student_info (
     email_id TEXT PRIMARY KEY,
     passwd TEXT,
     entry_numb TEXT,
-    hostel_id SERIAL,
+    hostel_id INTEGER,
+    hostel_name TEXT,
 
     -- Personal Details
     full_name TEXT,

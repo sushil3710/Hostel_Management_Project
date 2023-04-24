@@ -73,7 +73,22 @@ export default function AdminNavbarWithSidebar() {
               </NavLink>
             </li>
             )}
-          
+                     {admin_type === "0" &&( 
+              <li className="rounded-lg mb-2 text-gray-700">
+              <NavLink
+                to="/ViewStudents/view-students"
+                exact="true"
+                className={
+                  location !== "/ViewStudents/view-students"
+                    ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                    : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                }
+              >
+                <EmailIcon size="2xl" />
+                View Students
+              </NavLink>
+            </li>
+            )}
 
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink

@@ -72,9 +72,13 @@ app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
 
 app.post("/delete-admin", upload.fields([]), admindB.delete_admin);
 
+app.post("/delete-student", upload.fields([]), admindB.delete_student);
+
 app.post("/edit-admin-profile", upload.fields([]), admindB.edit_admin_profile);
 
 app.get("/get-admins", admindB.get_admins);
+
+app.get("/get-students", admindB.get_students);
 
 app.get("/get-admin-profile", admindB.get_admin_profile);
 

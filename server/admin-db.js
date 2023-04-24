@@ -530,11 +530,58 @@ console.log(excelpath)
   for (const row of rows) {
     const { Email_ID, Name, Entry_Number, Hostel_ID} = row;
     if (Email_ID) {
-      // If the row has an email address, insert it and the other data into the database
-      const delets = await pool.query(
-        "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd) VALUES ($1, $2, $3, $4,'root')",
-        [Email_ID, Name, Entry_Number,Hostel_ID]
+
+      const { rows: existingRows } = await pool.query(
+        "SELECT * FROM student_info WHERE email_id = $1",
+        [Email_ID]
       );
+      if (existingRows.length === 0) {
+        
+      // If the row has an email address, insert it and the other data into the database
+      if(Hostel_ID===1){
+        await pool.query(
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Satluj')",
+          [Email_ID, Name, Entry_Number,Hostel_ID]
+        );
+
+      }
+      else if(Hostel_ID===2){
+        await pool.query(
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Beas')",
+          [Email_ID, Name, Entry_Number,Hostel_ID]
+        );
+
+      }
+      else if(Hostel_ID===3){
+        await pool.query(
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Chenab')",
+          [Email_ID, Name, Entry_Number,Hostel_ID]
+        );
+
+      }
+      else if(Hostel_ID===4){
+        await pool.query(
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Raavi')",
+          [Email_ID, Name, Entry_Number,Hostel_ID]
+        );
+
+      }
+      else if(Hostel_ID===5){
+        await pool.query(
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Brahmaputra')",
+          [Email_ID, Name, Entry_Number,Hostel_ID]
+        );
+
+      }
+      else if(Hostel_ID===6){
+        await pool.query(
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Jhelum')",
+          [Email_ID, Name, Entry_Number,Hostel_ID]
+        );
+
+      }
+      }
+
     }
   }
 
@@ -585,19 +632,135 @@ const add_student = async (req, res) => {
   }
 
   /** Add email_id */
-
+ if(info.hostel_id===1){
   await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
     const add = await pool.query(
-      "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd) VALUES($1, $2, $3, $4,$5 );",
+      "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Satluj' );",
       [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
     );
-    // "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd) VALUES ($1, $2, $3, $4,'root')",
-    // [Email_ID, Name, Entry_Number,Hostel_ID]
   });
+ }else if(info.hostel_id===2){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
+  const add = await pool.query(
+    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Beas' );",
+    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
+  );
+});}
+ else if(info.hostel_id===3){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
+  const add = await pool.query(
+    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Chenab' );",
+    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
+  );
+});}
+ else if(info.hostel_id===4){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
+  const add = await pool.query(
+    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Raavi' );",
+    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
+  );
+});}
+ else if(info.hostel_id===5){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
+  const add = await pool.query(
+    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Brahmaputra' );",
+    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
+  );
+});}
+ else if(info.hostel_id===6){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
+  const add = await pool.query(
+    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Jhelum' );",
+    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
+  );
+});}
+
 
 
   return res.send("Ok");
 };
+
+const get_students = async (req, res) => {
+  /**
+   * 1. Perform jwt auth
+   * 2. Return all the admins (except this one, so that he cannot delete himself)
+   */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail;
+
+  const results = await pool.query(
+    "SELECT * from student_info;"
+  );
+
+  return res.send(results.rows);
+};
+
+
+const delete_student = async (req, res) => {
+  /**
+   * 1. Perform jwt auth
+   * 2. Delete the given admin
+   * 3. Delete the correpsonding entry from the login_verification table
+   */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+  let info = req.body;
+
+  const delete_from_admins_table = await pool.query(
+    "DELETE FROM student_info WHERE email_id = $1;",
+    [info.email_id]
+  );
+  const delete_from_login_verification_table = await pool.query(
+    "DELETE FROM login_verification WHERE email_id = $1;",
+    [info.email_id]
+  );
+
+  return res.send("Ok");
+};
+
 
 module.exports = {
   add_admin,
@@ -613,4 +776,6 @@ module.exports = {
   add_students,
   delete_excel,
   add_student,
+  get_students,
+  delete_student,
 };
