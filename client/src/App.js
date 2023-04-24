@@ -17,6 +17,7 @@ import Complaint from "./components/complaint";
 import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
 import SolvedComplaint from "./components/Admin/SolvedComplaints";
+import RoomChange from "./components/Applicant/roomChange";
 // import Electricity from "./components/forms/electricity";
 // import Furniture from "./components/forms/furniture";
 // import Equipments from "./components/forms/equipment";
@@ -62,6 +63,7 @@ function App() {
           }
         />
         <Route path="/registercomplaint" element={<Complaint />} />
+        <Route path="/roomchange" element={<RoomChange />} />
         <Route path="/waterform" element={<Water />} />
         {/* <Route path ="/electricityform" element={<Electricity/>}/>
         <Route path ="/furnitureform" element={<Furniture/>}/>

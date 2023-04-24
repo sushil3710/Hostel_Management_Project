@@ -11,6 +11,15 @@ CREATE TABLE forgot_password_verification (
     expiration_time TIMESTAMP
 );
 
+CREATE TABLE hostel_details (
+    email_id TEXT PRIMARY KEY,
+    hostel_name TEXT,
+    hostel_wing TEXT,
+    hostel_floor TEXT,
+    hostel_room TEXT,
+    `
+);
+
 CREATE TABLE login_verification (
     email_id TEXT PRIMARY KEY,
     hashed_otp TEXT,

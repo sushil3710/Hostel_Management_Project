@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 const navigation = [
   { name: "Home", to: "/home", id: 1 },
   { name: "My Profile", to: "/my-profile", id: 2 },
+  { name: "Complaint Section", to: "/registercomplaint", id: 3 },
+  { name: "Room Change", to: "/roomChange", id: 4 },
 ];
 
 function classNames(...classes) {
@@ -101,6 +103,22 @@ function DashboardNavBar(props) {
                         }
                       >
                         Complaint Section
+                      </Link>
+
+                      <Link
+                        key="Room Change"
+                        to="/roomchange"
+                        className={classNames(
+                          2 === props.currentFlag
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
+                        )}
+                        aria-current={
+                          2 === props.currentFlag ? "page" : undefined
+                        }
+                      >
+                        Request for room change
                       </Link>
                       
                     </div>
