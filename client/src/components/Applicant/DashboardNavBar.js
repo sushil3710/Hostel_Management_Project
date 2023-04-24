@@ -121,6 +121,21 @@ function DashboardNavBar(props) {
                         Request for room change
                       </Link>
                       
+                      <Link
+                        key="Complaint Section"
+                        to="/mycomplaint"
+                        className={classNames(
+                          2 === props.currentFlag
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
+                        )}
+                        aria-current={
+                          2 === props.currentFlag ? "page" : undefined
+                        }
+                      >
+                        My complaints
+                      </Link>
                     </div>
                   </div>
                 </div>

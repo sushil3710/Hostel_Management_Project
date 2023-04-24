@@ -5,6 +5,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import DashboardNavBar from "../Applicant/DashboardNavBar";
+import { getToken } from "../SignIn_SignUp/Sessions";
 
 
 export default function Water(props) {
@@ -22,17 +23,25 @@ export default function Water(props) {
     var email ="";
 
 
-    // useEffect(() => {
-    //     axios.get("/get-user-email")
-    //       .then(response => {
-    //         // const email = response.data.email;
-    //         // setEmailId(email);
-    //         console.log(response);
-    //       })
-    //       .catch(error => {
-    //         console.error(error);
-    //       });
-    //   }, []);
+    useEffect(() => { 
+        axios
+          .get("/get-user-info", {
+            headers: {
+              Authorization: getToken(),
+            },
+          })
+          .then((response) => {
+              console.log(response.data);
+              setEmailId(response.data.email_id);
+              setUserName(response.data.full_name);
+            if (response.data === 1) {
+            //   navigate("/logout");
+            } else {
+            //   setUser(response.data);
+            }
+          })
+          .catch((err) => console.log(err));
+      }, []);
 
 
     const handleSubmit = (event) => {
@@ -83,7 +92,7 @@ export default function Water(props) {
 
                             <div>
                                 <label class="text-gray-700 dark:text-gray-200" for="emailAddress">Email Address</label>
-                                <input id="emailAddress" type="email" required value={emailid} onChange={(e) => setEmailId(e.target.value)} class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
+                                <input id="emailAddress" readonly type="email" required value={emailid}  class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" />
                             </div>
 
                             <div>

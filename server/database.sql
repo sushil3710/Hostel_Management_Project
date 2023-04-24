@@ -72,7 +72,7 @@ CREATE TABLE admins(
 CREATE TABLE complaint_details (
   complaint_id SERIAL PRIMARY KEY,
   name TEXT, 
-  email_id TEXT UNIQUE,
+  email_id TEXT,
   hostel_name TEXT,
   wing_side TEXT,
   room_number TEXT,
