@@ -504,10 +504,7 @@ const newString = fileUrl.substring(startIndex);
   const filePath = path.join(__dirname,'public','HostelManagement','ExcelFiles',newString);
 
   fs.unlink(filePath, (err) => {
-    if (err) {
-      console.error(err);
-      return res.send("1");
-    }
+
     // delete record from database
     pool.query(
       "DELETE FROM excels WHERE file_url=$1;",
