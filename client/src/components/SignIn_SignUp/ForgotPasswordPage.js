@@ -5,7 +5,7 @@ import { setUserSession } from "./Sessions";
 import { useNavigate, Link } from "react-router-dom";
 import { setAdminType } from "../Admin/AdminTypes";
 import ForgotPassword from "./ForgotPassword";
-
+import "../css/signin.css";
 function ForgotPasswordPage() {
   const navigate = useNavigate();
 
@@ -114,7 +114,7 @@ function ForgotPasswordPage() {
   };
 
   return (
-    <div className="pt-28 sm:pt-2 bg-gray-100 ">
+    <div className="pt-28 sm:pt-2 bg-image ">
       <div className="relative min-h-screen flex flex-col sm:justify-center items-center w-4/5 mx-auto sm:w-3/5 md:w-3/5">
         <div className="relative sm:max-w-md w-full">
          
