@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import DeleteMailModal from "./DeleteMailModal";
+import DeleteExcelModal from "./DeleteExcelModal";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 import adminsPic from "../../images/manage-admins.svg";
 import UploadExcelModal from "./UploadExcelModal";
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddStudentModal from "./AddStudentModal";
 
 export default function AddStudents() {
@@ -41,10 +42,10 @@ export default function AddStudents() {
   }, []);
 
 
-  const sendEmail = (fileurl) => {
+  const add_students = (fileurl) => {
 
-    const modifiedUrl = fileurl.substring(fileurl.indexOf("ExcelFiles/") );
-    
+    const modifiedUrl = fileurl.substring(fileurl.indexOf("ExcelFiles/"));
+
     const formData = new FormData();
     // console.log("modifiedUrl:", modifiedUrl)
 
@@ -65,15 +66,44 @@ export default function AddStudents() {
         } else {
           // eslint-disable-next-line no-undef
           setError(0);
-          sessionStorage.setItem("alert", 1);
+      
           window.location.reload();
-          
+
 
         }
       })
       .catch((err) => console.log(err));
   }
+  const ViewExcel = (fileurl) => {
 
+    const modifiedUrl = fileurl.substring(fileurl.indexOf("ExcelFiles/") + 11);
+
+    const formData = new FormData();
+
+    const modifiedUrlString = String(modifiedUrl);
+    formData.append("fileurl", modifiedUrlString);
+    formData.append("1", "2");
+    console.log(formData)
+    Axios.post("/view-excel", formData, {
+      headers: {
+        Authorization: getToken(),
+      },
+    })
+      .then((response) => {
+        if (response.data === 1) {
+          navigate("/logout");
+        } else if (response.data === 0) {
+          // eslint-disable-next-line no-undef
+          setError(1);
+        } else {
+          // eslint-disable-next-line no-undef
+          setError(0);
+
+
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div className="p-10 bg-gray-100">
@@ -129,10 +159,10 @@ export default function AddStudents() {
             List of Excels
           </h3>
           <div className="flex space-x-4">
-    <AddStudentModal />
-    <div className="mx-4"></div>
-    <UploadExcelModal />
-  </div>
+            <AddStudentModal />
+            <div className="mx-4"></div>
+            <UploadExcelModal />
+          </div>
         </div>
         <div className="block w-full overflow-x-auto">
           <table className="items-center w-full bg-transparent border-collapse">
@@ -149,46 +179,56 @@ export default function AddStudents() {
             </thead>
 
             <tbody className="divide-y divide-gray-100">
+
               {excelList.map((excel) => (
                 <tr className="text-gray-500 border-b border-gray-100">
                   <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-4 text-left">
                     {excel.name}
                   </th>
-                  {/* <td className="border-t-0 px-10 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
-        {excel.file_url}
-      </td> */}
+
                   <td className="border-t-0 pl-16 pr-4 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                     <div className="flex gap-2 justify-end">
                     <form onSubmit={(event) => {
-  //event.preventDefault(); // prevent the default form submission
-  sendEmail(excel.file_url); // call the SendMail function with the file_url parameter
-}} className="flex items-center">
-  <button
-    className="text-white focus:outline-none block w-30 h-15 bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center"
-    type="submit">
-    <div className=" w-20 h-4 mx-5 my-2.5">
-      <p>ADD STUDENTS</p>
-    </div>
-  </button>
-  <div className="ml-2">
-    <DeleteMailModal
-      fileurl={excel.file_url}
-      //setReRender={setReRender}
-    />
+                        //event.preventDefault(); // prevent the default form submission
+                        add_students(excel.file_url); // call the SendMail function with the file_url parameter
+                      }}>
+<button
+  className={`text-white focus:outline-none block w-30 h-15 font-medium rounded-lg text-sm text-center mr-2 
+  ${excel.status === 1 ? ' bg-gray-400 hover:bg-gray-700 focus:ring-4 focus:ring-gray-200' : 'bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200'}`}
+  type="submit"
+  disabled={excel.status === 1}
+>
+  <div className={"w-20 h-5 mx-5 my-2.5 " }>
+    <p>{excel.status === 1 ? "ADDED" : "ADD STUDENTS"}</p>
   </div>
-</form>
+</button>
 
+
+                      </form>
+                      <form onSubmit={(event) => {
+                        //event.preventDefault(); // prevent the default form submission
+                        ViewExcel(excel.file_url); // call the SendMail function with the file_url parameter
+                      }}>
+
+                        <button
+                          className="text-white focus:outline-none block w-20 h-15 bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm text-center mr-2"
+                          type="submit">
+                          <div className="w-15 h-5 mx-2 my-2.5">
+                            <VisibilityIcon size="2xl" />
+                          </div>
+                        </button>
+
+                      </form>
+                      <div className="flex gap-2 justify-end">
+                      <DeleteExcelModal
+                        fileurl={excel.file_url}
+                        setReRender={setReRender}
+                      />
+                    </div>
 
                     </div>
                   </td>
-                  {/* <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">
-                    <div className="flex gap-2 justify-end">
-                      <DeleteMailModal
-                        email_id={excel.file_url}
-                      setReRender={setReRender}
-                      />
-                    </div>
-                  </td> */}
+
                 </tr>
               ))}
             </tbody>
