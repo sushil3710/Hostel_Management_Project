@@ -71,8 +71,8 @@ function SignInStartPage() {
       <div className="relative min-h-screen flex flex-col sm:justify-center items-center w-4/5 mx-auto sm:w-3/5 md:w-3/5">
         <div className="relative sm:max-w-md w-full">
           
-          <div className="card bg-[#000000] shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6" />
-          <div className="card bg-[#6F8BD6] shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6" />
+          {/* <div className="card bg-[#000000] shadow-lg  w-full h-full rounded-3xl absolute  transform -rotate-6" />
+          <div className="card bg-[#6F8BD6] shadow-lg  w-full h-full rounded-3xl absolute  transform rotate-6" /> */}
           <div className="p-16 relative w-full rounded-3xl bg-white shadow-md">
             <label className="block mt-3 text-2xl text-gray-700 text-center font-semibold">
               Welcome to IIT Ropar
