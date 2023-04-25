@@ -46,6 +46,7 @@ async function generate_fee_in_excel(info) {
   rowCount++;
 
   /** Get applications */
+
   const fees = await pool.query(
     "SELECT * FROM fees_records_table where fees_id=$1;",
     [info.fee_id]
@@ -122,7 +123,7 @@ const get_fee_in_excel = async (req, res) => {
     return res.send("1");
   }
 
-  let workbook = await generate_fee_in_excel(req.headers);
+  let workbook = await generate_fee_in_excel(req.body);
   workbook.write("FeeScript.xlsx", res);
 };
 

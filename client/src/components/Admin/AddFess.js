@@ -146,7 +146,7 @@ export default function OfferingList() {
                                                 <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
                                                 <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                                                     <DownloadFees 
-                                                    fee_id={fees_records[i].fee_id}/>
+                                                    fee_id={fees_records[i].fees_id}/>
                                                 </td>
 
 

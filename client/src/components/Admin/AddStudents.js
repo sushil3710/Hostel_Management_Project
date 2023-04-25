@@ -66,7 +66,7 @@ export default function AddStudents() {
         } else {
           // eslint-disable-next-line no-undef
           setError(0);
-      
+
           window.location.reload();
 
 
@@ -107,7 +107,7 @@ export default function AddStudents() {
 
   return (
     <div className="p-10 bg-gray-100">
-      {sessionStorage.getItem("alert") === "1" ? (
+      {sessionStorage.getItem("alert") !== "0" ? (
         <div
           id="alert"
           className="flex p-4 mb-4 bg-green-100 rounded-b-lg dark:bg-green-200"
@@ -126,11 +126,14 @@ export default function AddStudents() {
             ></path>
           </svg>
           <div className="ml-3 text-sm font-medium text-green-700 dark:text-green-800">
-            Excel File added successfully.
+            <p>Excel File added successfully</p>
           </div>
           <button
             type="button"
-            onClick={() => sessionStorage.setItem("alert", 0)}
+            onClick={() => {
+              sessionStorage.setItem("alert", 0);
+              window.location.reload();
+            }}
             className="ml-auto focus:outline-none -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8 dark:bg-green-200 dark:text-green-600 dark:hover:bg-green-300"
             data-collapse-toggle="alert"
             aria-label="Close"
@@ -151,8 +154,10 @@ export default function AddStudents() {
           </button>
         </div>
       ) : (
-        <></>
-      )}
+        <></> 
+      )
+      }
+
       <div className="bg-white shadow-xl rounded-lg p-4 sm:p-6 xl:p-8 min-h-screen">
         <div className="flex justify-between">
           <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
@@ -188,20 +193,20 @@ export default function AddStudents() {
 
                   <td className="border-t-0 pl-16 pr-4 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
                     <div className="flex gap-2 justify-end">
-                    <form onSubmit={(event) => {
+                      <form onSubmit={(event) => {
                         //event.preventDefault(); // prevent the default form submission
                         add_students(excel.file_url); // call the SendMail function with the file_url parameter
                       }}>
-<button
-  className={`text-white focus:outline-none block w-30 h-15 font-medium rounded-lg text-sm text-center mr-2 
+                        <button
+                          className={`text-white focus:outline-none block w-30 h-15 font-medium rounded-lg text-sm text-center mr-2 
   ${excel.status === 1 ? ' bg-gray-400 hover:bg-gray-700 focus:ring-4 focus:ring-gray-200' : 'bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200'}`}
-  type="submit"
-  disabled={excel.status === 1}
->
-  <div className={"w-20 h-5 mx-5 my-2.5 " }>
-    <p>{excel.status === 1 ? "ADDED" : "ADD STUDENTS"}</p>
-  </div>
-</button>
+                          type="submit"
+                          disabled={excel.status === 1}
+                        >
+                          <div className={"w-20 h-5 mx-5 my-2.5 "}>
+                            <p>{excel.status === 1 ? "ADDED" : "ADD STUDENTS"}</p>
+                          </div>
+                        </button>
 
 
                       </form>
@@ -220,11 +225,11 @@ export default function AddStudents() {
 
                       </form>
                       <div className="flex gap-2 justify-end">
-                      <DeleteExcelModal
-                        fileurl={excel.file_url}
-                        setReRender={setReRender}
-                      />
-                    </div>
+                        <DeleteExcelModal
+                          fileurl={excel.file_url}
+                          setReRender={setReRender}
+                        />
+                      </div>
 
                     </div>
                   </td>

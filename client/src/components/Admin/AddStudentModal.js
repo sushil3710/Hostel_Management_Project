@@ -35,7 +35,7 @@ const customStyles = {
 
 export default function AddStudentModal() {
   const [isLoading, setIsLoading] = useState(false);
-  const [hostel, sethostel] = useState("");
+  const [hostel, sethostel] = useState(0);
   const animatedComponents = makeAnimated();
   const [selectedOptions, setSelectedOptions] = useState([]);
   const navigate = useNavigate();
@@ -77,7 +77,7 @@ export default function AddStudentModal() {
           setError(1);
           setIsLoading(false);
         } else {
-          sessionStorage.setItem("alert", "1");
+          sessionStorage.setItem("alert", "2");
           setError(0);
           window.location.reload();
         }
@@ -234,7 +234,7 @@ export default function AddStudentModal() {
                         }}
                         className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                       >
-                        <option value="">- Select -</option>
+                        <option value={0}>- Select -</option>
                         <option value={1}>SATLUJ</option>
                         <option value={2}>BEAS</option>
                         <option value={3}>CHENAB</option>

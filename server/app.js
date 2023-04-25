@@ -96,8 +96,8 @@ app.get(
   "/get-list-in-excel",
   ListDownloader.get_list_in_excel
 );
-app.get(
-  "/get-fee-in-excel",
+app.post(
+  "/get-fee-in-excel",upload.fields([]),
   FeeScript.get_fee_in_excel
 );
 app.get("/get-admins", admindB.get_admins);

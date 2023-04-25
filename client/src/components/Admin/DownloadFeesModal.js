@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
+import React, { useState} from "react";
 import { Tooltip } from "@mui/material";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
-import spinner from "../../images/SpinnerWhite.gif";
 import fileSaver from "file-saver";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: "30%",
-  bgcolor: "background.paper",
-  boxShadow: 24,
-  borderRadius: 5,
-};
+
 
 export default function DownloadFees(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +14,9 @@ export default function DownloadFees(props) {
   const onExport = () => {
     const formData=new FormData();
     formData.append("fee_id",props.fee_id)
-    Axios.get("/get-fee-in-excel", {
+
+
+    Axios.post("/get-fee-in-excel", formData,{
       responseType: "arraybuffer",
       headers: {
         Authorization: getToken(),
@@ -58,7 +48,7 @@ export default function DownloadFees(props) {
         <button
           onClick={onExport}
           type="button"
-          className="focus:outline-none w-1/2 text-gray-900 bg-purple-300 border border-purple-700 hover:bg-purple-500 focus:ring-4 focus:ring-cyan-300 inline-flex items-center justify-center rounded-lg text-sm  px-2 py-1 text-center sm:w-auto"
+          className="focus:outline-none w-1/2 text-gray-900 bg-gray-200 border border-black-700 hover:bg-gray-400 focus:ring-4 focus:ring-cyan-300 inline-flex items-center justify-center rounded-lg text-sm  px-2 py-1 text-center sm:w-auto"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

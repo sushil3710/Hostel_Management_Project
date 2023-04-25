@@ -475,8 +475,6 @@ const get_excel = async (req, res) => {
 
 const delete_excel = async(req, res) => {
   let info = req.body;
- // console.log(info.excel_url)
-
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
@@ -498,15 +496,31 @@ const delete_excel = async(req, res) => {
     return res.send("1");
   }
 
-  /** Get email */
 
 
-  const delets = await pool.query(
-    "Delete from excels where file_url=$1;",
-    [info.excel_url]   
-  );
-  
-  return res.send("OK");
+  const fileUrl = info.excel_url;
+const startIndex = fileUrl.indexOf("ExcelFiles/") + "ExcelFiles/".length;
+const newString = fileUrl.substring(startIndex);
+  const filePath = path.join(__dirname,'public','HostelManagement','ExcelFiles',newString);
+
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error(err);
+      return res.send("1");
+    }
+    // delete record from database
+    pool.query(
+      "DELETE FROM excels WHERE file_url=$1;",
+      [fileUrl],
+      (err, result) => {
+        if (err) {
+          console.error(err);
+          return res.send("1");
+        }
+        return res.send("OK");
+      }
+    );
+  });
 };
 
 const add_students = async (req, res) => {
@@ -638,44 +652,41 @@ const add_student = async (req, res) => {
     return res.send("2"); /** Email ID already exists */
   }
 
-  /** Add email_id */
- if(info.hostel_id===1){
+  /** Add student */
   await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
-    const add = await pool.query(
-      "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Satluj' );",
-      [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
+    if (err) throw err; // Handle error
+  
+    let hostelName;
+  
+
+    switch (parseInt(info.hostel_id)) {
+      case 1:
+        hostelName = "Satluj";
+        break;
+      case 2:
+        hostelName = "Beas";
+        break;
+      case 3:
+        hostelName = "Chenab";
+        break;
+      case 4:
+        hostelName = "Raavi";
+        break;
+      case 5:
+        hostelName = "Brahmaputra";
+        break;
+      case 6:
+        hostelName = "Jhelum";
+        break;
+      default:
+        throw new Error("Invalid hostel ID");
+    }
+    await pool.query(
+      
+      "INSERT INTO student_info(email_id,passwd,entry_numb,hostel_id,hostel_name,full_name) VALUES($1, $2, $3, $4,$5,$6 );",
+      [info.email_id, hash, info.entry_numb, info.hostel_id, hostelName,info.name]
     );
   });
- }else if(info.hostel_id===2){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
-  const add = await pool.query(
-    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Beas' );",
-    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
-  );
-});}
- else if(info.hostel_id===3){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
-  const add = await pool.query(
-    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Chenab' );",
-    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
-  );
-});}
- else if(info.hostel_id===4){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
-  const add = await pool.query(
-    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Raavi' );",
-    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
-  );
-});}
- else if(info.hostel_id===5){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
-  const add = await pool.query(
-    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Brahmaputra' );",
-    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
-  );
-});}
- else if(info.hostel_id===6){  await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
-  const add = await pool.query(
-    "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES($1, $2, $3, $4,$5,'Jhelum' );",
-    [info.email_id, info.name, info.entry_numb,info.hostel_id,hash]
-  );
-});}
 
 
 
