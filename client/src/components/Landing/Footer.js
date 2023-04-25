@@ -5,8 +5,8 @@ function Footer() {
   const curr_year = date.getFullYear();
 
   return (
-    <footer className="text-center lg:text-left bg-[#1E3A8A] text-white">
-      <div className="mx-12 pb-0 py-10 text-center md:text-left">
+    <footer className="text-center lg:text-left bg-[#000000] text-white">
+      {/* <div className="mx-12 pb-0 py-10 text-center md:text-left">
         <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <p className="mb-4">
@@ -354,8 +354,8 @@ function Footer() {
             </svg>
           </a>
         </div>
-      </div>
-      <div className="text-center p-3 bg-[#1E3A8A]">
+      </div> */}
+      <div className="text-center p-3 bg-[#000000]">
         <span> Copyright © {curr_year}, </span>
         <a
           href="https://www.iitrpr.ac.in/"

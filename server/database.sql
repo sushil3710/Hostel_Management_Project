@@ -82,6 +82,19 @@ CREATE TABLE fees_records(
   semester TEXT,
   fees_amount TEXT
 );
+CREATE TABLE fees_records_table(
+  fees_id INT,
+  student_name TEXT,
+  entry_number TEXT,
+  email_id TEXT,
+  fees_type TEXT,
+  year TEXT,
+  semester TEXT,
+  fees_amount TEXT,
+  date_of_transaction TEXT,
+  fees_pdf_url TEXT,
+  fees_remarks TEXT
+);
 
 CREATE TABLE complaint_details (
   complaint_id SERIAL PRIMARY KEY,
@@ -155,3 +168,12 @@ INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb11
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root', 0);
 
 insert into fees_records(fees_type,year,semester,fees_amount) values('Mess','2023','2','1000');
+
+select * from fees_records LEFT OUTER JOIN fees_records_table on fees_records.fees_id = fees_records_table.fees_id where fees_records_table.email_id='rohitkinha1612@gmail.com';
+SELECT *
+FROM fees_records
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM fees_records_table
+  WHERE fees_records_table.fees_id = fees_records.fees_id AND fees_records_table.email_id='rohitkinha1612@gmail.com'
+);

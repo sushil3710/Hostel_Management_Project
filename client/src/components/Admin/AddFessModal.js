@@ -7,8 +7,6 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import spinner from "../../images/SpinnerWhite.gif";
-import { getAdminType } from "./AdminTypes";
-
 const style = {
     position: "absolute",
     top: "50%",
@@ -24,28 +22,23 @@ export default function AddFeesModal() {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
     const { register, handleSubmit, reset } = useForm();
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         onClose();
         setOpen(false);
     };
-
     const onClose = () => {
         reset();
     };
 
     const onSubmit = (data) => {
-        console.log("idhr aa gya");
         setIsLoading(true);
         const formData = new FormData();
-        console.log(data);
         formData.append("fees_type", data.fees_type);
         formData.append("year", data.year);
         formData.append("semester", data.semester);
         formData.append("amount", data.amount);
-        console.log(formData);
         Axios.post("/add-fees-record", formData, {
             headers: {
                 Authorization: getToken(),

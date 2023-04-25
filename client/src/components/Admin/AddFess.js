@@ -110,11 +110,10 @@ export default function OfferingList() {
   </div>
   </div>
         </div>
-            {/* <div className="flex flex-col"> */}
-            
-                {/* <div className="overflow-x-auto"> */}
-                    {/* <div className="align-middle inline-block min-w-full"> */}
-                        {/* <div className="shadow overflow-hidden"> */}
+            <div className="flex flex-col">
+                <div className="overflow-x-auto">
+                    <div className="align-middle inline-block min-w-full">
+                        <div className="shadow overflow-hidden">
                             <table className="table-fixed min-w-full divide-y divide-gray-200">
                                 <thead className="bg-gray-100">
                                     <tr>
@@ -154,7 +153,6 @@ export default function OfferingList() {
                                         <th scope="col" className="p-4"></th>
                                     </tr>
                                 </thead>
-                         
                                 
                                 {fees_records.length !== 0 && (
                                     <tbody className="bg-white divide-y divide-gray-200">

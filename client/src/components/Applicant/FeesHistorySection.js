@@ -1,5 +1,6 @@
 import DashboardNavBar from "./DashboardNavBar";
 import React from "react";
+import { PaperClipIcon } from "@heroicons/react/solid";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -7,19 +8,16 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import noDataPic from "../../images/Asset 8.svg";
 import screenSpinner from "../../images/2300-spinner.gif";
 import PayFeesModal from "./PayFeesModal";
-import FeesHistorySection from "./FeesHistorySection";
-function FeesSection(props) {
+
+function FeesHistorySection(props) {
     const navigate = useNavigate();
     const [startCount, setStartCount] = useState(1);
     const [isFetching, setIsFetching] = useState(true);
     const [user, setUser] = useState({});
     const [limit, setLimit] = useState(5);
     const [fees_records, setFeesRecords] = useState([]);
-    const [fees_records_all, setFeesRecordsAll] = useState([]);
-    const [pending_fees, setPendingFees] = useState([]);
 
-    
-    
+
     function range(start, end) {
         return Array(end - start + 1)
             .fill()
@@ -37,41 +35,6 @@ function FeesSection(props) {
     };
 
     useEffect(() => {
-    axios
-      .get("/get-fees-info", {
-        headers: {
-          Authorization: getToken(),
-        },
-      })
-      .then((response) => {
-        if (response.data === 1) {
-          navigate("/logout");
-        } else {
-          setFeesRecords(response.data.results);
-          setIsFetching(false);
-        }
-      })
-      .catch((err) => console.log(err));
-    }, []);
-    
-    useEffect(() => {
-    axios
-      .get("/get-user-info", {
-        headers: {
-          Authorization: getToken(),
-        },
-      })
-      .then((response) => {
-        if (response.data === 1) {
-          navigate("/logout");
-        } else {
-            setUser(response.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, []);
-
-    useEffect(() => {
         axios
             .get("/get-fees-history", {
                 headers: {
@@ -82,8 +45,25 @@ function FeesSection(props) {
                 if (response.data === 1) {
                     navigate("/logout");
                 } else {
-                    setFeesRecordsAll(response.data.results);
+                    setFeesRecords(response.data.results);
                     setIsFetching(false);
+                }
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
+    useEffect(() => {
+        axios
+            .get("/get-user-info", {
+                headers: {
+                    Authorization: getToken(),
+                },
+            })
+            .then((response) => {
+                if (response.data === 1) {
+                    navigate("/logout");
+                } else {
+                    setUser(response.data);
                 }
             })
             .catch((err) => console.log(err));
@@ -100,7 +80,7 @@ function FeesSection(props) {
                     <div className="sidebar-menu flex-1 overflow-y-auto">
                         <ul className="py-4">
                             <li className="mb-4">
-                                <a href="" className="block py-2 px-6 hover:bg-gray-700">Pending Fees</a>
+                                <a href="/fees-section-pending-requests" className="block py-2 px-6 hover:bg-gray-700">Pending Fees</a>
                             </li>
                             <li className="mb-4">
                                 <a href="/fees-section-fees-history" className="block py-2 px-6 hover:bg-gray-700">Fees History</a>
@@ -120,7 +100,7 @@ function FeesSection(props) {
                                                     scope="col"
                                                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                                                 >
-                                                    S.No.
+                                                    Fees ID
                                                 </th>
                                                 <th
                                                     scope="col"
@@ -148,6 +128,18 @@ function FeesSection(props) {
                                                     className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
                                                 >
                                                     Amount
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
+                                                >
+                                                    Date of transaction
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
+                                                >
+                                                    Transaction Slip
                                                 </th>
                                                 <th scope="col" className="p-4"></th>
                                             </tr>
@@ -180,16 +172,33 @@ function FeesSection(props) {
                                                         <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                                                             {fees_records[i].fees_amount}
                                                         </td>
+                                                        <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                                                            {fees_records[i].date_of_transaction}
+                                                        </td>
                                                         <td className="p-6 whitespace-nowrap space-x-2 flex">
-                                                            <PayFeesModal
-                                                                full_name={user.full_name}
-                                                                email={user.email_id}
-                                                                fees_id={fees_records[i].fees_id}
-                                                                fees_type={fees_records[i].fees_type}
-                                                                year={fees_records[i].year}
-                                                                semester={fees_records[i].semester}
-                                                                amount={fees_records[i].fees_amount}
-                                                            />
+                                                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                                                <div className="mr-4 flex items-center justify-between text-sm">
+                                                                    <div className="w-0 flex-1 flex items-center">
+                                                                        <span className="ml-2 flex-1 w-0 truncate">
+                                                                            Transaction Slip
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className="ml-4 flex-shrink-0">
+                                                                        <a
+                                                                            href={
+                                                                                fees_records[i].fees_pdf_url
+                                                                                    ? fees_records[i].fees_pdf_url
+                                                                                    : "#"
+                                                                            }
+                                                                            target="_blank"
+                                                                            rel="noopener noreferrer"
+                                                                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                                                                        >
+                                                                            View
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </dd>
                                                         </td>
                                                     </tr>
                                                 ))}
@@ -314,4 +323,4 @@ function FeesSection(props) {
     );
 }
 
-export default FeesSection;
+export default FeesHistorySection;
