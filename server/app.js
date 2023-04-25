@@ -64,6 +64,8 @@ app.get("/get-user-info", applicantdB.get_user_info);
 
 app.get("/get-user-email", applicantdB.get_user_email);
 
+app.get("/get-fees-info", applicantdB.get_fees_info);
+
 app.post("/add-admin", upload.fields([]), admindB.add_admin);
 
 app.post("/add-fees-record", upload.fields([]), admindB.add_fees_record);

@@ -13,13 +13,14 @@ import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
 import ForgotPasswordPage from "./components/SignIn_SignUp/ForgotPasswordPage";
 import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
 import Info from "./components/Landing/Info";
-import Complaint from "./components/complaint";
+import Complaint from "./components/Applicant/complaint";
 import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
 import AddFees from "./components/Admin/AddFess";
 import SolvedComplaint from "./components/Admin/SolvedComplaints";
 import RoomChange from "./components/Applicant/roomChange";
 import MyComplaint from "./components/Applicant/MyComplaint";
+import FeesSection from "./components/Applicant/PendingFeesSection";
 // import Electricity from "./components/forms/electricity";
 // import Furniture from "./components/forms/furniture";
 // import Equipments from "./components/forms/equipment";
@@ -64,9 +65,6 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/registercomplaint" element={<Complaint />} />
-        <Route path="/roomchange" element={<RoomChange />} />
-        <Route path="/waterform" element={<Water />} />
         {/* <Route path ="/electricityform" element={<Electricity/>}/>
         <Route path ="/furnitureform" element={<Furniture/>}/>
         <Route path ="/equipmentsform" element={<Equipments/>}/> */}
@@ -83,6 +81,38 @@ function App() {
           element={
             <PrivateRoute>
               <MyComplaint />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/registercomplaint"
+          element={
+            <PrivateRoute>
+              <Complaint />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/roomchange"
+          element={
+            <PrivateRoute>
+              <RoomChange />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/waterform"
+          element={
+            <PrivateRoute>
+              <Water />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/fees-section-pending-requests"
+          element={
+            <PrivateRoute>
+              <FeesSection />
             </PrivateRoute>
           }
         />

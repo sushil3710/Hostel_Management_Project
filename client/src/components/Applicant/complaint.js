@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import "./css/complaint.css";
-import DashboardNavBar from "./Applicant/DashboardNavBar";
+import "../css/complaint.css";
+import DashboardNavBar from "./DashboardNavBar";
 
 
 const Complaint = () => {
@@ -147,10 +147,10 @@ const Complaint = () => {
             <div className="menu-container bg-gray-200 px-4 py-2">
                 {/* Menu items */}
                 <a href="#interview-tips" className="text-gray-700 mx-2 hover:text-gray-900">
-                    <div className="menu-item p-2 rounded-md bg-white w-40">Water Related</div>
+                    <div className="menu-item p-2 rounded-md bg-white w-40">Pending Fees</div>
                 </a>
                 <a href="#top-asked-questions" className="text-gray-700 mx-2 hover:text-gray-900">
-                    <div className="menu-item p-2 rounded-md bg-white w-40">Electricity Related</div>
+                    <div className="menu-item p-2 rounded-md bg-white w-40">Fees History</div>
                 </a>
                 <a href="#sample-questions" className="text-gray-700 mx-2 hover:text-gray-900">
                     <div className="menu-item p-2 rounded-md bg-white w-40">Furniture Related</div>
