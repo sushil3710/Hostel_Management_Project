@@ -7,8 +7,7 @@ import pic from "../../images/iit-ropar-logo.jpg";
 
 const navigation = [
   { name: "Home", to: "/" },
-  // { name: "More Info", to: "/info" },
-  // { name: "FAQs", to: "/faqs" },
+  
   { name: "Contact us", to: "/contact-us" },
   { name: "Guidelines", to: "/guidelines" },
 ];
@@ -48,12 +47,7 @@ function Navbar() {
               >
                 Log-in
               </Link>
-              <Link
-                to="/sign-up"
-                className="font-medium text-white hover:text-indigo-500"
-              >
-                Sign-up
-              </Link>
+              
             </div>
 
             <div className="h-12 w-12 ml-auto flex-shrink-0">
