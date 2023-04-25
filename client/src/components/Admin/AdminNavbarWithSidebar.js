@@ -6,6 +6,12 @@ import H6 from "@material-tailwind/react/Heading6";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { getAdminType } from "./AdminTypes";
+import EmailIcon from '@mui/icons-material/Email';
+import GroupIcon from '@mui/icons-material/Group';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import AdfScannerIcon from '@mui/icons-material/AdfScanner';
+
 
 export default function AdminNavbarWithSidebar() {
   const location = useLocation().pathname;
@@ -53,7 +59,41 @@ export default function AdminNavbarWithSidebar() {
                     Admins
                   </NavLink>
                 </li>
-              )}
+              )
+              }
+            
+              {admin_type === "0" &&( 
+              <li className="rounded-lg mb-2 text-gray-700">
+              <NavLink
+                to="/AddStudents/add-students"
+                exact="true"
+                className={
+                  location !== "/AddStudents/add-students"
+                    ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                    : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                }
+              >
+                <GroupAddIcon size="2xl" />
+                Add Students
+              </NavLink>
+            </li>
+            )}
+                     {admin_type === "0" &&( 
+              <li className="rounded-lg mb-2 text-gray-700">
+              <NavLink
+                to="/ViewStudents/view-students"
+                exact="true"
+                className={
+                  location !== "/ViewStudents/view-students"
+                    ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                    : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                }
+              >
+                <GroupIcon size="2xl" />
+                View Students
+              </NavLink>
+            </li>
+            )}
 
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
@@ -69,7 +109,20 @@ export default function AdminNavbarWithSidebar() {
                   Profile
                 </NavLink>
               </li>
-
+              <li className="rounded-lg mb-2 text-gray-700">
+                <NavLink
+                  to="/admin/fees"
+                  exact="true"
+                  className={
+                    location !== "/admin/fees"
+                      ? "flex items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                  }
+                >
+                  <TextSnippetIcon size="2xl" />
+                  Add Fees Info
+                </NavLink>
+              </li>
               <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink
                   to="/admin/complaints"
@@ -80,10 +133,11 @@ export default function AdminNavbarWithSidebar() {
                       : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
                   }
                 >
-                  <AccountCircleIcon size="2xl" />
+                  <AdfScannerIcon size="2xl" />
                   Complaints
                 </NavLink>
               </li>
+              
 
               {/* <li className="rounded-lg mb-2 text-gray-700">
                 <NavLink

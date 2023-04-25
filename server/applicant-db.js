@@ -220,8 +220,48 @@ const get_user_info = async (req, res) => {
 
   var verified = null;
 
+  verified = jwt.verify(authToken, jwtSecretKey);
+  // try {
+  //   // console.log(verified);
+  // } catch (error) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
+
+  if (!verified) {
+    console.log("galt aa rha ");
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    console.log("galt aa rha ");
+    return res.send("1");
+  }
+
+  var email = jwt.decode(authToken).userEmail;
+  // console.log(email);
+
+  const results = await pool.query(
+    "SELECT full_name, profile_image_url, email_id FROM student_info WHERE email_id = $1;",
+    [email]
+  );
+
+  // console.log(results.rows[0]);
+  return res.send(results.rows[0]);
+};
+
+const get_user_email = async (req, res) => {
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  console.log("idhr aa rha");
+
+  var verified = null;
+
   try {
     verified = jwt.verify(authToken, jwtSecretKey);
+    console.log(verified);
   } catch (error) {
     return res.send("1"); /** Error, logout on user side */
   }
@@ -237,6 +277,7 @@ const get_user_info = async (req, res) => {
   }
 
   var email = jwt.decode(authToken).userEmail;
+  // console.log(email);
 
   const results = await pool.query(
     "SELECT full_name, profile_image_url, email_id FROM student_info WHERE email_id = $1;",
@@ -244,40 +285,6 @@ const get_user_info = async (req, res) => {
   );
 
   return res.send(results.rows[0]);
-};
-
-const get_user_email = async (req, res) => {
-  authToken = req.headers.authorization;
-  let jwtSecretKey = process.env.JWT_SECRET_KEY;
-
-  var verified = null;
-
-  try {
-    verified = jwt.verify(authToken, jwtSecretKey);
-  } catch (error) {
-    return res.send("1"); /** Error, logout on user side */
-  }
-
-  // if (!verified) {
-  //   return res.send("1"); /** Error, logout on user side */
-  // }
-
-  // /** Get role */
-  // var userRole = jwt.decode(authToken).userRole;
-  // if (userRole !== 2) {
-  //   return res.send("1");
-  // }
-
-  var email = jwt.decode(authToken).userEmail;
-
-  console.log(email);
-
-  // const results = await pool.query(
-  //   "SELECT full_name, profile_image_url, email_id FROM student_info WHERE email_id = $1;",
-  //   [email]
-  // );
-
-  return res.send(email);
 };
 
 module.exports = {

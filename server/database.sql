@@ -11,6 +11,14 @@ CREATE TABLE forgot_password_verification (
     expiration_time TIMESTAMP
 );
 
+CREATE TABLE hostel_details (
+    email_id TEXT PRIMARY KEY,
+    hostel_name TEXT,
+    hostel_wing TEXT,
+    hostel_floor TEXT,
+    hostel_room TEXT,
+);
+
 CREATE TABLE login_verification (
     email_id TEXT PRIMARY KEY,
     hashed_otp TEXT,
@@ -21,7 +29,9 @@ CREATE TABLE student_info (
     -- Primary Keys
     email_id TEXT PRIMARY KEY,
     passwd TEXT,
-    hostel_id SERIAL,
+    entry_numb TEXT,
+    hostel_id INTEGER,
+    hostel_name TEXT,
 
     -- Personal Details
     full_name TEXT,
@@ -59,11 +69,24 @@ CREATE TABLE admins(
   admin_type INT NOT NULL
   
 );
+CREATE TABLE excels(
+  name TEXT, 
+  file_url TEXT,
+  status INTEGER
+);
+
+CREATE TABLE fees_records(
+  fees_id SERIAL PRIMARY KEY,
+  fees_type TEXT,
+  year TEXT,
+  semester TEXT,
+  fees_amount TEXT
+);
 
 CREATE TABLE complaint_details (
   complaint_id SERIAL PRIMARY KEY,
   name TEXT, 
-  email_id TEXT UNIQUE,
+  email_id TEXT,
   hostel_name TEXT,
   wing_side TEXT,
   room_number TEXT,
@@ -97,7 +120,7 @@ CREATE TRIGGER trigger_insert_into_admins
 
 CREATE TRIGGER trigger_insert_into_student_info
   AFTER INSERT
-  ON student_ifo
+  ON student_info
   FOR EACH ROW
   EXECUTE PROCEDURE insert_into_login_verification();
 
@@ -108,3 +131,5 @@ INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Sushil', '2020csb1
 INSERT INTO admins(name, email_id,passwd, admin_type) VALUES('Raghav',  '2020csb1115@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb1117@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root', 0);
+
+insert into fees_records(fees_type,year,semester,fees_amount) values('Mess','2023','2','1000');
