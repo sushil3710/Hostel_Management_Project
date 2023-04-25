@@ -7,7 +7,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import noDataPic from "../../images/Asset 8.svg";
 import screenSpinner from "../../images/2300-spinner.gif";
 import PayFeesModal from "./PayFeesModal";
-import FeesHistorySection from "./FeesHistorySection";
+
 function FeesSection(props) {
     const navigate = useNavigate();
     const [startCount, setStartCount] = useState(1);
@@ -15,10 +15,7 @@ function FeesSection(props) {
     const [user, setUser] = useState({});
     const [limit, setLimit] = useState(5);
     const [fees_records, setFeesRecords] = useState([]);
-    const [fees_records_all, setFeesRecordsAll] = useState([]);
-    const [pending_fees, setPendingFees] = useState([]);
 
-    
     
     function range(start, end) {
         return Array(end - start + 1)
@@ -70,24 +67,6 @@ function FeesSection(props) {
       })
       .catch((err) => console.log(err));
   }, []);
-
-    useEffect(() => {
-        axios
-            .get("/get-fees-history", {
-                headers: {
-                    Authorization: getToken(),
-                },
-            })
-            .then((response) => {
-                if (response.data === 1) {
-                    navigate("/logout");
-                } else {
-                    setFeesRecordsAll(response.data.results);
-                    setIsFetching(false);
-                }
-            })
-            .catch((err) => console.log(err));
-    }, []);
 
     return (
         <>
@@ -207,10 +186,9 @@ function FeesSection(props) {
                                         fees_records.length === 0 && (
                                             <div className="bg-white">
                                                 <div className="w-3/5 mx-auto my-50 text-center">
-                                                    <img alt="No data" src={noDataPic} />
                                                     <div className="h-5" />
                                                     <p className="text-2xl font-semibold">
-                                                        No fees open currently!
+                                                        No Pending Fees Left !
                                                     </p>
                                                     <div className="h-6" />
                                                 </div>

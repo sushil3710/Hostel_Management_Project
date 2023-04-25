@@ -161,7 +161,7 @@ function ForgotPasswordPage() {
                 <div className="flex justify-center items-center">
                   <label className="mr-2">Already have an account? </label>
                   <Link
-                    to="/sign-in"
+                    to="/"
                     className=" text-blue-500 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
                   >
                     Log-in

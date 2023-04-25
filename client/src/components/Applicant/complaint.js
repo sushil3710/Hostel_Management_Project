@@ -102,168 +102,137 @@ const Complaint = () => {
     ]
 
     const handleComplaintForm = (complaintType) => {
-
-        // if(complaintType==="water"){
-
-        //     setActiveComplaint(null);
-        //     console.log("water");
-        //     window.location.href = `/waterform`;
-            
-        // }
-        // else if(complaintType==="electricity")
-        // {
-        //     setActiveComplaint(null);
-        //     console.log("electricity");
-        //     window.location.href = `/electricityform`;
-            
-        // }
-        // else if(complaintType==="furniture")
-        // {
-        //     setActiveComplaint(null);
-        //     console.log("furniture");
-        //     window.location.href = `/furnitureform`;
-            
-        // }
-        // else if(complaintType==="equipments")
-        // {
-        //     setActiveComplaint(null);
-        //     console.log("equipments");
-        //     window.location.href = `/equipmentsform`;
-
-        // } 
-
         window.location.href = `/waterform`;
-
-
     }
 
 
     return (
-  
+
         <>
-        <DashboardNavBar currentFlag={0} />
-
-        <div className="interview-container">
-            <div className="menu-container bg-gray-200 px-4 py-2">
-                {/* Menu items */}
-                <a href="#interview-tips" className="text-gray-700 mx-2 hover:text-gray-900">
-                    <div className="menu-item p-2 rounded-md bg-white w-40">Pending Fees</div>
-                </a>
-                <a href="#top-asked-questions" className="text-gray-700 mx-2 hover:text-gray-900">
-                    <div className="menu-item p-2 rounded-md bg-white w-40">Fees History</div>
-                </a>
-                <a href="#sample-questions" className="text-gray-700 mx-2 hover:text-gray-900">
-                    <div className="menu-item p-2 rounded-md bg-white w-40">Furniture Related</div>
-                </a>
-                <a href="#interview-process" className="text-gray-700 mx-2 hover:text-gray-900">
-                    <div className="menu-item p-2 rounded-md bg-white w-40">Electrical Equipments</div>
-                </a>
-
-                {/* Add other menu items as needed */}
-            </div>
-
-
-
-            <div id="interview-tips" className="interview-tips-container">
-                {/* Interview Tips section */}
-                <h3 className="interview-tips-title">Water Related</h3>
-                <br></br>
-                <button onClick={() => {
-                    // setActiveComplaint("water");
-                    handleComplaintForm("water");
-                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                    Complaint Here
-                </button>
-                <div className="interview-tips-list">
-                    {tips.map((tip, index) => (
-                        <div className="interview-tips-item" key={index}>
-                            <h2 className="interview-tips-item-title">{tip.title}</h2>
-                            <p className="interview-tips-item-description">
-                                {tip.description}
-                            </p>
+            <DashboardNavBar currentFlag={0} />
+            <div style={{ display: 'flex' }}>
+                <div className="sidebar bg-gray-900 text-white w-64 flex flex-col min-h-screen" style={{ flex: '1 1 20%', position:'fixed'}}  >
+                    <div className="sidebar-header py-4 px-6 bg-gray-800">
+                        <h2 className="text-lg font-bold">Complaint Section</h2>
+                    </div>
+                    <div className="sidebar-menu flex-1 overflow-y-auto">
+                        <ul className="py-4">
+                            <li className="mb-4">
+                                <a href="#interview-tips" className="block py-2 px-6 hover:bg-gray-700">Water Related</a>
+                            </li>
+                            <li className="mb-4">
+                                <a href="#top-asked-questions" className="block py-2 px-6 hover:bg-gray-700">Electricity Related</a>
+                            </li>
+                            <li className="mb-4">
+                                <a href="#sample-questions" className="block py-2 px-6 hover:bg-gray-700">Furniture Related</a>
+                            </li>
+                            <li className="mb-4">
+                                <a href="#interview-process" className="block py-2 px-6 hover:bg-gray-700">Electrical Equipments</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div style={{ flex: '1 1 80%' }}>
+                    <div id="interview-tips" className="interview-tips-container">
+                        {/* Interview Tips section */}
+                        <h3 className="interview-tips-title">Water Related</h3>
+                        <br></br>
+                        <button onClick={() => {
+                            // setActiveComplaint("water");
+                            handleComplaintForm("water");
+                        }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                            Complaint Here
+                        </button>
+                        <div className="interview-tips-list">
+                            {tips.map((tip, index) => (
+                                <div className="interview-tips-item" key={index}>
+                                    <h2 className="interview-tips-item-title">{tip.title}</h2>
+                                    <p className="interview-tips-item-description">
+                                        {tip.description}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
-                    ))}
+                    </div>
+
+                    <div id="top-asked-questions" className="interview-tips-container">
+                        {/* Top Asked Questions section */}
+                        <h1 className="top-asked-questions-title">Electricity Related</h1>
+                        <br></br>
+                        <button onClick={() => {
+                            // setActiveComplaint("electricity");
+                            handleComplaintForm("electricity");
+                        }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                            Complaint Here
+                        </button>
+                        <div className="top-asked-questions-list">
+                            {topQuestions.map((question, index) => (
+                                <div className="top-asked-questions-item" key={index}>
+                                    <h5 className="top-asked-questions-item-title">
+                                        {question.question}
+                                    </h5>
+                                    <p className="top-asked-questions-item-answer">
+                                        {question.answer}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    <div id="sample-questions" className="interview-tips-container">
+                        {/* Sample Questions section */}
+                        <h1 className="top-asked-questions-title">Furniture Related</h1>
+                        <br></br>
+                        <button onClick={() => {
+                            // setActiveComplaint("furniture");
+                            handleComplaintForm("furniture");
+                        }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                            Complaint Here
+                        </button>
+                        <div className="top-asked-questions-list">
+                            {sampleque.map((question, index) => (
+                                <div className="top-asked-questions-item" key={index}>
+                                    <h5 className="top-asked-questions-item-title">
+                                        {question.question}
+                                    </h5>
+                                    <p className="top-asked-questions-item-answer">
+                                        {question.answer}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/* Add content for sample questions section */}
+                    </div>
+
+                    <div id="interview-process" className="interview-tips-container">
+                        {/* Interview Process section */}
+                        <h1 className="top-asked-questions-title">Electrical Equipments</h1>
+                        <br></br>
+                        <button onClick={() => {
+                            // setActiveComplaint("equipments");
+                            handleComplaintForm("equipments");
+                        }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                            Complaint Here
+                        </button>
+                        <div className="top-asked-questions-list">
+                            {interviewprocess.map((question, index) => (
+                                <div className="top-asked-questions-item" key={index}>
+                                    <h5 className="top-asked-questions-item-title">
+                                        {question.step}
+                                    </h5>
+                                    <p className="top-asked-questions-item-answer">
+                                        {question.description}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+
+
+                        {/* Add content for interview process section */}
+                    </div>
                 </div>
             </div>
-
-            <div id="top-asked-questions" className="interview-tips-container">
-                {/* Top Asked Questions section */}
-                <h1 className="top-asked-questions-title">Electricity Related</h1>
-                <br></br>
-                <button onClick={() => {
-                    // setActiveComplaint("electricity");
-                    handleComplaintForm("electricity");
-                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                    Complaint Here
-                </button>
-                <div className="top-asked-questions-list">
-                    {topQuestions.map((question, index) => (
-                        <div className="top-asked-questions-item" key={index}>
-                            <h5 className="top-asked-questions-item-title">
-                                {question.question}
-                            </h5>
-                            <p className="top-asked-questions-item-answer">
-                                {question.answer}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <div id="sample-questions" className="interview-tips-container">
-                {/* Sample Questions section */}
-                <h1 className="top-asked-questions-title">Furniture Related</h1>
-                <br></br>
-                <button onClick={() => {
-                    // setActiveComplaint("furniture");
-                    handleComplaintForm("furniture");
-                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                    Complaint Here
-                </button>
-                <div className="top-asked-questions-list">
-                    {sampleque.map((question, index) => (
-                        <div className="top-asked-questions-item" key={index}>
-                            <h5 className="top-asked-questions-item-title">
-                                {question.question}
-                            </h5>
-                            <p className="top-asked-questions-item-answer">
-                                {question.answer}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Add content for sample questions section */}
-            </div>
-
-            <div id="interview-process" className="interview-tips-container">
-                {/* Interview Process section */}
-                <h1 className="top-asked-questions-title">Electrical Equipments</h1>
-                <br></br>
-                <button onClick={() => {
-                    // setActiveComplaint("equipments");
-                    handleComplaintForm("equipments");
-                }} class="px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                    Complaint Here
-                </button>
-                <div className="top-asked-questions-list">
-                    {interviewprocess.map((question, index) => (
-                        <div className="top-asked-questions-item" key={index}>
-                            <h5 className="top-asked-questions-item-title">
-                                {question.step}
-                            </h5>
-                            <p className="top-asked-questions-item-answer">
-                                {question.description}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-
-
-                {/* Add content for interview process section */}
-            </div>
-
-        </div>
         </>
     );
 

@@ -49,7 +49,7 @@ export default function Otp(props) {
               type="text"
               autoComplete="otp"
               required
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-[rgb(39,17,162)] focus:border-[rgb(39,17,162)] focus:z-10 sm:text-sm"
               placeholder="OTP"
               onChange={props.updateOTP}
             />
@@ -67,7 +67,7 @@ export default function Otp(props) {
               type="password"
               autoComplete="current-password"
               required
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-[rgb(39,17,162)] focus:border-[rgb(39,17,162)] focus:z-10 sm:text-sm"
               placeholder="Password"
               onChange={props.updatePass}
             />
@@ -85,7 +85,7 @@ export default function Otp(props) {
               type="password"
               autoComplete="confirm-password"
               required
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-[rgb(39,17,162)] focus:border-[rgb(39,17,162)] focus:z-10 sm:text-sm"
               placeholder="Confirm Password"
               onChange={props.updateCnfPass}
             />
@@ -95,7 +95,7 @@ export default function Otp(props) {
         <div className="mb-6 text-sm text-right items-end">
           <a
             href="#"
-            className="font-medium text-indigo-600 hover:text-indigo-500"
+            className="font-medium text-[rgb(39,17,162)] hover:text-[rgb(39,17,162)]"
             onClick={props.resendOTP}  >
             Resend OTP?
           </a>
@@ -105,11 +105,11 @@ export default function Otp(props) {
           {!props.isLoading ? (
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[rgb(39,17,162)] hover:bg-[rgb(39,17,162)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(39,17,162)]"
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LockClosedIcon
-                  className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400"
+                  className="h-5 w-5 text-[rgb(39,17,162)] group-hover:text-[rgb(39,17,162)]"
                   aria-hidden="true"
                 />
               </span>
@@ -117,7 +117,7 @@ export default function Otp(props) {
             </button>
           ) : (
             <button
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(39,17,162)]"
               type="button"
               disabled
             >

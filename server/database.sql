@@ -145,13 +145,4 @@ INSERT INTO admins(name, email_id,passwd, admin_type) VALUES('Raghav',  '2020csb
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb1117@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root', 0);
 
-insert into fees_records(fees_type,year,semester,fees_amount) values('Mess','2023','2','1000');
-
-select * from fees_records LEFT OUTER JOIN fees_records_table on fees_records.fees_id = fees_records_table.fees_id where fees_records_table.email_id='rohitkinha1612@gmail.com';
-SELECT *
-FROM fees_records
-WHERE NOT EXISTS (
-  SELECT 1
-  FROM fees_records_table
-  WHERE fees_records_table.fees_id = fees_records.fees_id AND fees_records_table.email_id='rohitkinha1612@gmail.com'
-);
+INSERT INTO student_info( email_id ,passwd) values ('rohitkinha1612@gmail.com','root');

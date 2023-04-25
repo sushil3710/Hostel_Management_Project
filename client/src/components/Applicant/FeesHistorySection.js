@@ -215,11 +215,10 @@ function FeesHistorySection(props) {
                                     ) : (
                                         fees_records.length === 0 && (
                                             <div className="bg-white">
-                                                <div className="w-3/5 mx-auto my-50 text-center">
-                                                    <img alt="No data" src={noDataPic} />
-                                                    <div className="h-5" />
+                                                    <div className="w-3/5 mx-auto my-50 text-center">
+                                                        <div className="h-5" />
                                                     <p className="text-2xl font-semibold">
-                                                        No fees open currently!
+                                                        Nothing to show here!
                                                     </p>
                                                     <div className="h-6" />
                                                 </div>

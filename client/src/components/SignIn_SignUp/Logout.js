@@ -9,7 +9,7 @@ export default function Logout() {
   const signout = () => {
     removeUserSession();
     removeAdminType();
-    navigate("/sign-in");
+    navigate("/");
   };
 
   useEffect(() => {

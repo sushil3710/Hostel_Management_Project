@@ -1,8 +1,5 @@
 import React from "react";
 import spinner from "../../images/SpinnerWhite.gif";
-import iit_ropar_pic from "../../images/iit-ropar.jpg";
-import pic from "../../images/iit-ropar-logo.jpg";
-
 export default function SignIn(props) {
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -14,7 +11,7 @@ export default function SignIn(props) {
       {props.colorChange === 0 && (
         <p
           className={
-            "mb-10 h-10 text-center text-sm font-semibold text-[#4b70d1]"
+            "mb-10 h-10 text-center text-sm font-semibold text-[rgb(39,17,162)]"
           }
         >
           {props.msg}
@@ -41,9 +38,8 @@ export default function SignIn(props) {
               id="email-address"
               name="email"
               type="email"
-              autoComplete="email"
               required
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-[rgb(39,17,162)] focus:border-[rgb(39,17,162)] focus:z-10 sm:text-sm"
               placeholder="Email address"
               onChange={props.updateEmail}
             />
@@ -59,7 +55,7 @@ export default function SignIn(props) {
               name="password"
               type="password"
               required
-              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+              className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-[rgb(39,17,162)] focus:border-[rgb(39,17,162)] focus:z-10 sm:text-sm"
               placeholder="Password"
               onChange={props.updatePassword}
             />
@@ -70,14 +66,14 @@ export default function SignIn(props) {
           {!props.isLoading ? (
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[rgb(39,17,162)] hover:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(39,17,162)]"
             >
               Submit
             </button>
           ) : (
             <button
               type="button"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[rgb(39,17,162)] hover:[rgb(39,17,162)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[rgb(39,17,162)]"
               disabled
             >
               <div className="w-20 h-5">

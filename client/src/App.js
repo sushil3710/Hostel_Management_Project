@@ -2,19 +2,17 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getToken } from "./components/SignIn_SignUp/Sessions";
 import Logout from "./components/SignIn_SignUp/Logout";
-import HomePage from "./components/Landing/HomePage";
 import ContactUs from "./components/Landing/ContactUs";
 
 import Error from "./components/Landing/Error";
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter";
 import GuideLines from "./components/Landing/GuideLines";
 import Profile from "./components/Applicant/Profile";
-// import SignUpStartPage from "./components/SignIn_SignUp/SignUpStartPage";
 import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
 import ForgotPasswordPage from "./components/SignIn_SignUp/ForgotPasswordPage";
 import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
 
-import Complaint from "./components/Applicant/complaint";
+import Complaint from "./components/Applicant/Complaint";
 import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
 import AddFees from "./components/Admin/AddFess";
@@ -23,9 +21,6 @@ import RoomChange from "./components/Applicant/roomChange";
 import MyComplaint from "./components/Applicant/MyComplaint";
 import FeesSection from "./components/Applicant/PendingFeesSection";
 import FeesHistorySection from "./components/Applicant/FeesHistorySection";
-// import Electricity from "./components/forms/electricity";
-// import Furniture from "./components/forms/furniture";
-// import Equipments from "./components/forms/equipment";
 
 // Admin
 import ManageAdmins from "./components/Admin/ManageAdmins";
@@ -155,23 +150,23 @@ function App() {
               </PrivateRoute>
             }
           />
-                  <Route
+          <Route
             path="/AddStudents/add-students/"
             element={
               <PrivateRoute>
                 <AddStudents />
               </PrivateRoute>
             }
-          
+
           />
-                  <Route
+          <Route
             path="/ViewStudents/view-students/"
             element={
               <PrivateRoute>
                 <ViewStudents />
               </PrivateRoute>
             }
-          
+
           />
           <Route
             path="/admin/fees"
@@ -200,31 +195,15 @@ function App() {
           />
 
         </Route>
-
-
-
         <Route element={<WithHeaderFooter />}>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/contact-us" element={<ContactUs />}></Route>
-          {/* <Route path="/faqs" element={<FAQs />}></Route>
-          <Route path="/info" element={<Info />}></Route> */}
-          <Route path="/guidelines" element={<GuideLines />}></Route>
-          <Route
-            path="/sign-in"
-            element={
+          <Route path="/" element=
+            {
               <SpecialRoute>
                 <SignInStartPage />
               </SpecialRoute>
-            }
-          />
-          {/* <Route
-            path="/sign-up"
-            element={
-              <SpecialRoute>
-                <SignUpStartPage />
-              </SpecialRoute>
-            }
-          /> */}
+            }></Route>
+          <Route path="/contact-us" element={<ContactUs />}></Route>
+          <Route path="/guidelines" element={<GuideLines />}></Route>
           <Route
             path="/forgot-password"
             element={
