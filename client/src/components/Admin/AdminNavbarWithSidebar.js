@@ -95,20 +95,7 @@ export default function AdminNavbarWithSidebar() {
             </li>
             )}
 
-              <li className="rounded-lg mb-2 text-white">
-                <NavLink
-                  to="/admin/profile"
-                  exact="true"
-                  className={
-                    location !== "/admin/profile"
-                      ? "flex items-center gap-4 text-sm text-white font-light px-4 py-3 rounded-lg"
-                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
-                  }
-                >
-                  <AccountCircleIcon size="2xl" />
-                  Profile
-                </NavLink>
-              </li>
+
 
               <li className="rounded-lg mb-2 text-white">
                 <NavLink
@@ -136,6 +123,20 @@ export default function AdminNavbarWithSidebar() {
                 >
                   <AdfScannerIcon size="2xl" />
                   Complaints
+                </NavLink>
+              </li>
+              <li className="rounded-lg mb-2 text-white">
+                <NavLink
+                  to="/admin/profile"
+                  exact="true"
+                  className={
+                    location !== "/admin/profile"
+                      ? "flex items-center gap-4 text-sm text-white font-light px-4 py-3 rounded-lg"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                  }
+                >
+                  <AccountCircleIcon size="2xl" />
+                  Profile
                 </NavLink>
               </li>
 

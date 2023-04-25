@@ -165,7 +165,7 @@ export default function AddStudents() {
           </h3>
           <div className="flex space-x-4">
             <AddStudentModal />
-            <div className="mx-4"></div>
+            <div className="mx-1"></div>
             <UploadExcelModal />
           </div>
         </div>

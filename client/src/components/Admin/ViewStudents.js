@@ -127,12 +127,15 @@ export default function AddStudents() {
         <></>
       )} */}
       <div className="bg-white shadow-xl rounded-lg p-4 sm:p-6 xl:p-8 min-h-screen">
-        <div className="flex justify-between">
-          <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
-            Registered Students
-          </h3>
-          <DownloadList/>
-        </div>
+      <div className="flex justify-between items-center">
+  <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
+    Registered Students
+  </h3>
+  <div className="flex space-x-4">
+    <DownloadList />
+  </div>
+</div>
+
         <div className="block w-full overflow-x-auto">
           <table className="items-center w-full bg-transparent border-collapse">
             <thead>
