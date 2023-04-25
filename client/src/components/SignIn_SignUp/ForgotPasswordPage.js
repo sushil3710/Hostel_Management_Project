@@ -5,7 +5,7 @@ import { setUserSession } from "./Sessions";
 import { useNavigate, Link } from "react-router-dom";
 import { setAdminType } from "../Admin/AdminTypes";
 import ForgotPassword from "./ForgotPassword";
-
+import "../css/signin.css";
 function ForgotPasswordPage() {
   const navigate = useNavigate();
 
@@ -114,17 +114,12 @@ function ForgotPasswordPage() {
   };
 
   return (
-    <div className="pt-28 sm:pt-2 bg-gray-100 ">
+    <div className="pt-28 sm:pt-2 bg-image ">
       <div className="relative min-h-screen flex flex-col sm:justify-center items-center w-4/5 mx-auto sm:w-3/5 md:w-3/5">
         <div className="relative sm:max-w-md w-full">
-          <div className="flex absolute justify-center items-center content-center bg-gradient-to-br from-[#6F8BD6] to-[#1E3A8A] shadow-md hover:shadow-lg h-48 w-48 -left-24 -top-24 rounded-full fill-current text-white">
-          <div style={{ position: 'relative', width: '6rem', height: '6rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'left' }}>
-      <span style={{ fontSize: '1.2rem', marginTop: '-6rem' }}>Forgot</span>
-      <span style={{ fontSize: '1.2rem', marginBottom: '-2rem' }}>Password</span>
-    </div>
-          </div>
-          <div className="card bg-[#1E3A8A] shadow-lg w-full h-full rounded-3xl absolute transform -rotate-6" />
-          <div className="card bg-[#6F8BD6] shadow-lg w-full h-full rounded-3xl absolute transform rotate-6" />
+         
+          {/* <div className="card bg-[#1E3A8A] shadow-lg w-full h-full rounded-3xl absolute transform -rotate-6" />
+          <div className="card bg-[#000000] shadow-lg w-full h-full rounded-3xl absolute transform rotate-6" /> */}
           <div className="p-16 relative w-full rounded-3xl bg-white shadow-md">
             <label className="block mt-3 text-2xl text-gray-700 text-center font-semibold">
               Welcome to IIT Ropar

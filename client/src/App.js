@@ -4,16 +4,16 @@ import { getToken } from "./components/SignIn_SignUp/Sessions";
 import Logout from "./components/SignIn_SignUp/Logout";
 import HomePage from "./components/Landing/HomePage";
 import ContactUs from "./components/Landing/ContactUs";
-import FAQs from "./components/Landing/FAQs";
+
 import Error from "./components/Landing/Error";
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter";
 import GuideLines from "./components/Landing/GuideLines";
 import Profile from "./components/Applicant/Profile";
-import SignUpStartPage from "./components/SignIn_SignUp/SignUpStartPage";
+// import SignUpStartPage from "./components/SignIn_SignUp/SignUpStartPage";
 import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
 import ForgotPasswordPage from "./components/SignIn_SignUp/ForgotPasswordPage";
 import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
-import Info from "./components/Landing/Info";
+
 import Complaint from "./components/Applicant/complaint";
 import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
@@ -206,8 +206,8 @@ function App() {
         <Route element={<WithHeaderFooter />}>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/contact-us" element={<ContactUs />}></Route>
-          <Route path="/faqs" element={<FAQs />}></Route>
-          <Route path="/info" element={<Info />}></Route>
+          {/* <Route path="/faqs" element={<FAQs />}></Route>
+          <Route path="/info" element={<Info />}></Route> */}
           <Route path="/guidelines" element={<GuideLines />}></Route>
           <Route
             path="/sign-in"
@@ -217,14 +217,14 @@ function App() {
               </SpecialRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/sign-up"
             element={
               <SpecialRoute>
                 <SignUpStartPage />
               </SpecialRoute>
             }
-          />
+          /> */}
           <Route
             path="/forgot-password"
             element={
