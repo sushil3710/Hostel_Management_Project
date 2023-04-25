@@ -10,6 +10,7 @@ const navigation = [
   { name: "More Info", to: "/info" },
   { name: "FAQs", to: "/faqs" },
   { name: "Contact us", to: "/contact-us" },
+  { name: "Guidelines", to: "/guidelines" },
 ];
 
 function Navbar() {

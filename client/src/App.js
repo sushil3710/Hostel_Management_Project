@@ -7,6 +7,7 @@ import ContactUs from "./components/Landing/ContactUs";
 import FAQs from "./components/Landing/FAQs";
 import Error from "./components/Landing/Error";
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter";
+import GuideLines from "./components/Landing/GuideLines";
 import Profile from "./components/Applicant/Profile";
 import SignUpStartPage from "./components/SignIn_SignUp/SignUpStartPage";
 import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
@@ -29,6 +30,8 @@ import FeesSection from "./components/Applicant/PendingFeesSection";
 import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
+import AddStudents from "./components/Admin/AddStudents";
+import ViewStudents from "./components/Admin/ViewStudents";
 // import Complaint from "./components/complaint";
 
 function App() {
@@ -143,6 +146,24 @@ function App() {
               </PrivateRoute>
             }
           />
+                  <Route
+            path="/AddStudents/add-students/"
+            element={
+              <PrivateRoute>
+                <AddStudents />
+              </PrivateRoute>
+            }
+          
+          />
+                  <Route
+            path="/ViewStudents/view-students/"
+            element={
+              <PrivateRoute>
+                <ViewStudents />
+              </PrivateRoute>
+            }
+          
+          />
           <Route
             path="/admin/fees"
             element={
@@ -178,6 +199,7 @@ function App() {
           <Route path="/contact-us" element={<ContactUs />}></Route>
           <Route path="/faqs" element={<FAQs />}></Route>
           <Route path="/info" element={<Info />}></Route>
+          <Route path="/guidelines" element={<GuideLines />}></Route>
           <Route
             path="/sign-in"
             element={

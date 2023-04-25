@@ -74,13 +74,27 @@ app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
 
 app.post("/delete-admin", upload.fields([]), admindB.delete_admin);
 
+app.post("/delete-student",upload.fields([]), admindB.delete_student);
+
 app.post("/edit-admin-profile", upload.fields([]), admindB.edit_admin_profile);
 
 app.get("/get-admins", admindB.get_admins);
 
+app.get("/get-students", admindB.get_students);
+
 app.get("/get-admin-profile", admindB.get_admin_profile);
 
 app.get("/get-admin-fees-record", admindB.get_fees_record);
+
+app.post("/add-excel",upload.fields([{ name: "excelfile", maxCount: 1 }]), admindB.add_excel);
+
+app.post("/add-students",upload.fields([]), admindB.add_students);
+
+app.post("/add-student",upload.fields([]), admindB.add_student);
+
+app.post("/delete-excel", upload.fields([]), admindB.delete_excel);
+
+app.get("/get-excel", admindB.get_excel);
 
 
 

@@ -29,7 +29,9 @@ CREATE TABLE student_info (
     -- Primary Keys
     email_id TEXT PRIMARY KEY,
     passwd TEXT,
-    hostel_id SERIAL,
+    entry_numb TEXT,
+    hostel_id INTEGER,
+    hostel_name TEXT,
 
     -- Personal Details
     full_name TEXT,
@@ -66,6 +68,11 @@ CREATE TABLE admins(
   passwd TEXT,
   admin_type INT NOT NULL
   
+);
+CREATE TABLE excels(
+  name TEXT, 
+  file_url TEXT,
+  status INTEGER
 );
 
 CREATE TABLE fees_records(
@@ -113,7 +120,7 @@ CREATE TRIGGER trigger_insert_into_admins
 
 CREATE TRIGGER trigger_insert_into_student_info
   AFTER INSERT
-  ON student_ifo
+  ON student_info
   FOR EACH ROW
   EXECUTE PROCEDURE insert_into_login_verification();
 
