@@ -197,8 +197,8 @@ function App() {
         <Route element={<WithHeaderFooter />}>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/contact-us" element={<ContactUs />}></Route>
-          <Route path="/faqs" element={<FAQs />}></Route>
-          <Route path="/info" element={<Info />}></Route>
+          {/* <Route path="/faqs" element={<FAQs />}></Route>
+          <Route path="/info" element={<Info />}></Route> */}
           <Route path="/guidelines" element={<GuideLines />}></Route>
           <Route
             path="/sign-in"

@@ -7,8 +7,8 @@ import pic from "../../images/iit-ropar-logo.jpg";
 
 const navigation = [
   { name: "Home", to: "/" },
-  { name: "More Info", to: "/info" },
-  { name: "FAQs", to: "/faqs" },
+  // { name: "More Info", to: "/info" },
+  // { name: "FAQs", to: "/faqs" },
   { name: "Contact us", to: "/contact-us" },
   { name: "Guidelines", to: "/guidelines" },
 ];
@@ -17,7 +17,7 @@ function Navbar() {
   return (
     <div>
       <Popover>
-        <div className="relative pt-5 pb-4 px-4 sm:px-6 lg:px-8 bg-[#1E3A8A]">
+        <div className="relative pt-5 pb-4 px-4 sm:px-6 lg:px-8 bg-[#000000]">
           <nav
             className="relative flex items-center sm:h-10 justify-start "
             aria-label="Global"
@@ -57,7 +57,7 @@ function Navbar() {
             </div>
 
             <div className="h-12 w-12 ml-auto flex-shrink-0">
-              <a href="https://www.iitrpr.ac.in">
+              <a href="https://www.iitrpr.ac.in/student-affairs/hostel.php">
                 <img src={pic_clear} alt="IIT Ropar"></img>
               </a>
             </div>
