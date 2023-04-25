@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import DeleteStudentModal from "./DeleteStudentModal";
+import DownloadList from "./DownloadList";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
@@ -42,19 +43,19 @@ export default function AddStudents() {
   function renderHostelStyles(param) {
     switch (param) {
       case 1:
-        return "py-3 text-center rounded-lg font-semibold bg-yellow-50 text-yellow-900 border border-yellow-200";
+        return "py-2 text-center rounded-lg font-semibold bg-yellow-50 text-yellow-900 border border-yellow-200";
       case 2:
-        return "py-3 text-center rounded-lg font-semibold bg-red-50 text-red-900 border border-red-200";    
+        return "py-2 text-center rounded-lg font-semibold bg-red-50 text-red-900 border border-red-200";    
       case 3:
-        return "py-3 text-center rounded-lg font-semibold bg-green-50 text-green-900 border border-green-200";
+        return "py-2 text-center rounded-lg font-semibold bg-green-50 text-green-900 border border-green-200";
       case 4:
-        return "py-3 text-center rounded-lg font-semibold bg-purple-50 text-purple-900 border border-purple-200";            
+        return "py-2 text-center rounded-lg font-semibold bg-purple-50 text-purple-900 border border-purple-200";            
       case 5:
-        return "py-3 text-center rounded-lg font-semibold bg-blue-50 text-blue-900 border border-blue-200"; 
+        return "py-2 text-center rounded-lg font-semibold bg-blue-50 text-blue-900 border border-blue-200"; 
       case 6:
-        return "py-3 text-center rounded-lg font-semibold bg-pink-50 text-pink-900 border border-pink-200";             
+        return "py-2 text-center rounded-lg font-semibold bg-pink-50 text-pink-900 border border-pink-200";             
       default:
-        return "py-3 text-center rounded-lg font-semibold bg-green-50 text-green-900 border border-green-200";
+        return "py-2 text-center rounded-lg font-semibold bg-green-50 text-green-900 border border-green-200";
     }
   }
 
@@ -130,11 +131,7 @@ export default function AddStudents() {
           <h3 className="text-xl leading-none font-bold text-gray-900 mb-10">
             Registered Students
           </h3>
-          {/* <div className="flex space-x-4">
-    <AddStudentModal />
-    <div className="mx-4"></div>
-    <UploadExcelModal />
-  </div> */}
+          <DownloadList/>
         </div>
         <div className="block w-full overflow-x-auto">
           <table className="items-center w-full bg-transparent border-collapse">
@@ -152,9 +149,7 @@ export default function AddStudents() {
                 <th className="text-center px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold uppercase border-l-0 border-r-0 whitespace-nowrap">
                  Hostel
                 </th>
-                {/* <th className="px-10 bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap">
-                
-                </th> */}
+  
                 <th className="bg-gray-50 text-gray-700 align-middle py-3 text-xs font-semibold text-left uppercase border-l-0 border-r-0 whitespace-nowrap" />
               </tr>
               
@@ -164,21 +159,21 @@ export default function AddStudents() {
             <tbody className="divide-y divide-gray-100">
               {studentList.map((student) => (
                 <tr className="text-gray-500 border-b border-gray-100">
-                  <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-2 text-left">
+                  <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-1 text-left">
                     {student.full_name}
                   </th>
-                  <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-2 text-left">
+                  <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-1 text-left">
                     {student.entry_numb}
                   </th>
-                  <td className="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-2">
+                  <td className="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-1">
                     {student.email_id}
                   </td>
-                  <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-2">
+                  <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-1">
                     <div className={renderHostelStyles(student.hostel_id)}>
                       {renderHostel(student.hostel_id)}
                     </div>
                   </td>
-                  <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">
+                  <td className="border-t-0 pl-16 pr-4 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-1">
                     <div className="flex gap-2 justify-end">
                       <DeleteStudentModal
                         email_id={student.email_id}

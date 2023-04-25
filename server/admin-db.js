@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { format } = require("util");
+const { exec } = require("child_process");
 const saltRounds = 10;
 const path = require("path");
 const fs = require("fs");
@@ -415,7 +416,7 @@ const add_excel = async (req, res) => {
             `${process.env.STORAGE_BASE_URL}/HostelManagement/ExcelFiles/${filename}`);
 
              await pool.query(
-              "Insert into excels(name, file_url) values($1,$2);",
+              "Insert into excels(name, file_url,status) values($1,$2,0);",
                 [info.excelname,url]);
           
           //resolve();
@@ -582,6 +583,15 @@ const add_students = async (req, res) => {
     }
   }
 
+  
+  const new_url = format(
+    `${process.env.STORAGE_BASE_URL}/HostelManagement/${url}`);
+
+
+ await pool.query(
+    "Update excels set status=1 where file_url=$1;",
+    [new_url]    
+  );
  
   return res.send("2");
 };
@@ -761,6 +771,30 @@ await pool.query(
 };
 
 
+const view_excel = async (req, res) => {
+  const url = req.body.fileurl;
+
+  if (url === "" || url === undefined) return res.send("0");
+
+  const excelpath = path.join(
+    __dirname,
+    "public",
+    "HostelManagement",
+    "ExcelFiles",
+    url
+  );
+
+  exec(`start excel "${excelpath}"`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`exec error: ${error}`);
+      return res.send("0");
+    }
+   
+  });
+
+  return res.send("2");
+};
+
 module.exports = {
   add_admin,
   edit_admin,
@@ -777,4 +811,5 @@ module.exports = {
   add_student,
   get_students,
   delete_student,
+  view_excel,
 };

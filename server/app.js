@@ -7,6 +7,7 @@ const multer = require("multer");
 const upload = multer();
 const applicantdB = require("./applicant-db");
 const admindB = require("./admin-db");
+const ListDownloader = require("./ListDownloader");
 var bodyParser = require("body-parser");
 
 const app = express();
@@ -89,6 +90,11 @@ app.post("/delete-student", upload.fields([]), admindB.delete_student);
 
 app.post("/edit-admin-profile", upload.fields([]), admindB.edit_admin_profile);
 
+app.post("/view-excel", upload.fields([]), admindB.view_excel);
+app.get(
+  "/get-list-in-excel",
+  ListDownloader.get_list_in_excel
+);
 app.get("/get-admins", admindB.get_admins);
 
 app.get("/get-students", admindB.get_students);

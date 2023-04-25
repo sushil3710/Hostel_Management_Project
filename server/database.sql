@@ -138,6 +138,28 @@ CREATE TRIGGER trigger_insert_into_student_info
   EXECUTE PROCEDURE insert_into_login_verification();
 
 
+
+-- Type = 'application' || 'offering' || 'admin'
+CREATE TABLE templates (
+  template_id INTEGER PRIMARY KEY,
+  email_id TEXT,
+  name TEXT,
+  type TEXT,
+  column_list TEXT[]
+);
+
+-- PERMANENT INSERT
+INSERT INTO TEMPLATES(template_id,email_id,name,type,column_list) VALUES(1,'default@template', 'STUDENTS LIST', 'APPLICANT LIST', ARRAY[ 'entry_numb',
+ 'full_name', 'email_id',  'hostel_id',
+    'hostel_name', 'guardian', 'fathers_name','profile_image_url','date_of_birth',
+    'aadhar_card_number','category','is_pwd','pwd_type',
+    'blood_group','nationality','gender',
+    'communication_address','communication_city','communication_state','communication_pincode',
+    'mobile_number','alternate_mobile_number'
+    ]
+);
+
+
 -- Do always
 INSERT INTO admins(name, email_id,passwd, admin_type) VALUES('Rohit',  '2020csb1118@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Sushil', '2020csb1132@iitrpr.ac.in','root', 0);
