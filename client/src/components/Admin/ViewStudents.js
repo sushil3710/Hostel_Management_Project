@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import DeleteStudentModal from "./DeleteMailModal";
+import DeleteStudentModal from "./DeleteStudentModal";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import screenSpinner from "../../images/2300-spinner.gif";
 import adminsPic from "../../images/manage-admins.svg";
-import UploadExcelModal from "./UploadExcelModal";
-import AddStudentModal from "./AddStudentModal";
+
 
 export default function AddStudents() {
   // ek list with email id, role and (if faculty then department)
@@ -165,16 +164,16 @@ export default function AddStudents() {
             <tbody className="divide-y divide-gray-100">
               {studentList.map((student) => (
                 <tr className="text-gray-500 border-b border-gray-100">
-                  <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-4 text-left">
+                  <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-2 text-left">
                     {student.full_name}
                   </th>
-                  <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-4 text-left">
+                  <th className="border-t-0 px-10 align-middle text-md font-normal whitespace-nowrap py-2 text-left">
                     {student.entry_numb}
                   </th>
-                  <td className="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-4">
+                  <td className="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-2">
                     {student.email_id}
                   </td>
-                  <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-4">
+                  <td className="border-t-0 align-middle text-sm font-normal text-gray-900 whitespace-nowrap py-2">
                     <div className={renderHostelStyles(student.hostel_id)}>
                       {renderHostel(student.hostel_id)}
                     </div>
@@ -183,7 +182,7 @@ export default function AddStudents() {
                     <div className="flex gap-2 justify-end">
                       <DeleteStudentModal
                         email_id={student.email_id}
-                        setReRender={setReRender}
+                        //setReRender={setReRender}
                       />
                     </div>
                   </td>

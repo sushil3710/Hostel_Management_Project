@@ -72,7 +72,7 @@ app.post("/edit-admin", upload.fields([]), admindB.edit_admin);
 
 app.post("/delete-admin", upload.fields([]), admindB.delete_admin);
 
-app.post("/delete-student", upload.fields([]), admindB.delete_student);
+app.post("/delete-student",upload.fields([]), admindB.delete_student);
 
 app.post("/edit-admin-profile", upload.fields([]), admindB.edit_admin_profile);
 

@@ -15,13 +15,13 @@ const handlebars = require("handlebars");
 const upDir = path.join(__dirname, 'public');
 if (!fs.existsSync(upDir)) {
   fs.mkdirSync(upDir);
-  console.log(upDir);
+  
 }
 
 const uploadDir = path.join(__dirname, 'public', 'HostelManagement');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
-  console.log(uploadDir);
+ 
 }
 
 
@@ -517,7 +517,7 @@ const add_students = async (req, res) => {
   if (url === "" || url==undefined) return res.send("0");
 
   const excelpath = path.join(__dirname,'public','HostelManagement',url);
-console.log(excelpath)
+
   const workbook = await XLSX.readFile(excelpath);
 
   const sheet_name = workbook.SheetNames[0];
@@ -717,6 +717,7 @@ const get_students = async (req, res) => {
 
 
 const delete_student = async (req, res) => {
+
   /**
    * 1. Perform jwt auth
    * 2. Delete the given admin
@@ -749,11 +750,12 @@ const delete_student = async (req, res) => {
 
   let info = req.body;
 
-  const delete_from_admins_table = await pool.query(
+
+ await pool.query(
     "DELETE FROM student_info WHERE email_id = $1;",
     [info.email_id]
   );
-  const delete_from_login_verification_table = await pool.query(
+await pool.query(
     "DELETE FROM login_verification WHERE email_id = $1;",
     [info.email_id]
   );
