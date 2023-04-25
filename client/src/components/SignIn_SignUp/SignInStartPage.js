@@ -67,9 +67,10 @@ function SignInStartPage() {
   };
 
   return (
-    <div className="pt-20 sm:pt-2 bg-gray-100 bg-image ">
-      <div className="relative min-h-screen flex flex-col sm:justify-center items-center w-4/5 mx-auto sm:w-3/5 md:w-3/5">
+    <div className="pt-28 sm:pt-2 bg-gray-100 bg-image">
+      <div className="relative min-h-screen flex flex-col sm:justify-center items-center w-4/5 mx-auto sm:w-3/5 md:w-3/5 ">
         <div className="relative sm:max-w-md w-full">
+  
           <div className="p-16 relative w-full rounded-3xl bg-white shadow-md">
             <label className="block mt-2 text-2xl text-gray-700 text-center font-semibold">
               Welcome to IIT Ropar

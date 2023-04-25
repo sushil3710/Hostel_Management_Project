@@ -56,7 +56,7 @@ export default function DownloadList(props) {
         <button
           onClick={onExport}
           type="button"
-          className="focus:outline-none w-1/2 text-gray-900 bg-white border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
+          className="focus:outline-none w-1/2 text-gray-900 bg-purple-300 border border-purple-700 hover:bg-purple-500 focus:ring-4 focus:ring-cyan-300 font-medium inline-flex items-center justify-center rounded-lg text-sm my-4 px-3 py-2 text-center sm:w-auto"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

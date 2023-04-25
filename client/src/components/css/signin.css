@@ -1,5 +1,6 @@
 .bg-image {
-    background-image: url("../../images/hos_raavi.jpg");
+    background-image: url("../../images/SIGNINPIC.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
   }

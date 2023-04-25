@@ -8,6 +8,7 @@ const upload = multer();
 const applicantdB = require("./applicant-db");
 const admindB = require("./admin-db");
 const ListDownloader = require("./ListDownloader");
+const FeeScript = require("./feescript");
 var bodyParser = require("body-parser");
 
 const app = express();
@@ -94,6 +95,10 @@ app.post("/view-excel", upload.fields([]), admindB.view_excel);
 app.get(
   "/get-list-in-excel",
   ListDownloader.get_list_in_excel
+);
+app.get(
+  "/get-fee-in-excel",
+  FeeScript.get_fee_in_excel
 );
 app.get("/get-admins", admindB.get_admins);
 

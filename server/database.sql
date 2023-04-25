@@ -142,20 +142,26 @@ CREATE TRIGGER trigger_insert_into_student_info
 -- Type = 'application' || 'offering' || 'admin'
 CREATE TABLE templates (
   template_id INTEGER PRIMARY KEY,
-  email_id TEXT,
   name TEXT,
-  type TEXT,
   column_list TEXT[]
 );
 
 -- PERMANENT INSERT
-INSERT INTO TEMPLATES(template_id,email_id,name,type,column_list) VALUES(1,'default@template', 'STUDENTS LIST', 'APPLICANT LIST', ARRAY[ 'entry_numb',
+INSERT INTO TEMPLATES(template_id,name,column_list) VALUES(1,'STUDENTS LIST', ARRAY[ 'entry_numb',
  'full_name', 'email_id',  'hostel_id',
     'hostel_name', 'guardian', 'fathers_name','profile_image_url','date_of_birth',
     'aadhar_card_number','category','is_pwd','pwd_type',
     'blood_group','nationality','gender',
     'communication_address','communication_city','communication_state','communication_pincode',
     'mobile_number','alternate_mobile_number'
+    ]
+);
+INSERT INTO TEMPLATES(template_id,name,column_list) VALUES(2, 'FEES LIST', ARRAY[   'fees_id',
+  'student_name',
+  'entry_number','email_id',
+  'fees_type','year',
+  'semester','fees_amount','date_of_transaction',
+'fees_pdf_url', 'fees_remarks'
     ]
 );
 

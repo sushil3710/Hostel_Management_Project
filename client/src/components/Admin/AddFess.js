@@ -3,6 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
+import DownloadFees from "./DownloadFeesModal";
 import { Tooltip } from "@mui/material";
 import { UserGroupIcon } from "@heroicons/react/solid";
 import noDataPic from "../../images/Asset 8.svg";
@@ -58,9 +59,11 @@ export default function OfferingList() {
                     <h3 className="text-xl leading-none font-bold text-gray-900">
                         Fee Section
                     </h3>
+         
                     <div className="flex space-x-4">
                         <AddFeesModal />
                     </div>
+
                 </div>
             </div>
             <div className="flex flex-col">
@@ -104,6 +107,13 @@ export default function OfferingList() {
                                             Amount
                                         </th>
                                         <th scope="col" className="p-4"></th>
+                                        <th
+                                            scope="col"
+                                            className="p-4 text-left text-xs font-medium text-gray-500 uppercase"
+                                        >
+                                            Fee Scripts
+                                        </th>
+                                        <th scope="col" className="p-4"></th>
                                     </tr>
                                 </thead>
 
@@ -113,8 +123,7 @@ export default function OfferingList() {
                                             ...range(
                                                 startCount - 1,
                                                 Math.min(startCount + limit - 1, fees_records.length) - 1
-                                            ),
-                                        ].map((i) => (
+                                            ),].map((i) => (
                                             <tr key={fees_records[i].fees_id}>
                                                 <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                                                     {fees_records[i].fees_id}
@@ -134,6 +143,14 @@ export default function OfferingList() {
                                                 <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
                                                     {fees_records[i].fees_amount}
                                                 </td>
+                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
+                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                                                    <DownloadFees 
+                                                    fee_id={fees_records[i].fee_id}/>
+                                                </td>
+
+
+                                                
                                             </tr>
                                         ))}
                                     </tbody>
