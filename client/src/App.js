@@ -22,6 +22,7 @@ import SolvedComplaint from "./components/Admin/SolvedComplaints";
 import RoomChange from "./components/Applicant/roomChange";
 import MyComplaint from "./components/Applicant/MyComplaint";
 import FeesSection from "./components/Applicant/PendingFeesSection";
+import FeesHistorySection from "./components/Applicant/FeesHistorySection";
 // import Electricity from "./components/forms/electricity";
 // import Furniture from "./components/forms/furniture";
 // import Equipments from "./components/forms/equipment";
@@ -116,6 +117,14 @@ function App() {
           element={
             <PrivateRoute>
               <FeesSection />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/fees-section-fees-history"
+          element={
+            <PrivateRoute>
+              <FeesHistorySection />
             </PrivateRoute>
           }
         />

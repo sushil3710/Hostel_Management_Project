@@ -223,11 +223,7 @@ const add_fees_record = async (req, res) => {
   if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
     return res.send("1");
   }
-  console.log(req.body);
   let info = req.body;
-
-  console.log(info);
-
   const results = await pool.query(
     "INSERT INTO" +
     " fees_records(fees_type,year,semester,fees_amount) VALUES($1,$2,$3,$4);",
@@ -428,8 +424,9 @@ const add_excel = async (req, res) => {
       })
     
     );
-    
-    return res.send("Ok");
+    Promise.allSettled(promises).then(
+      res.status(200).send("Ok") /** Confirm, rerender */
+    );
     }
 };
 

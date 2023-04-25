@@ -75,6 +75,98 @@ const save_communication_details = async (req, res) => {
 
   return res.status(200).send("Ok");
 };
+
+/*
+ * Update/save applicant personal info
+ */
+const save_fees_details = async (req, res, next) => {
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail;
+
+  var info = req.body;
+
+  await pool.query(
+    "INSERT INTO fees_records_table(fees_id,student_name,entry_number,email_id,fees_type,year,semester,fees_amount,date_of_transaction,fees_remarks) VALUES($1, $2, $3, $4,$5,$6,$7,$8,$9,$10)",
+    [
+      info.fees_id,
+      info.full_name,
+      info.entry_number,
+      info.email,
+      info.fees_type,
+      info.year,
+      info.semester,
+      info.fees_amount,
+      info.date_of_transaction,
+      info.fees_remarks,
+    ]
+  );
+
+  let promises = [];
+  let vals = Object.values(req.files);
+
+  const uploadDir = path.join(__dirname, 'public', 'HostelManagement', 'FEES_RECORD');
+  if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+  }
+
+  for (let f of vals) {
+    const filename = Date.now() + "_" + f[0].originalname;
+    const filepath = path.join(uploadDir, filename);
+
+    promises.push(
+      new Promise((resolve, reject) => {
+        fs.writeFile(filepath, f[0].buffer, async (err) => {
+          if (err) {
+            f[0].localStorageError = err;
+            next(err);
+            console.log(err);
+            reject(err);
+            return;
+          }
+          url = format(
+            `${process.env.STORAGE_BASE_URL}/HostelManagement/FEES_RECORD/${filename}`
+
+          );
+          if (f[0].fieldname === "fees_pdf") {
+            await pool.query(
+              "UPDATE fees_records_table SET fees_pdf_url = $1 WHERE email_id = $2 and fees_id=$3;",
+              [url, info.email,info.fees_id]
+            );
+          }
+          resolve();
+
+        });
+      })
+    );
+  }
+  Promise.allSettled(promises).then(
+    res.status(200).send("Ok") /** Confirm, rerender */
+  );
+};
 /*
  * Update/save applicant personal info
  */
@@ -278,12 +370,46 @@ const get_fees_info = async (req, res) => {
   // console.log(email);
 
   const results = await pool.query(
-    "SELECT * FROM fees_records;"
+    "SELECT * FROM fees_records WHERE NOT EXISTS( SELECT 1 FROM fees_records_table WHERE fees_records_table.fees_id = fees_records.fees_id AND fees_records_table.email_id = $1);",
+    [email]
   );
   // console.log(results.rows[0]);
   return res.send({ results: results.rows });
 };
 
+const get_fees_history = async (req, res) => {
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  verified = jwt.verify(authToken, jwtSecretKey);
+  // try {
+  //   // console.log(verified);
+  // } catch (error) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
+
+  var email = jwt.decode(authToken).userEmail;
+  // console.log(email);
+
+  const results = await pool.query(
+    "SELECT * FROM fees_records_table where email_id=$1;",
+    [email]
+  );
+  // console.log(results.rows[0]);
+  return res.send({ results: results.rows });
+};
 
 
 const get_user_email = async (req, res) => {
@@ -328,5 +454,7 @@ module.exports = {
   get_profile_info,
   get_user_info,
   get_user_email,
+  save_fees_details,
+  get_fees_history,
   get_fees_info,
 };

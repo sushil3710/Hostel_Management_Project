@@ -22,20 +22,20 @@ const style = {
 export default function PayFeesModal(props) {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-
+    const [fees_pdf, setFeesPdf] = useState(null);
     const { register, handleSubmit, reset } = useForm();
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         onClose();
         setOpen(false);
     };
-    const handleFileSubmit1 = (e, maxSize, setVariable) => {
+
+    const handleFileSubmit = (e, maxSize, setVariable) => {
         const file = e.target.files[0];
 
         if (
-            file.type !== "fees/pdf"
+            file.type !== "application/pdf"
         ) {
             e.target.value = null;
             alert("File format not followed! Allowed formats: .pdf");
@@ -72,13 +72,17 @@ export default function PayFeesModal(props) {
     const onSubmit = (data) => {
         setIsLoading(true);
         const formData = new FormData();
-
-        formData.append("full_name", data.full_name);
-        formData.append("fees_type", data.fees_type);
+        formData.append("fees_id", props.fees_id);
+        formData.append("full_name", props.full_name);
         formData.append("entry_number", data.entry_number);
-        formData.append("remarks", data.remarks);
+        formData.append("email", props.email);
+        formData.append("fees_type", props.fees_type);
+        formData.append("year", props.year);
+        formData.append("semester", props.semester);
+        formData.append("fees_amount", props.amount);
+        formData.append("fees_remarks", data.remarks);
         formData.append("date_of_transaction", data.date_of_transaction);
-
+        formData.append("fees_pdf", fees_pdf);
         Axios.post("/save-fees-details", formData, {
             headers: {
                 Authorization: getToken(),
@@ -168,8 +172,6 @@ export default function PayFeesModal(props) {
                                                 type="text"
                                                 {...register("entry_number")}
                                                 id="entry_number"
-                                                pattern="([A-Z]+, *)*[A-Z]+$"
-                                                title="Comma-separated Gate codes(in capital alphabets)"
                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 required
                                             />
@@ -239,7 +241,7 @@ export default function PayFeesModal(props) {
                                         </div>
                                         <div className="col-span-full sm:col-span-full">
                                             <label
-                                                className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"
+                                                className="block mb-2 text-sm font-medium text-black dark:text-gray-300"
                                                 htmlFor="profile_picture"
                                             >
                                                 Upload Fees Transaction Slip
@@ -252,34 +254,10 @@ export default function PayFeesModal(props) {
                                                 type="file"
                                                 required
                                                 accept=".pdf"
-                                                // onChange={(e) =>
-                                                //     // handleFileSubmit1(e, 2, setProfileImage)
-                                                // }
+                                                onChange={(e) =>
+                                                    handleFileSubmit(e, 2, setFeesPdf)
+                                                }
                                             />
-                                            <div
-                                                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
-                                                id="profile-picture-desc"
-                                            >
-                                                <span className="font-semibold">
-                                                    Maximum file size:
-                                                </span>{" "}
-                                                2 MB,{" "}
-                                                <span className="font-semibold">
-                                                    Allowed file formats:
-                                                </span>{" "}
-                                                .pdf
-                                                <br />
-                                                <div className="mt-1">
-                                                    <span className="font-semibold">
-                                                        Recommended File Name Format:
-                                                    </span>
-                                                    <span>
-                                                        {" "}
-                                                        Fees_Entry_Number&lt;your_email_id&gt;{" "}
-                                                        <br />
-                                                    </span>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div className="col-span-full">
                                             <label
