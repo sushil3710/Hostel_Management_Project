@@ -12,7 +12,7 @@ import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
 import ForgotPasswordPage from "./components/SignIn_SignUp/ForgotPasswordPage";
 import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
 
-import Complaint from "./components/Applicant/Complaint";
+import Complaint from "./components/Applicant/complaint";
 import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
 import AddFees from "./components/Admin/AddFess";

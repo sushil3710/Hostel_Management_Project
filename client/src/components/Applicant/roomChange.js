@@ -421,6 +421,8 @@ export default function Profile() {
            isexchange = {data.isexchange}
            exchange_id = {data.exchange_id}
            request_status={data.request_status}
+           comment={data.comments}
+           admin_comment={data.admin_comment}
            /> 
            
            ))

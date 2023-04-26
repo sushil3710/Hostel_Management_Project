@@ -63,12 +63,19 @@ function RoomCard({id,  email_id, prevRoom, reqRoom, reason ,comment ,admin_comm
     <div class=" w-full lg:max-w-full lg:flex">
       <div class="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden" title="Mountain">
       </div>
-      <div class=" border-b border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal my-2">
-        
+      <div class=" border-b border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal my-2">   
         <div class="mb-8">
-          <h1 class="text-sm text-red-600 flex items-center">
-            {request_status.toUpperCase()}
-          </h1>
+            {request_status === 'pending' ? (<>
+                <h1 class="text-sm text-red-600 flex items-center">
+                    {request_status.toUpperCase()}
+                    <span style={{marginLeft : '0.5rem'}}></span>
+                    <h1>
+                        (No reply from admin yet)
+                    </h1>
+                </h1>
+            
+            </>) : (<></>)}
+
           <div class="text-gray-900 font-bold text-xl mb-2">Room change request From {prevRoom} to {reqRoom}</div>
           
 <div class="relative overflow-x-auto shadow-md ">
@@ -80,6 +87,14 @@ function RoomCard({id,  email_id, prevRoom, reqRoom, reason ,comment ,admin_comm
                 </td>
                 <td class="px-6 py-4">
                     {reason}
+                </td>
+            </tr>
+            <tr class="bg-white  dark:bg-gray-900">
+                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    Comment by {name.toLowerCase()}
+                </td>
+                <td class="px-6 py-4">
+                    {comment}
                 </td>
             </tr>
             {
@@ -98,8 +113,14 @@ function RoomCard({id,  email_id, prevRoom, reqRoom, reason ,comment ,admin_comm
         </tbody>
     </table>
 </div>
-
-          <p class="text-gray-700 text-base">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, Nonea! Maiores et perferendis eaque, exercitationem praesentium nihil.</p>
+            <br/>
+            {
+                request_status === 'pending' ? (<>
+          <p class="text-gray-700 text-base">Your request has been sent and we will try to get back to you within few days. Contact hostel administrator office for more details. Contact hours : Monday to Friday (9am - 6pm)</p>
+                </>) : (<>
+          <p class="text-gray-700 text-base">Your request has been reviewd by administrator. You are requested to follow details mentioned by admin. For any clarification, you may contact us. Contact hours : Monday to Friday (9am - 6pm)</p>
+                </>)
+            }
         </div>
         <div class="flex items-center">
           <img class="w-10 h-10 rounded-full mr-4" src={url} alt="Avatar of Writer"/>
