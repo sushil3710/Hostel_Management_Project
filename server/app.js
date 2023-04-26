@@ -43,7 +43,7 @@ app.post("/contact-us", auth.contact_us);
 
 app.post("/complaintSection/savedata", complaintSection.save_data);
 
-app.post("/complaints/solve/:id", complaintSection.solveIt);
+app.post("/complaints/solve/:id", complaintSection.solveIt);   // testing in progress
 
 app.post("/postRoomRequest", roomExchanger.request_for_exchange);
 
@@ -118,10 +118,10 @@ app.post("/add-student", upload.fields([]), admindB.add_student);
 app.post("/delete-excel", upload.fields([]), admindB.delete_excel);
 
 app.get("/get-excel", admindB.get_excel);
+ 
+app.get("/admin/getcomplaints", complaintSection.get_all_complaints);  //done testing
 
-app.get("/admin/getcomplaints", complaintSection.get_all_complaints);
-
-app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints);
+app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints); // done testing 
 
 app.get("/complaints/:id", complaintSection.get_complaints);
 

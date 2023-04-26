@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Backend for the web-app.",
-  "main": "app.js",
+  "main": "server.js",
   "engines": {
     "node": "14.x"
   },
@@ -33,6 +33,7 @@
     "otp-generator": "^4.0.0",
     "pg": "^8.7.3",
     "promise": "^8.3.0",
+    "supertest": "^6.3.3",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
