@@ -93,7 +93,7 @@ function DashboardNavBar(props) {
                         key="Complaint Section"
                         to="/registercomplaint"
                         className={classNames(
-                          2 === props.currentFlag
+                          3 === props.currentFlag
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
@@ -109,7 +109,7 @@ function DashboardNavBar(props) {
                         key="Room Change"
                         to="/roomchange"
                         className={classNames(
-                          2 === props.currentFlag
+                          4 === props.currentFlag
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
@@ -125,7 +125,7 @@ function DashboardNavBar(props) {
                         key="Complaint Section"
                         to="/mycomplaint"
                         className={classNames(
-                          2 === props.currentFlag
+                          5 === props.currentFlag
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"

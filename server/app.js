@@ -8,6 +8,7 @@ const upload = multer();
 const applicantdB = require("./applicant-db");
 const admindB = require("./admin-db");
 var bodyParser = require("body-parser");
+const roomExchanger = require("./roomExchanger");
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -43,6 +44,7 @@ app.post("/complaintSection/savedata",complaintSection.save_data);
 
 app.post("/complaints/solve/:id",complaintSection.solveIt);
 
+app.post("/postRoomRequest", roomExchanger.request_for_exchange);
 
 app.post(
   "/save-personal-info",
@@ -84,6 +86,7 @@ app.get("/complaints/:id",complaintSection.get_complaints);
 
 app.get("/getmycomplaints/:id",complaintSection.get_my_complaints);
 
+app.get("/myRoomRequest/:id", roomExchanger.get_my_requests);
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
