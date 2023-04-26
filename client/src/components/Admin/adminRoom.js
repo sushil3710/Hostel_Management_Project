@@ -7,6 +7,7 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import "../Applicant/roomChange.css";
 import axios from "axios";
 import AdminRoomCard from "../Admin/AdminRoomCard";
+import noDataPic from "../../images/Asset 8.svg";
 
 import { useNavigate } from "react-router-dom";
 import DefaultProfilePicture from "../../images/default-profile-picture.svg";
@@ -24,7 +25,7 @@ export default function Profile() {
     exchangeId: "",
     comment: "",
   });
-  const [filter, setFilter] = useState('pending');
+  const [filter, setFilter] = useState("pending");
   const [activeComponent, setActiveComponent] = useState("guide");
 
   useEffect(() => {
@@ -35,7 +36,6 @@ export default function Profile() {
     });
   });
 
-
   return (
     <>
       <div style={{ display: "flex" }}>
@@ -45,7 +45,7 @@ export default function Profile() {
             className={activeComponent === "guide" ? "activeButton" : "myBtn"}
             onClick={() => {
               setActiveComponent("guide");
-              setFilter('pending');
+              setFilter("pending");
             }}
           >
             Pending requests
@@ -59,7 +59,7 @@ export default function Profile() {
             }
             onClick={() => {
               setActiveComponent("my-requests");
-              setFilter('accept');
+              setFilter("accept");
             }}
           >
             Accepted
@@ -71,7 +71,7 @@ export default function Profile() {
             className={activeComponent === "form" ? "activeButton" : "myBtn"}
             onClick={() => {
               setActiveComponent("form");
-              setFilter('reject');
+              setFilter("reject");
             }}
           >
             Rejected requests
@@ -80,25 +80,43 @@ export default function Profile() {
       </div>
 
       <div className="mt-5 md:mt-0 md:col-span-2">
+        {myData.filter((data) => {
+          return data.request_status == filter;
+        }).length === 0 ? (
+          <>
+            <div className="bg-white">
+              <div className="w-3/5 mx-auto my-50 text-center">
+                <img style={{height : '27rem', margin : 'auto'}} alt="No data" src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=740&t=st=1682545936~exp=1682546536~hmac=dbf6914fbc7f8438ab0f087b3c594dacb7bfc726f627e8a800067b24ec8e21da" />
+                <div className="h-5" />
+                <p className="text-2xl font-semibold">
+                  No {filter} requests to show
+                </p>
+                <div className="h-6" />
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
         {myData
-        .filter((data)=>{
-          return data.request_status == filter ;
-        })
-        .map((data) => (
-          <AdminRoomCard
-          email_id = {data.email_id}
-            id={data.id}
-            prevRoom={data.prev_room}
-            reqRoom={data.req_room}
-            reason={data.reason}
-            isexchange={data.isexchange}
-            exchange_id={data.exchange_id}
-            request_status={data.request_status}
-            comment={data.comments}
-            admin_comment={data.admin_comment}
-            reqDate={data.request_date}
-          />
-        ))}
+          .filter((data) => {
+            return data.request_status == filter;
+          })
+          .map((data) => (
+            <AdminRoomCard
+              email_id={data.email_id}
+              id={data.id}
+              prevRoom={data.prev_room}
+              reqRoom={data.req_room}
+              reason={data.reason}
+              isexchange={data.isexchange}
+              exchange_id={data.exchange_id}
+              request_status={data.request_status}
+              comment={data.comments}
+              admin_comment={data.admin_comment}
+              reqDate={data.request_date}
+            />
+          ))}
       </div>
     </>
   );

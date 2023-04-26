@@ -119,41 +119,26 @@ function RoomCard({
                 </button>
 
                 <div class="relative overflow-x-auto shadow-md ">
-                  <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <tbody>
-                      <tr class="bg-white  dark:bg-gray-900">
+                  <table class="items-center w-full bg-transparent border-collapse">
+                    <tbody class = "divide-y divide-gray-100">
+                      <tr class="text-gray-500 border-b border-gray-100">
                         <td
                           scope="row"
-                          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          class="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-2"
                         >
                           Reason for room change
                         </td>
-                        <td class="px-6 py-4">{reason}</td>
+                        <td class="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-2">{reason}</td>
                       </tr>
-                      <tr class="bg-white  dark:bg-gray-900">
+                      <tr class="text-gray-500 border-b border-gray-100">
                         <td
                           scope="row"
-                          class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                          class="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-2"
                         >
                           Comment by {name}
                         </td>
-                        <td class="px-6 py-4">{comment}</td>
+                        <td class="border-t-0 px-10 align-middle  text-sm font-normal text-gray-900 whitespace-nowrap py-2">{comment}</td>
                       </tr>
-                      {isexchange === "yes" ? (
-                        <>
-                          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                            <td
-                              scope="row"
-                              class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
-                              Exchange with :
-                            </td>
-                            <td class="px-6 py-4">{exchange_id}</td>
-                          </tr>
-                        </>
-                      ) : (
-                        <></>
-                      )}
                     </tbody>
                   </table>
                 </div>

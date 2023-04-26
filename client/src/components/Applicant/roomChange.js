@@ -192,7 +192,7 @@ export default function Profile() {
       {activeComponent === "form" ? (
         <>
           <div
-            style={{ width: "80%", margin: "auto" }}
+            style={{ width: "60%" , margin: "auto" }}
             className="mt-5 md:mt-0 md:col-span-2"
           >
             <form onSubmit={handleSubmitForm}>
@@ -363,6 +363,22 @@ export default function Profile() {
       {activeComponent === "my-requests" ? (
         <>
         <div className="mt-5 md:mt-0 md:col-span-2">
+        {myData.length === 0 ? (
+          <>
+            <div className="bg-white">
+              <div className="w-3/5 mx-auto my-50 text-center">
+                <img style={{height : '27rem', margin : 'auto'}} alt="No data" src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=740&t=st=1682545936~exp=1682546536~hmac=dbf6914fbc7f8438ab0f087b3c594dacb7bfc726f627e8a800067b24ec8e21da" />
+                <div className="h-5" />
+                <p className="text-2xl font-semibold">
+                  No request for room change yet
+                </p>
+                <div className="h-6" />
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
           {
            myData.map((data)=>(
            <RoomCard 
