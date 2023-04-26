@@ -13,7 +13,6 @@ var bodyParser = require("body-parser");
 const roomExchanger = require("./roomExchanger");
 
 const app = express();
-const PORT = process.env.PORT || 8080;
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -99,7 +98,7 @@ app.get(
   ListDownloader.get_list_in_excel
 );
 app.post(
-  "/get-fee-in-excel",upload.fields([]),
+  "/get-fee-in-excel", upload.fields([]),
   FeeScript.get_fee_in_excel
 );
 app.get("/get-admins", admindB.get_admins);
@@ -120,8 +119,6 @@ app.post("/delete-excel", upload.fields([]), admindB.delete_excel);
 
 app.get("/get-excel", admindB.get_excel);
 
-
-
 app.get("/admin/getcomplaints", complaintSection.get_all_complaints);
 
 app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints);
@@ -132,12 +129,4 @@ app.get("/getmycomplaints/:id", complaintSection.get_my_complaints);
 
 app.get("/myRoomRequest/:id", roomExchanger.get_my_requests);
 
-if (process.env.NODE_ENV === "production") {
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client/build/index.html"));
-  });
-}
-
-app.listen(PORT, () => {
-  console.log(`Server listening on ${PORT}`);
-});
+module.exports = app;
