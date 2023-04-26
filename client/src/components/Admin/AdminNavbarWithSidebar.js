@@ -113,6 +113,20 @@ export default function AdminNavbarWithSidebar() {
               </li>
               <li className="rounded-lg mb-2 text-white">
                 <NavLink
+                  to="/adminRoomChange"
+                  exact="true"
+                  className={
+                    location !== "/adminRoomChange"
+                      ? "flex items-center gap-4 text-sm text-white font-light px-4 py-3 rounded-lg"
+                      : "flex items-center gap-4 text-sm font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-[#000000] to-[#090909] text-white shadow-md"
+                  }
+                >
+                  <AdfScannerIcon size="2xl" />
+                  Room Change requests
+                </NavLink>
+              </li>
+              <li className="rounded-lg mb-2 text-white">
+                <NavLink
                   to="/admin/complaints"
                   exact="true"
                   className={

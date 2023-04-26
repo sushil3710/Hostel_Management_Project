@@ -45,7 +45,6 @@ app.post("/complaintSection/savedata", complaintSection.save_data);
 
 app.post("/complaints/solve/:id", complaintSection.solveIt);
 
-app.post("/postRoomRequest", roomExchanger.request_for_exchange);
 
 app.post(
   "/save-personal-info",
@@ -69,6 +68,7 @@ app.post(
   ]),
   applicantdB.save_fees_details
 );
+app.get("/getAllInfo/:id", applicantdB.getAllInfo);
 
 app.get("/get-profile-info", applicantdB.get_profile_info);
 
@@ -128,5 +128,13 @@ app.get("/complaints/:id", complaintSection.get_complaints);
 app.get("/getmycomplaints/:id", complaintSection.get_my_complaints);
 
 app.get("/myRoomRequest/:id", roomExchanger.get_my_requests);
+
+app.get("/getAllRequest", roomExchanger.get_all_requests);
+
+app.post("/checkRoomAvailability", roomExchanger.checkForRoom)
+
+app.post("/updateStatus/:id", roomExchanger.statusUpdater);
+
+app.post("/postRoomRequest", roomExchanger.request_for_exchange);
 
 module.exports = app;
