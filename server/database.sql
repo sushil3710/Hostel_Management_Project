@@ -195,3 +195,6 @@ INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb11
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root', 0);
 
 INSERT INTO student_info( email_id ,passwd) values ('rohankhanna190@gmail.com','root');
+INSERT INTO student_info( email_id ,passwd) values ('rohitkinha1612@gmail.com','root');
+INSERT INTO student_info( email_id ,passwd) values ('r.patidar181001.1@gmail.com','1');
+INSERT INTO student_info( email_id ,passwd) values ('r.patidar181001@gmail.com','1');

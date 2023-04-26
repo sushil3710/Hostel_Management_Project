@@ -27,7 +27,6 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
-app.post("/auth/signin/otp", auth.signin_otp);
 
 app.post("/auth/signin/verify", auth.signin_verify);
 
@@ -35,15 +34,11 @@ app.post("/auth/forgotpassword/otp", auth.forgot_password_otp);
 
 app.post("/auth/forgotpassword/verify", auth.forgot_password_verify);
 
-app.post("/auth/signup/otp", auth.signup_otp);
-
-app.post("/auth/signup/verify", auth.signup_verify);
-
 app.post("/contact-us", auth.contact_us);
 
 app.post("/complaintSection/savedata", complaintSection.save_data);
 
-app.post("/complaints/solve/:id", complaintSection.solveIt);
+app.post("/complaints/solve/:id", complaintSection.solveIt);   // testing in progress
 
 
 app.post(
@@ -118,10 +113,10 @@ app.post("/add-student", upload.fields([]), admindB.add_student);
 app.post("/delete-excel", upload.fields([]), admindB.delete_excel);
 
 app.get("/get-excel", admindB.get_excel);
+ 
+app.get("/admin/getcomplaints", complaintSection.get_all_complaints);  //done testing
 
-app.get("/admin/getcomplaints", complaintSection.get_all_complaints);
-
-app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints);
+app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints); // done testing 
 
 app.get("/complaints/:id", complaintSection.get_complaints);
 
