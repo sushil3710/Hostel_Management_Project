@@ -85,7 +85,7 @@ export default function Profile() {
   };
   return (
     <>
-      <DashboardNavBar currentFlag={4} />
+      <DashboardNavBar currentFlag={5} />
       <div style={{ display: "flex" }}>
         <div className="part1" style={{ width: "33.33%" }}>
           <Button
@@ -192,7 +192,7 @@ export default function Profile() {
       {activeComponent === "form" ? (
         <>
           <div
-            style={{ width: "80%", margin: "auto" }}
+            style={{ width: "60%" , margin: "auto" }}
             className="mt-5 md:mt-0 md:col-span-2"
           >
             <form onSubmit={handleSubmitForm}>
@@ -299,54 +299,6 @@ export default function Profile() {
                       />
                     </div>
 
-                    {/* Category */}
-                    <div className="col-span-6 sm:col-span-3">
-                      <label
-                        htmlFor="exchange"
-                        className="block text-sm font-medium text-gray-700"
-                      >
-                        Is it a room exchange request ?
-                        <span style={{ color: "#ff0000" }}> *</span>
-                      </label>
-                      <select
-                        id="exchange"
-                        name="exchange"
-                        value={form.exchange}
-                        onChange={handleRegisterInputChange}
-                        required
-                        className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                      >
-                        <option value="">Select one</option>
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                      </select>
-                    </div>
-
-                    {form.exchange === "yes" ? (
-                      <>
-                        <div className="col-span-6 sm:col-span-3">
-                          <label
-                            htmlFor="exchangeId"
-                            className="block text-sm font-medium text-gray-700"
-                          >
-                            Email ID of other person
-                            <span style={{ color: "#ff0000" }}> *</span>
-                          </label>
-                          <input
-                            type="email"
-                            value={form.exchangeId}
-                            onChange={handleRegisterInputChange}
-                            name="exchangeId"
-                            id="exchangeId"
-                            placeholder="Email ID of exchanger (for verification)"
-                            required
-                            className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-                          />
-                        </div>
-                      </>
-                    ) : (
-                      <></>
-                    )}
                     <div className="col-span-6 sm:col-span-3">
                       <label
                         htmlFor="comment"
@@ -411,6 +363,22 @@ export default function Profile() {
       {activeComponent === "my-requests" ? (
         <>
         <div className="mt-5 md:mt-0 md:col-span-2">
+        {myData.length === 0 ? (
+          <>
+            <div className="bg-white">
+              <div className="w-3/5 mx-auto my-50 text-center">
+                <img style={{height : '27rem', margin : 'auto'}} alt="No data" src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=740&t=st=1682545936~exp=1682546536~hmac=dbf6914fbc7f8438ab0f087b3c594dacb7bfc726f627e8a800067b24ec8e21da" />
+                <div className="h-5" />
+                <p className="text-2xl font-semibold">
+                  No request for room change yet
+                </p>
+                <div className="h-6" />
+              </div>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
           {
            myData.map((data)=>(
            <RoomCard 
@@ -423,6 +391,7 @@ export default function Profile() {
            request_status={data.request_status}
            comment={data.comments}
            admin_comment={data.admin_comment}
+           reqDate = {data.request_date}
            /> 
            
            ))

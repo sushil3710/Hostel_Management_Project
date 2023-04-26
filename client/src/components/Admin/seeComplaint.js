@@ -30,23 +30,28 @@ const SeeComplaint = () => {
         <>
             <div>
                 <div class="flex overflow-hidden bg-white border divide-x rounded-lg rtl:flex-row-reverse dark:bg-gray-900 dark:border-gray-700 dark:divide-gray-700">
-                    <button onClick={() => handleFilterClick('all')} class="px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                    <button style={{width : '33.33%'}}onClick={() => handleFilterClick('all')} class="px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                         All
                     </button>
 
-                    <button onClick={() => handleFilterClick('solved')} class="px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                    <button style={{width : '33.33%'}} onClick={() => handleFilterClick('solved')} class="px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                         Solved
                     </button>
 
-                    <button onClick={() => handleFilterClick('unsolved')} class="px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
+                    <button style={{width : '33.33%'}} onClick={() => handleFilterClick('unsolved')} class="px-4 py-2 text-sm font-medium text-gray-600 transition-colors duration-200 sm:text-base sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 hover:bg-gray-100">
                         Unsolved
                     </button>
                 </div>
                 <br></br>
-                <div>
+                <div style={{display : 'flex', justifyContent : 'center'}}>
+                    <div>
+
                     <label for="username" class="block mx-auto text-sm text-gray-500 dark:text-gray-300">Search By Name :</label>
+                    </div>
+                    <div>
 
                     <input type="text" placeholder="Search by name" onChange={handleSearch} class="block  mt-2 placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
+                    </div>
                 </div>
                 {/* <div>
                     <input type="text" placeholder="Search by name" onChange={handleSearch} />

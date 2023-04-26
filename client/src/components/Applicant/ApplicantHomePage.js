@@ -79,7 +79,7 @@ export default function ApplicantHomePage() {
 
   return (
     <>
-      <DashboardNavBar currentFlag={0} />
+      <DashboardNavBar currentFlag={1} />
     </>
   );
 }
