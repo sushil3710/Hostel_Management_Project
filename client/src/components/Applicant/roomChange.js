@@ -85,7 +85,7 @@ export default function Profile() {
   };
   return (
     <>
-      <DashboardNavBar currentFlag={4} />
+      <DashboardNavBar currentFlag={5} />
       <div style={{ display: "flex" }}>
         <div className="part1" style={{ width: "33.33%" }}>
           <Button

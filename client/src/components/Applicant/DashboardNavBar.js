@@ -11,8 +11,10 @@ import { Link } from "react-router-dom";
 const navigation = [
   { name: "Home", to: "/home", id: 1 },
   { name: "My Profile", to: "/my-profile", id: 2 },
-  { name: "Complaint Section", to: "/registercomplaint", id: 3 },
-  { name: "Room Change", to: "/roomChange", id: 4 },
+  {name : "Fees Section", to : "/fees-section-pending-requests", id : 3},
+  { name: "Complaint Section", to: "/registercomplaint", id: 4 },
+  { name: "Room Change", to: "/roomChange", id: 5 },
+  { name: "My Complaint Section", to: "/mycomplaint", id: 6 },
 ];
 
 function classNames(...classes) {
@@ -61,13 +63,13 @@ function DashboardNavBar(props) {
                         key="Home"
                         to="/home"
                         className={classNames(
-                          0 === props.currentFlag
+                          1 === props.currentFlag
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
                         )}
                         aria-current={
-                          0 === props.currentFlag ? "page" : undefined
+                          1 === props.currentFlag ? "page" : undefined
                         }
                       >
                         Home
@@ -89,16 +91,16 @@ function DashboardNavBar(props) {
                         My Profile
                       </Link>
                       <Link
-                        key="Complaint Section"
+                        key="Fees Section"
                         to="/fees-section-pending-requests"
                         className={classNames(
-                          2 === props.currentFlag
+                          3 === props.currentFlag
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
                         )}
                         aria-current={
-                          2 === props.currentFlag ? "page" : undefined
+                          3 === props.currentFlag ? "page" : undefined
                         }
                       >
                         Fees Section
@@ -107,13 +109,13 @@ function DashboardNavBar(props) {
                         key="Complaint Section"
                         to="/registercomplaint"
                         className={classNames(
-                          3 === props.currentFlag
+                          4 === props.currentFlag
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
                         )}
                         aria-current={
-                          2 === props.currentFlag ? "page" : undefined
+                          4 === props.currentFlag ? "page" : undefined
                         }
                       >
                         Complaint Section
@@ -123,29 +125,29 @@ function DashboardNavBar(props) {
                         key="Room Change"
                         to="/roomchange"
                         className={classNames(
-                          4 === props.currentFlag
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "px-3 py-2 rounded-md text-sm font-medium"
-                        )}
-                        aria-current={
-                          2 === props.currentFlag ? "page" : undefined
-                        }
-                      >
-                        Request for room change
-                      </Link>
-                      
-                      <Link
-                        key="Complaint Section"
-                        to="/mycomplaint"
-                        className={classNames(
                           5 === props.currentFlag
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "px-3 py-2 rounded-md text-sm font-medium"
                         )}
                         aria-current={
-                          2 === props.currentFlag ? "page" : undefined
+                          5 === props.currentFlag ? "page" : undefined
+                        }
+                      >
+                        Request for room change
+                      </Link>
+                      
+                      <Link
+                        key="My Complaint Section"
+                        to="/mycomplaint"
+                        className={classNames(
+                          6 === props.currentFlag
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "px-3 py-2 rounded-md text-sm font-medium"
+                        )}
+                        aria-current={
+                          6 === props.currentFlag ? "page" : undefined
                         }
                       >
                         My complaints
