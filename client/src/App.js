@@ -2,31 +2,32 @@ import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getToken } from "./components/SignIn_SignUp/Sessions";
 import Logout from "./components/SignIn_SignUp/Logout";
-import HomePage from "./components/Landing/HomePage";
 import ContactUs from "./components/Landing/ContactUs";
-import FAQs from "./components/Landing/FAQs";
+
 import Error from "./components/Landing/Error";
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter";
+import GuideLines from "./components/Landing/GuideLines";
 import Profile from "./components/Applicant/Profile";
-import SignUpStartPage from "./components/SignIn_SignUp/SignUpStartPage";
 import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
 import ForgotPasswordPage from "./components/SignIn_SignUp/ForgotPasswordPage";
 import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
-import Info from "./components/Landing/Info";
-import Complaint from "./components/complaint";
+
+import Complaint from "./components/Applicant/Complaint";
 import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
+import AddFees from "./components/Admin/AddFess";
 import SolvedComplaint from "./components/Admin/SolvedComplaints";
 import RoomChange from "./components/Applicant/roomChange";
 import MyComplaint from "./components/Applicant/MyComplaint";
-// import Electricity from "./components/forms/electricity";
-// import Furniture from "./components/forms/furniture";
-// import Equipments from "./components/forms/equipment";
+import FeesSection from "./components/Applicant/PendingFeesSection";
+import FeesHistorySection from "./components/Applicant/FeesHistorySection";
 
 // Admin
 import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
+import AddStudents from "./components/Admin/AddStudents";
+import ViewStudents from "./components/Admin/ViewStudents";
 // import Complaint from "./components/complaint";
 
 function App() {
@@ -63,9 +64,6 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/registercomplaint" element={<Complaint />} />
-        <Route path="/roomchange" element={<RoomChange />} />
-        <Route path="/waterform" element={<Water />} />
         {/* <Route path ="/electricityform" element={<Electricity/>}/>
         <Route path ="/furnitureform" element={<Furniture/>}/>
         <Route path ="/equipmentsform" element={<Equipments/>}/> */}
@@ -82,6 +80,46 @@ function App() {
           element={
             <PrivateRoute>
               <MyComplaint />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/registercomplaint"
+          element={
+            <PrivateRoute>
+              <Complaint />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/roomchange"
+          element={
+            <PrivateRoute>
+              <RoomChange />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/waterform"
+          element={
+            <PrivateRoute>
+              <Water />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/fees-section-pending-requests"
+          element={
+            <PrivateRoute>
+              <FeesSection />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/fees-section-fees-history"
+          element={
+            <PrivateRoute>
+              <FeesHistorySection />
             </PrivateRoute>
           }
         />
@@ -112,7 +150,32 @@ function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/AddStudents/add-students/"
+            element={
+              <PrivateRoute>
+                <AddStudents />
+              </PrivateRoute>
+            }
 
+          />
+          <Route
+            path="/ViewStudents/view-students/"
+            element={
+              <PrivateRoute>
+                <ViewStudents />
+              </PrivateRoute>
+            }
+
+          />
+          <Route
+            path="/admin/fees"
+            element={
+              <PrivateRoute>
+                <AddFees />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/admin/complaints"
             element={
@@ -132,30 +195,15 @@ function App() {
           />
 
         </Route>
-
-
-
         <Route element={<WithHeaderFooter />}>
-          <Route path="/" element={<HomePage />}></Route>
-          <Route path="/contact-us" element={<ContactUs />}></Route>
-          <Route path="/faqs" element={<FAQs />}></Route>
-          <Route path="/info" element={<Info />}></Route>
-          <Route
-            path="/sign-in"
-            element={
+          <Route path="/" element=
+            {
               <SpecialRoute>
                 <SignInStartPage />
               </SpecialRoute>
-            }
-          />
-          <Route
-            path="/sign-up"
-            element={
-              <SpecialRoute>
-                <SignUpStartPage />
-              </SpecialRoute>
-            }
-          />
+            }></Route>
+          <Route path="/contact-us" element={<ContactUs />}></Route>
+          <Route path="/guidelines" element={<GuideLines />}></Route>
           <Route
             path="/forgot-password"
             element={

@@ -33,10 +33,10 @@ async function get_complaints(req, res) {
 
 async function get_my_complaints(req, res) {
     const { id } = req.params;
-    console.log(id);
+  
     try {
         const { rows } = await pool.query("SELECT * FROM complaint_details WHERE email_id=$1",[id]);
-        console.log(rows);
+      
         res.json(rows);
     } catch (err) {
         console.error(err);
@@ -76,7 +76,6 @@ async function solveIt(req, res) {
 async function save_data(req, res) {
     var info = req.body;
 
-    console.log(info);
     try {
         await pool.query("INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details) VALUES($1,$2,$3,$4,$5,$6,$7,$8);",
             [

@@ -7,16 +7,15 @@ import pic from "../../images/iit-ropar-logo.jpg";
 
 const navigation = [
   { name: "Home", to: "/" },
-  { name: "More Info", to: "/info" },
-  { name: "FAQs", to: "/faqs" },
   { name: "Contact us", to: "/contact-us" },
+  { name: "Guidelines", to: "/guidelines" },
 ];
 
 function Navbar() {
   return (
     <div>
       <Popover>
-        <div className="relative pt-5 pb-4 px-4 sm:px-6 lg:px-8 bg-[#1E3A8A]">
+        <div className="relative pt-3 pb-3 px-5 sm:px-6 lg:px-8 bg-[#000000]">
           <nav
             className="relative flex items-center sm:h-10 justify-start "
             aria-label="Global"
@@ -41,22 +40,11 @@ function Navbar() {
                   {item.name}
                 </Link>
               ))}
-              <Link
-                to="/sign-in"
-                className="font-medium text-white hover:text-indigo-500"
-              >
-                Log-in
-              </Link>
-              <Link
-                to="/sign-up"
-                className="font-medium text-white hover:text-indigo-500"
-              >
-                Sign-up
-              </Link>
+              
             </div>
 
             <div className="h-12 w-12 ml-auto flex-shrink-0">
-              <a href="https://www.iitrpr.ac.in">
+              <a href="https://www.iitrpr.ac.in/student-affairs/hostel.php">
                 <img src={pic_clear} alt="IIT Ropar"></img>
               </a>
             </div>
@@ -102,18 +90,6 @@ function Navbar() {
                   </Link>
                 ))}
               </div>
-              <Link
-                to="/sign-in"
-                className="block w-full px-5 py-3 text-center font-medium text-gray-700 bg-gray-50 hover:text-indigo-500 hover:bg-gray-100"
-              >
-                Log-in
-              </Link>
-              <Link
-                to="/sign-up"
-                className="block w-full px-5 py-3 text-center font-medium text-gray-700 bg-gray-50 hover:text-indigo-500 hover:bg-gray-100"
-              >
-                Sign-up
-              </Link>
             </div>
             <div>
             </div>
