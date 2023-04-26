@@ -99,6 +99,7 @@ CREATE TABLE fees_records(
   semester TEXT,
   fees_amount TEXT
 );
+
 CREATE TABLE fees_records_table(
   fees_id INT,
   student_name TEXT,
@@ -193,3 +194,6 @@ INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1
 INSERT INTO student_info( email_id ,passwd) values ('rohitkinha1612@gmail.com','root');
 INSERT INTO student_info( email_id ,passwd) values ('r.patidar181001.1@gmail.com','1');
 INSERT INTO student_info( email_id ,passwd) values ('r.patidar181001@gmail.com','1');
+
+
+INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details,complaint_status) VALUES('Raghav','2020csb1115@iitrpr.ac.in','test hostel','A','121','1','noise','fuck off','pending');
