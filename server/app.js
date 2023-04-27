@@ -65,13 +65,13 @@ app.post(
 );
 // app.get("/getAllInfo/:id", applicantdB.getAllInfo);
 
-app.get("/get-profile-info", applicantdB.get_profile_info);
+app.get("/get-profile-info", applicantdB.get_profile_info); //done
 
-app.get("/get-user-info", applicantdB.get_user_info);
+app.get("/get-user-info", applicantdB.get_user_info); // done
 
-app.get("/get-fees-info", applicantdB.get_fees_info);
+app.get("/get-fees-info", applicantdB.get_fees_info); // done
 
-app.get("/get-fees-history", applicantdB.get_fees_history);
+app.get("/get-fees-history", applicantdB.get_fees_history); //done
 
 app.post("/add-admin", upload.fields([]), admindB.add_admin);
 

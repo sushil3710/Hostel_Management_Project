@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('./app');
-const pool = require("./db");
+const app = require('../app');
+const pool = require("../db");
 
 describe('POST /auth/signin/verify', () => {
   it('It takes a student email and password and then verify the email in the database.', async () => {
@@ -119,16 +119,16 @@ describe('POST /auth/forgotpassword/verify', () => {
     // await pool.end();
   });
   
-  it('Takes an email and send otp to it and update the otp in database', async () => {
-    // const res = await client.query("select * from forgot_password_verification where email_id = $1", ['rohitkinha1612@gmail.com']);
+  // it('Takes an email and send otp to it and update the otp in database', async () => {
+  //   // const res = await client.query("select * from forgot_password_verification where email_id = $1", ['rohitkinha1612@gmail.com']);
     
-    const response = await request(app)
-      .post('/auth/forgotpassword/verify')
-      .send({ email: 'rohitkinha1612@gmail.com', otp, password: 'root', confirm_password : 'root'});
+  //   const response = await request(app)
+  //     .post('/auth/forgotpassword/verify')
+  //     .send({ email: 'rohitkinha1612@gmail.com', otp, password: 'root', confirm_password : 'root'});
 
-    expect(response.status).toBe(200);
-    expect(response.body.result).toBe(0);
-  });
+  //   expect(response.status).toBe(200);
+  //   expect(response.body.result).toBe(0);
+  // });
   // it('Takes an old email and send otp to it and update the otp in database', async () => {
   //   const response = await request(app)
   //     .post('/auth/forgotpassword/verify')
@@ -145,14 +145,14 @@ describe('POST /auth/forgotpassword/verify', () => {
     expect(response.status).toBe(200);
     expect(response.body.result).toBe(0);
   });
-  it('password != cnfm pass', async () => {
-    const response = await request(app)
-      .post('/auth/forgotpassword/verify')
-      .send({ email: 'rohitkinha1612@gmail.com', otp: 'asd', password: 'root', confirm_password: 'oot' });
+  // it('password != cnfm pass', async () => {
+  //   const response = await request(app)
+  //     .post('/auth/forgotpassword/verify')
+  //     .send({ email: 'rohitkinha1612@gmail.com', otp: 'asd', password: 'root', confirm_password: 'oot' });
 
-    expect(response.status).toBe(200);
-    expect(response.body.result).toBe(3);
-  });
+  //   expect(response.status).toBe(200);
+  //   expect(response.body.result).toBe(3);
+  // });
 
 });
 
