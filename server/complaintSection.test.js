@@ -158,7 +158,7 @@ describe('POST /complaints/solve/:id', () => {
         complaint: 'Loud music at night',
       };
   
-      const response = await request(app)
+      const response = await request(app) 
         .post('/complaintSection/savedata')
         .send(complaintData);
   
@@ -170,50 +170,35 @@ describe('POST /complaints/solve/:id', () => {
     });
   });
   
+  describe("GET /complaints/:id", () => {
+    test("should return a complaint with the specified ID", async () => {
+      const response = await request(app).get("/complaints/19");
+      expect(response.statusCode).toBe(200);
+      expect(response.body.length).toBeGreaterThan(0);
+      expect(response.body[0]).toHaveProperty("complaint_id", 19);
+    });
+  
+    test("should return an error if the ID is invalid", async () => {
+      const response = await request(app).get("/complaints/1000");
+      expect(response.statusCode).toBe(500);
+      expect(response.text).toBe("Error getting the complaint.");
+    });
+  });
 
 
-  // describe('GET /complaints/:id', () => {
-  //   it('should return a complaint with the specified ID', async () => {
-  //     // Insert a test complaint into the database
-  //     const { rows } = await pool.query('INSERT INTO complaint_details (complaint_text, complaint_status) VALUES ($1, $2) RETURNING *', ['Test complaint', 'open']);
-  //     const complaintId = rows[0].complaint_id;
+  describe("GET /getmycomplaints/:id", () => {
+    test("should return a list of complaints for the specified email ID", async () => {
+      const response = await request(app).get("/getmycomplaints/r.patidar181001.1@gmail.com");
+      expect(response.statusCode).toBe(200);
+      expect(response.body.length).toBeGreaterThan(0);
+      expect(response.body[0]).toHaveProperty("email_id", "r.patidar181001.1@gmail.com");
+    });
   
-  //     const response = await request(app)
-  //       .get(`/complaints/${complaintId}`)
-  //       .send();
-  
-  //     expect(response.status).toBe(200);
-  //     expect(response.body.length).toBe(1);
-  //     expect(response.body[0].complaint_text).toBe('Test complaint');
-  //     expect(response.body[0].complaint_status).toBe('open');
-  
-  //     // Clean up the test data
-  //     await pool.query('DELETE FROM complaint_details WHERE complaint_id=$1', [complaintId]);
-  //   });
-  
-  //   it('should return 404 if complaint does not exist', async () => {
-  //     const response = await request(app)
-  //       .get('/complaints/999')
-  //       .send();
-  
-  //     expect(response.status).toBe(404);
-  //   });
-  
-  //   it('should handle errors', async () => {
-  //     // Mock the pool.query method to throw an error
-  //     const mockQuery = jest.spyOn(pool, 'query');
-  //     mockQuery.mockImplementation(() => {
-  //       throw new Error('Database error');
-  //     });
-  
-  //     const response = await request(app)
-  //       .get('/complaints/1')
-  //       .send();
-  
-  //     expect(response.status).toBe(500);
-  //     expect(response.text).toBe('Error getting the complaint.');
-  
-  //     // Restore the original implementation of pool.query
-  //     mockQuery.mockRestore();
-  //   });
-  // });
+    test("should return an error if the email ID is invalid", async () => {
+      const response = await request(app).get("/getmycomplaints/invalid");
+      expect(response.statusCode).toBe(500);
+      expect(response.text).toBe("Error getting the complaint.");
+    });
+  });
+
+   

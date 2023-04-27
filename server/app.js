@@ -118,18 +118,18 @@ app.get("/admin/getcomplaints", complaintSection.get_all_complaints);  //done te
 
 app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints); // done testing 
 
-app.get("/complaints/:id", complaintSection.get_complaints); // 
+app.get("/complaints/:id", complaintSection.get_complaints); // done testing 
 
-app.get("/getmycomplaints/:id", complaintSection.get_my_complaints);
+app.get("/getmycomplaints/:id", complaintSection.get_my_complaints); // done testing 
 
-app.get("/myRoomRequest/:id", roomExchanger.get_my_requests);
+app.get("/myRoomRequest/:id", roomExchanger.get_my_requests);   // done testing 
 
-app.get("/getAllRequest", roomExchanger.get_all_requests);
+app.get("/getAllRequest", roomExchanger.get_all_requests);  // done testing 
 
-app.post("/checkRoomAvailability", roomExchanger.checkForRoom)
+// app.post("/checkRoomAvailability", roomExchanger.checkForRoom)  // 
 
-app.post("/updateStatus/:id", roomExchanger.statusUpdater);
+app.post("/updateStatus/:id", roomExchanger.statusUpdater); // done testing 
 
-app.post("/postRoomRequest", roomExchanger.request_for_exchange);
+app.post("/postRoomRequest", roomExchanger.request_for_exchange);  // done testing 
 
 module.exports = app;
