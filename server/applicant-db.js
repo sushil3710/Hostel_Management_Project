@@ -353,7 +353,7 @@ const get_user_info = async (req, res) => {
   // console.log(email);
 
   const results = await pool.query(
-    "SELECT full_name, profile_image_url, email_id FROM student_info WHERE email_id = $1;",
+    "SELECT full_name, profile_image_url, email_id,room_numb FROM student_info WHERE email_id = $1;",
     [email]
   );
 
@@ -466,6 +466,48 @@ const get_user_email = async (req, res) => {
   return res.send(results.rows[0]);
 };
 
+
+const get_student_profile = async (req, res) => {
+  /**
+   * 1. Perform jwt auth
+   * 2. Return admn profile data
+   */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
+
+  // /** Get role */
+  // var userRole = jwt.decode(authToken).userRole;
+  // if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+  //   return res.send("1");
+  // }
+
+  /** Get email */
+  var email = jwt.decode(authToken).userEmail;
+
+  const results = await pool.query(
+    "SELECT * from student_info WHERE email_id = $1;",
+    [email]
+  );
+
+  return res.send(results.rows[0]);
+};
+
 module.exports = {
   save_personal_info,
   save_communication_details,
@@ -476,5 +518,6 @@ module.exports = {
   get_fees_history,
   get_fees_info,
   getAllInfo,
+  get_student_profile
 };
 
