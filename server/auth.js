@@ -157,6 +157,7 @@ const forgot_password_otp = async (req, res) => {
   /** encrypt otp and save in db */
   if (ifexists.rowCount === 0) {
     /** First time sign-up */
+<<<<<<< HEAD
    //  const pass=await bcrypt.hash(otp, saltRounds, async function (err, hash) {
 
 
@@ -168,6 +169,25 @@ const forgot_password_otp = async (req, res) => {
   } else {
     /** If there is already an entry (helpful for resend OTP feature) */
    const fot= await bcrypt.hash(otp, saltRounds, async function (err, hash) {
+=======
+     bcrypt.hash(otp, saltRounds, async function (err, hash) {
+
+      try {
+        
+        await pool.query(
+          "INSERT INTO forgot_password_verification(email_id, hashed_otp, expiration_time) VALUES($1, $2, to_timestamp($3))",
+          [email, hash, Date.now() / 1000.0 + 600]
+        );
+      } catch (err) {
+        console.error(err);
+        res.status(500).send("Error");
+    }
+
+    });
+  } else {
+    /** If there is already an entry (helpful for resend OTP feature) */
+     bcrypt.hash(otp, saltRounds, async function (err, hash) {
+>>>>>>> 26d761043850fdffd2ce49b4691d0b116e9e98c0
       await pool.query(
         "UPDATE forgot_password_verification SET hashed_otp = $1, expiration_time = to_timestamp($2) WHERE email_id = $3",
         [hash, Date.now() / 1000.0 + 600, email]

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const { forgot_password_otp } = require('./auth.js');
 const { signin_verify } = require('./auth.js');
 const jwt = require('jsonwebtoken');
@@ -138,6 +139,35 @@ describe('forgot_password_otp', () => {
 describe('signin_verify', () => {
     beforeEach(() => {
       jest.clearAllMocks();
+=======
+const request = require('supertest');
+const app = require('./app');
+const pool = require("./db")
+
+describe('POST /auth/signin/verify', () => {
+    it('It takes a student email and password and then verify the email in the database.', async () => {
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+
+        expect(res.status).toBe(200);
+        expect(res.body.result).toBe(1);
+        expect(res.body.token).toBeDefined();
+    });
+    it('It takes a wrong email and password', async () => {
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinh1612@gmail.com',
+                password: 'root',
+            });
+
+        expect(res.status).toBe(200);
+        expect(res.body.result).toBe(2);
+>>>>>>> 26d761043850fdffd2ce49b4691d0b116e9e98c0
     });
 
     jest.mock('bcrypt', () => ({
@@ -192,6 +222,7 @@ describe('signin_verify', () => {
    
   
     });
+<<<<<<< HEAD
   
   
     // test('returns 1 if email is not registered', async () => {
@@ -254,3 +285,27 @@ describe('signin_verify', () => {
   
     // Add more test cases here
   });
+=======
+
+});
+
+
+describe('POST auth/forgotpassword/otp', () => {
+
+    it('should return 404 if complaint does not exist', async () => {
+        const response = await request(app)
+            .post('/auth/forgotpassword/otp')
+            .send({ email: 'rohitkinha1612@gmail.com' });
+
+        expect(response.status).toBe(200);
+        expect(response.text).toBe('2');
+    });
+
+    test('waits for 4 seconds and passes', done => {
+        setTimeout(() => {
+            expect(true).toBe(true);
+            done();
+        }, 100);
+    });
+});
+>>>>>>> 26d761043850fdffd2ce49b4691d0b116e9e98c0

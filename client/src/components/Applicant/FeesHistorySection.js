@@ -71,7 +71,7 @@ function FeesHistorySection(props) {
 
     return (
         <>
-            <DashboardNavBar currentFlag={0} />
+            <DashboardNavBar currentFlag={3} />
             <div style={{ display: 'flex' }}>
                 <div className="sidebar bg-gray-900 text-white w-64 flex flex-col min-h-screen" style={{ flex: '1 1 20%' }}>
                     <div className="sidebar-header py-4 px-6 bg-gray-800">
