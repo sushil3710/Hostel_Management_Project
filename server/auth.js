@@ -11,7 +11,6 @@ const path = require("path");
 const { log } = require("console");
 
 dotenv.config();
-
 const transporter = nodemailer.createTransport({
   service: "gmail",
   secureConnection: true,
@@ -113,7 +112,7 @@ const forgot_password_otp = async (req, res) => {
 
   email = req.body.email;
 
-  if (email === "") return res.send("0");
+  if (email === "") return res.send({ result: 0 });
 
   const result1 = await pool.query(
     "select * from student_info where email_id = $1",
@@ -125,7 +124,7 @@ const forgot_password_otp = async (req, res) => {
   );
 
   //no email registered
-  if (result1.rowCount === 0 && result2.rowCount === 0) return res.send("1");
+  if (result1.rowCount === 0 && result2.rowCount === 0) return res.send({result:1});
 
   const filePath = path.join(__dirname, "otp_email.html");
   const html = fs.readFileSync(filePath, "utf-8").toString();
@@ -133,7 +132,6 @@ const forgot_password_otp = async (req, res) => {
 
 
   otp = otpGenerator.generate(6, { specialChars: false });
-
   var replacements = {
     VERIFICATION_CODE: otp,
   };
@@ -181,7 +179,7 @@ const forgot_password_otp = async (req, res) => {
     }
   });
 
-  return res.send("2");
+  return res.send({result :2});
 };
 
 
@@ -203,7 +201,6 @@ const forgot_password_verify = async (req, res) => {
     [email]
   );
   const applicant_row = result1.rows[0];
-
 
   const result2 = await pool.query(
     "select * from admins where email_id = $1",
@@ -299,32 +296,10 @@ const contact_us = async (req, res) => {
   return res.status(200).send("Ok");
 };
 
-function application_submission(email, app_id, dep, spec) {
-  var mailOptions = {
-    from: process.env.EMAIL,
-    to: email,
-    subject: "Application submitted successfully!",
-    text: "",
-  };
-
-  mailOptions.text +=
-    "Your application for MTech admission at IIT Ropar has been submitted successfully. It's details are as follows: \n";
-  mailOptions.text += "Application ID: " + app_id + "\n";
-  mailOptions.text += "Department: " + dep + "\n";
-  mailOptions.text += "Specialization: " + spec + "\n";
-  mailOptions.text += "Thanks!";
-
-  transporter.sendMail(mailOptions, function (error, infos) {
-    if (error) {
-     // console.log(error);
-    }
-  });
-}
 
 module.exports = {
   signin_verify,
   forgot_password_otp,
   forgot_password_verify,
   contact_us,
-  application_submission,
 };
