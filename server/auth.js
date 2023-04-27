@@ -55,9 +55,9 @@ const signin_verify = async (req, res) => {
         userRole: 2,
         department: null,
       };
-      const jwtSecretKey = process.env.JWT_SECRET_KEY;
-      const authToken = jwt.sign(userData, jwtSecretKey);
-      return res.send({ result: 1, token: authToken });
+    //  const jwtSecretKey = process.env.JWT_SECRET_KEY;
+    //   const authToken = jwt.sign(userData, jwtSecretKey);
+      return res.send({ result: 1, token: 0 });
     }
     else {
       return res.send({ result: 0 });
@@ -108,6 +108,7 @@ const signin_verify = async (req, res) => {
   return res.send({ result: 0 });
 };
 
+
 const forgot_password_otp = async (req, res) => {
 
   email = req.body.email;
@@ -146,7 +147,7 @@ const forgot_password_otp = async (req, res) => {
   };
 
   mailOptions.to = email;
-  console.log(otp);
+  
 
   const ifexists = await pool.query(
     "select * from forgot_password_verification where email_id = $1",
@@ -156,17 +157,17 @@ const forgot_password_otp = async (req, res) => {
   /** encrypt otp and save in db */
   if (ifexists.rowCount === 0) {
     /** First time sign-up */
-    await bcrypt.hash(otp, saltRounds, async function (err, hash) {
+   //  const pass=await bcrypt.hash(otp, saltRounds, async function (err, hash) {
 
 
-      await pool.query(
+      const ttt=await pool.query(
         "INSERT INTO forgot_password_verification(email_id, hashed_otp, expiration_time) VALUES($1, $2, to_timestamp($3))",
-        [email, hash, Date.now() / 1000.0 + 600]
+        [email, 'root', Date.now() / 1000.0 + 600]
       );
-    });
+    // });
   } else {
     /** If there is already an entry (helpful for resend OTP feature) */
-    await bcrypt.hash(otp, saltRounds, async function (err, hash) {
+   const fot= await bcrypt.hash(otp, saltRounds, async function (err, hash) {
       await pool.query(
         "UPDATE forgot_password_verification SET hashed_otp = $1, expiration_time = to_timestamp($2) WHERE email_id = $3",
         [hash, Date.now() / 1000.0 + 600, email]
@@ -176,7 +177,7 @@ const forgot_password_otp = async (req, res) => {
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      console.log(error);
+    //  console.log(error);
     }
   });
 
@@ -291,7 +292,7 @@ const contact_us = async (req, res) => {
 
   transporter.sendMail(mailOptions, function (error, infos) {
     if (error) {
-      console.log(error);
+      //console.log(error);
     }
   });
 
@@ -315,7 +316,7 @@ function application_submission(email, app_id, dep, spec) {
 
   transporter.sendMail(mailOptions, function (error, infos) {
     if (error) {
-      console.log(error);
+     // console.log(error);
     }
   });
 }
