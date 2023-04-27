@@ -173,30 +173,6 @@ export default function EditAdminModal(props) {
                         required
                       />
                     </div>
-                    <div className="col-span-full sm:col-span-full">
-                      <label
-                        htmlFor="admin_type"
-                        className="text-sm font-medium text-gray-900 block mb-2"
-                      >
-                        Role
-                      </label>
-
-                      <select
-                        id="admin_type"
-                        required
-                        name="admin_type"
-                        value={adminType}
-                        onChange={(event) => {
-                          setAdminType(parseInt(event.target.value));
-                        }}
-                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                      >
-                        <option value="">- Select -</option>
-                        <option value={0}>SUPER ADMIN</option>
-                        <option value={1}>WARDEN</option>
-                        <option value={3}>CARETAKER</option>
-                      </select>
-                    </div>
                   </div>
 
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
