@@ -63,6 +63,7 @@ export default function AddStudentModal() {
     formData.append("email_id", data.email_id);
     formData.append("entry_numb",data.entryNumb);
     formData.append("password", data.password);
+    formData.append("room_numb", data.room_numb);
     formData.append("hostel_id", hostel);
 
     Axios.post("/add-student", formData, {
@@ -245,6 +246,21 @@ export default function AddStudentModal() {
                     </div>
                   </div>
 
+                  <div className="col-span-full sm:col-span-full">
+                      <label
+                        htmlFor="entryNumb"
+                        className="text-sm font-medium text-gray-900 block mb-2"
+                      >
+                        Room Number
+                      </label>
+                      <input
+                        type="text"
+                        {...register("room_numb")}
+                        id="room_numb"
+                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                        required
+                      />
+                    </div>
                   <div className="mt-5 items-start h-[1px] bg-gray-200" />
                   <div className="p-3 border-t border-gray-200 rounded-b">
                     {!isLoading ? (

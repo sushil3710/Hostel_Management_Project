@@ -63,15 +63,11 @@ app.post(
   ]),
   applicantdB.save_fees_details
 );
-app.get("/getAllInfo/:id", applicantdB.getAllInfo);
+// app.get("/getAllInfo/:id", applicantdB.getAllInfo);
 
-app.get("/get-profile-info", applicantdB.get_profile_info); //done
+app.get("/get-profile-info", applicantdB.get_profile_info);
 
-app.get("/get-user-info", applicantdB.get_user_info); //done
-
-app.get("/get-student-profile", applicantdB.get_student_profile);
-
-app.get("/get-user-email", applicantdB.get_user_email);
+app.get("/get-user-info", applicantdB.get_user_info);
 
 app.get("/get-fees-info", applicantdB.get_fees_info);
 

@@ -201,10 +201,10 @@ INSERT INTO admins(name, email_id,passwd, admin_type) VALUES('Raghav',  '2020csb
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb1117@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root', 0);
 
-INSERT INTO student_info( email_id ,passwd) values ('rohankhanna190@gmail.com','root');
-INSERT INTO student_info( email_id ,passwd) values ('rohitkinha1612@gmail.com','root');
-INSERT INTO student_info( email_id ,passwd) values ('r.patidar181001.1@gmail.com','1');
-INSERT INTO student_info( email_id ,passwd) values ('r.patidar181001@gmail.com','1');
+INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Rohit K','2020CSB1118','rohankhanna190@gmail.com','root','BE455','2','Beas');
+INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Rohit Kinha','2020CSB1108','rohitkinha1612@gmail.com','root','SE455','1','Satluj');
+INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Raghav P','2020CSB1119','r.patidar181001.1@gmail.com','1','SW455','1','Satluj');
+INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Raghav patidar','2020CSB1109','r.patidar181001@gmail.com','1','BW435','2','Beas');
 
 
 INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details,complaint_status) VALUES('Raghav','2020csb1115@iitrpr.ac.in','test hostel','A','121','1','noise','fuck off','pending');

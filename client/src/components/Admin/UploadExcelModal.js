@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import Axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
@@ -88,11 +88,21 @@ export default function UploadExcelModal() {
 
 
   return (<div>
-    <Tooltip title="Add">
+<Tooltip title={
+  <Typography>
+    Excel File Should Contain These Columns: <br />
+    Email_ID, <br />
+    Name, <br />
+    Entry_Number, <br />
+    Hostel_ID, <br />
+    Room_Number
+  </Typography>
+}>
       <button
         type="button"
         onClick={handleOpen}
         className="focus:outline-none text-white bg-cyan-600 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2 text-center"
+        
       >
         <svg
           className="-ml-1 mr-2 h-6 w-6"
