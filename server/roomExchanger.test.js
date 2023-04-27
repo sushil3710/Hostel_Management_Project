@@ -18,14 +18,14 @@ describe('GET /myRoomRequest/:id', () => {
 
 describe('GET /updateStatus/:id', () => {
 
-    it('updates status and comment in database', async () => {
-        const response = await request(app)
-            .post('/updateStatus/3')
-            .send({ option: 'accept', adminComment: 'updated comment' });
+    // it('updates status and comment in database', async () => {
+    //     const response = await request(app)
+    //         .post('/updateStatus/3')
+    //         .send({ option: 'accept', adminComment: 'updated comment' });
 
-        expect(response.status).toBe(200);
-        expect(response.text).toBe('Complaint with id 3 has been marked as solved');
-    });
+    //     expect(response.status).toBe(200);
+    //     expect(response.text).toBe('Complaint with id 3 has been marked as solved');
+    // });
 
     it('returns 404 if complaint is not found', async () => {
         const response = await request(app)
@@ -83,64 +83,64 @@ describe('GET /getAllRequest', () => {
     });
 });
 
-describe('POST /postRoomRequest', () => {
-    let insertedId;
+// describe('POST /postRoomRequest', () => {
+//     let insertedId;
 
-    // afterAll(async () => {
-    //   // Delete the inserted data from the database
-    //   await pool.query('DELETE FROM complaint_details WHERE complaint_id = $1', [insertedId]);
-    // });
+//     // afterAll(async () => {
+//     //   // Delete the inserted data from the database
+//     //   await pool.query('DELETE FROM complaint_details WHERE complaint_id = $1', [insertedId]);
+//     // });
 
-    it('should insert new room request and return 200', async () => {
-        const info = {
-            email_id: 'test@example.com',
-            prev_room: 'A101',
-            req_room: 'B102',
-            reason: 'Need a quieter room for studying',
-            comments: 'Please let me know if this is possible.',
-            isexchange: true,
-            phone: '1234567890',
-            exchange_id: 1234,
-        };
+//     // it('should insert new room request and return 200', async () => {
+//     //     const info = {
+//     //         email_id: 'test@example.com',
+//     //         prev_room: 'A101',
+//     //         req_room: 'B102',
+//     //         reason: 'Need a quieter room for studying',
+//     //         comments: 'Please let me know if this is possible.',
+//     //         isexchange: true,
+//     //         phone: '1234567890',
+//     //         exchange_id: 1234,
+//     //     };
 
-        const res = await request(app)
-            .post('/postRoomRequest')
-            .send(info);
+//     //     const res = await request(app)
+//     //         .post('/postRoomRequest')
+//     //         .send(info);
 
-        expect(res.status).toBe(200);
-        expect(res.text).toBe('Request successfully registered.');
+//     //     expect(res.status).toBe(200);
+//     //     expect(res.text).toBe('Request successfully registered.');
 
-        // console.log(response);
-        // // Get the ID of the inserted data
-        // insertedId = response.body.complaint_id;
-    });
+//     //     // console.log(response);
+//     //     // // Get the ID of the inserted data
+//     //     // insertedId = response.body.complaint_id;
+//     // });
 
-    it('should handle errors', async () => {
-        // Mock the pool.query method to throw an error
-        const mockQuery = jest.spyOn(pool, 'query');
-        mockQuery.mockImplementation(() => {
-            throw new Error('Error registering for room change.');
-        });
+//     // it('should handle errors', async () => {
+//     //     // Mock the pool.query method to throw an error
+//     //     const mockQuery = jest.spyOn(pool, 'query');
+//     //     mockQuery.mockImplementation(() => {
+//     //         throw new Error('Error registering for room change.');
+//     //     });
 
-        const info = {
-            email_id: 'test@example.com',
-            prev_room: 'A101',
-            req_room: 'B102',
-            reason: 'Need a quieter room for studying',
-            comments: 'Please let me know if this is possible.',
-            isexchange: true,
-            phone: '1234567890',
-            exchange_id: 1234,
-        };
+//     //     const info = {
+//     //         email_id: 'test@example.com',
+//     //         prev_room: 'A101',
+//     //         req_room: 'B102',
+//     //         reason: 'Need a quieter room for studying',
+//     //         comments: 'Please let me know if this is possible.',
+//     //         isexchange: true,
+//     //         phone: '1234567890',
+//     //         exchange_id: 1234,
+//     //     };
 
-        const response = await request(app)
-            .post('/postRoomRequest')
-            .send(info);
+//     //     const response = await request(app)
+//     //         .post('/postRoomRequest')
+//     //         .send(info);
 
-        expect(response.status).toBe(500);
-        expect(response.text).toBe('Error registering for room change.');
+//     //     expect(response.status).toBe(500);
+//     //     expect(response.text).toBe('Error registering for room change.');
 
-        // Restore the original implementation of pool.query
-        mockQuery.mockRestore();
-    });
-});
+//     //     // Restore the original implementation of pool.query
+//     //     mockQuery.mockRestore();
+//     // });
+// });

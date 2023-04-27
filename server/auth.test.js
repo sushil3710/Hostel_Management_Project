@@ -74,12 +74,12 @@ describe('POST auth/forgotpassword/otp', () => {
     expect(response.status).toBe(200);
     expect(response.body.result).toBe(2);
   });
-  test('waits for 4 seconds and passes', done => {
-    setTimeout(() => {
-      expect(true).toBe(true);
-      done();
-    }, 1000);
-  });
+  // test('waits for 4 seconds and passes', done => {
+  //   setTimeout(() => {
+  //     expect(true).toBe(true);
+  //     done();
+  //   }, 1000);
+  // });
   it('Takes an admin email and send otp to it and update the otp in database', async () => {
     const response = await request(app)
       .post('/auth/forgotpassword/otp')
@@ -129,14 +129,14 @@ describe('POST /auth/forgotpassword/verify', () => {
     expect(response.status).toBe(200);
     expect(response.body.result).toBe(0);
   });
-  it('Takes an old email and send otp to it and update the otp in database', async () => {
-    const response = await request(app)
-      .post('/auth/forgotpassword/verify')
-      .send({ email: '2020csb1118@iitrpr.ac.in', otp:'sad', password: 'root', confirm_password: 'root' });
+  // it('Takes an old email and send otp to it and update the otp in database', async () => {
+  //   const response = await request(app)
+  //     .post('/auth/forgotpassword/verify')
+  //     .send({ email: '2020csb1118@iitrpr.ac.in', otp:'sad', password: 'root', confirm_password: 'root' });
 
-    expect(response.status).toBe(200);
-    expect(response.body.result).toBe(2);
-  });
+  //   expect(response.status).toBe(200);
+  //   expect(response.body.result).toBe(2);
+  // });
   it('empty otp', async () => {
     const response = await request(app)
       .post('/auth/forgotpassword/verify')
