@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getToken } from "./components/SignIn_SignUp/Sessions";
 import Logout from "./components/SignIn_SignUp/Logout";
 import ContactUs from "./components/Landing/ContactUs";
+import AdminRoom from './components/Admin/adminRoom';
 
 import Error from "./components/Landing/Error";
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter";
@@ -76,6 +77,14 @@ function App() {
           }
         />
         <Route
+          path="/roomchange"
+          element={
+            <PrivateRoute>
+              <RoomChange />
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/mycomplaint"
           element={
             <PrivateRoute>
@@ -91,14 +100,7 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route
-          path="/roomchange"
-          element={
-            <PrivateRoute>
-              <RoomChange />
-            </PrivateRoute>
-          }
-        />
+        
         <Route
           path="/waterform"
           element={
@@ -133,6 +135,15 @@ function App() {
         />
 
         <Route element={<WithNavbarAndSidebar />}>
+        <Route
+            path="/adminRoomChange/"
+            element={
+              <PrivateRoute>
+                <AdminRoom />
+              </PrivateRoute>
+            }
+
+          />
           <Route
             path="/admin/profile"
             element={
@@ -157,7 +168,6 @@ function App() {
                 <AddStudents />
               </PrivateRoute>
             }
-
           />
           <Route
             path="/ViewStudents/view-students/"
@@ -166,7 +176,6 @@ function App() {
                 <ViewStudents />
               </PrivateRoute>
             }
-
           />
           <Route
             path="/admin/fees"
@@ -193,15 +202,16 @@ function App() {
               </PrivateRoute>
             }
           />
-
         </Route>
         <Route element={<WithHeaderFooter />}>
-          <Route path="/" element=
-            {
+          <Route
+            path="/"
+            element={
               <SpecialRoute>
                 <SignInStartPage />
               </SpecialRoute>
-            }></Route>
+            }
+          ></Route>
           <Route path="/contact-us" element={<ContactUs />}></Route>
           <Route path="/guidelines" element={<GuideLines />}></Route>
           <Route

@@ -10,10 +10,29 @@ const { log } = require("console");
 var app = express();
 dotenv.config();
 
+async function get_all_requests(req, res) {
+    try {
+        const { rows } = await pool.query("SELECT * FROM room_change_request");
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error getting your requests.");
+    }
+}
+async function checkForRoom(req, res) {
+    try {
+        const { rows } = await pool.query("SELECT * FROM room_change_request");
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Error getting your requests.");
+    }
+}
+
 async function get_my_requests(req, res) {
     const {id} = req.params;
     try {
-        const { rows } = await pool.query("SELECT * FROM room_change_request where email_id = $1", [id]);
+        const { rows } = await pool.query("SELECT * FROM room_change_request where email_id = $1 ORDER BY request_date desc", [id]);
         res.json(rows);
     } catch (err) {
         console.error(err);
@@ -46,34 +65,13 @@ async function request_for_exchange(req, res) {
    
 }
 
-async function get_my_complaints(req, res) {
+async function statusUpdater(req, res) {
     const { id } = req.params;
-    console.log(id);
+    var info = req.body ;
+  console.log("Info" + info.adminComment);
+  console.log("ID" + id);
     try {
-        const { rows } = await pool.query("SELECT * FROM complaint_details WHERE email_id=$1",[id]);
-        console.log(rows);
-        res.json(rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Error getting the complaint.");
-    }
-}
-
-async function get_all_solved_complaints(req, res) {
-    try {
-        const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_status='done'");
-        res.json(rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send("Error getting all complaints.");
-    }
-}
-
-async function solveIt(req, res) {
-    const { id } = req.params;
-  
-    try {
-      const { rowCount } = await pool.query("UPDATE complaint_details SET complaint_status='done' WHERE complaint_id=$1", [id]);
+      const { rowCount } = await pool.query("UPDATE room_change_request SET request_status=$1 , admin_comment = $2 WHERE id = $3", [info.option, info.adminComment, id]);
   
       if (rowCount === 1) {
         res.status(200).send(`Complaint with id ${id} has been marked as solved`);
@@ -118,5 +116,8 @@ async function save_data(req, res) {
 
 module.exports = {
     get_my_requests,
-    request_for_exchange
+    request_for_exchange,
+    get_all_requests,
+    statusUpdater,
+    checkForRoom
 };

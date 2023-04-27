@@ -30,17 +30,16 @@ app.get("/", (req, res) => {
 
 app.post("/auth/signin/verify", auth.signin_verify);
 
-app.post("/auth/forgotpassword/otp", auth.forgot_password_otp);
+app.post("/auth/forgotpassword/otp", auth.forgot_password_otp);   // testing in progress
 
 app.post("/auth/forgotpassword/verify", auth.forgot_password_verify);
 
 app.post("/contact-us", auth.contact_us);
 
-app.post("/complaintSection/savedata", complaintSection.save_data);
+app.post("/complaintSection/savedata", complaintSection.save_data);  // testing done
 
-app.post("/complaints/solve/:id", complaintSection.solveIt);   // testing in progress
+app.post("/complaints/solve/:id", complaintSection.solveIt);   // testing done
 
-app.post("/postRoomRequest", roomExchanger.request_for_exchange);
 
 app.post(
   "/save-personal-info",
@@ -64,6 +63,7 @@ app.post(
   ]),
   applicantdB.save_fees_details
 );
+app.get("/getAllInfo/:id", applicantdB.getAllInfo);
 
 app.get("/get-profile-info", applicantdB.get_profile_info);
 
@@ -118,10 +118,18 @@ app.get("/admin/getcomplaints", complaintSection.get_all_complaints);  //done te
 
 app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints); // done testing 
 
-app.get("/complaints/:id", complaintSection.get_complaints);
+app.get("/complaints/:id", complaintSection.get_complaints); // 
 
 app.get("/getmycomplaints/:id", complaintSection.get_my_complaints);
 
 app.get("/myRoomRequest/:id", roomExchanger.get_my_requests);
+
+app.get("/getAllRequest", roomExchanger.get_all_requests);
+
+app.post("/checkRoomAvailability", roomExchanger.checkForRoom)
+
+app.post("/updateStatus/:id", roomExchanger.statusUpdater);
+
+app.post("/postRoomRequest", roomExchanger.request_for_exchange);
 
 module.exports = app;

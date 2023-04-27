@@ -1,4 +1,8 @@
 -- Active: 1680711743255@@127.0.0.1@5432@mtech
+\c postgres
+drop database hostel;
+create database hostel;
+\c hostel
 CREATE TABLE signup_verification (
     email_id TEXT PRIMARY KEY,
     hashed_otp TEXT,
@@ -99,6 +103,7 @@ CREATE TABLE fees_records(
   semester TEXT,
   fees_amount TEXT
 );
+
 CREATE TABLE fees_records_table(
   fees_id INT,
   student_name TEXT,
@@ -190,6 +195,10 @@ INSERT INTO admins(name, email_id,passwd, admin_type) VALUES('Raghav',  '2020csb
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb1117@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root', 0);
 
+INSERT INTO student_info( email_id ,passwd) values ('rohankhanna190@gmail.com','root');
 INSERT INTO student_info( email_id ,passwd) values ('rohitkinha1612@gmail.com','root');
 INSERT INTO student_info( email_id ,passwd) values ('r.patidar181001.1@gmail.com','1');
 INSERT INTO student_info( email_id ,passwd) values ('r.patidar181001@gmail.com','1');
+
+
+INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details,complaint_status) VALUES('Raghav','2020csb1115@iitrpr.ac.in','test hostel','A','121','1','noise','fuck off','pending');
