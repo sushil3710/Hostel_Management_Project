@@ -537,7 +537,7 @@ const add_students = async (req, res) => {
     .filter(row => row[emailColumn]); // Filter out rows without an email address
   
   for (const row of rows) {
-    const { Email_ID, Name, Entry_Number, Hostel_ID} = row;
+    const { Email_ID, Name, Entry_Number, Hostel_ID,Room_Number} = row;
     if (Email_ID) {
 
       const { rows: existingRows } = await pool.query(
@@ -549,43 +549,43 @@ const add_students = async (req, res) => {
       // If the row has an email address, insert it and the other data into the database
       if(Hostel_ID===1){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Satluj')",
-          [Email_ID, Name, Entry_Number,Hostel_ID]
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Satluj',$5)",
+          [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===2){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Beas')",
-          [Email_ID, Name, Entry_Number,Hostel_ID]
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Beas',$5)",
+          [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===3){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Chenab')",
-          [Email_ID, Name, Entry_Number,Hostel_ID]
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Chenab',$5)",
+          [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===4){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Raavi')",
-          [Email_ID, Name, Entry_Number,Hostel_ID]
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Raavi',$5)",
+          [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===5){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Brahmaputra')",
-          [Email_ID, Name, Entry_Number,Hostel_ID]
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Brahmaputra',$5)",
+          [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===6){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Jhelum')",
-          [Email_ID, Name, Entry_Number,Hostel_ID]
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Jhelum',$5)",
+          [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
@@ -680,8 +680,8 @@ const add_student = async (req, res) => {
     }
     await pool.query(
       
-      "INSERT INTO student_info(email_id,passwd,entry_numb,hostel_id,hostel_name,full_name) VALUES($1, $2, $3, $4,$5,$6 );",
-      [info.email_id, hash, info.entry_numb, info.hostel_id, hostelName,info.name]
+      "INSERT INTO student_info(email_id,passwd,entry_numb,hostel_id,hostel_name,full_name,room_numb) VALUES($1, $2, $3, $4,$5,$6,$7 );",
+      [info.email_id, hash, info.entry_numb, info.hostel_id, hostelName,info.name,info.room_numb]
     );
   });
 

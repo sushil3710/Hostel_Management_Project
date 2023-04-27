@@ -23,7 +23,7 @@ export default function ApplicantHomePage() {
 
   useEffect(() => {
     axios
-      .get("/get-student-profile", {
+      .get("/get-user-info", {
         headers: {
           Authorization: getToken(),
         },
@@ -127,7 +127,7 @@ export default function ApplicantHomePage() {
           
               className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
               alt="Spinner"
-              style={{ width: "800px", height: "500px" }}
+              // style={{ width: "800px", height: "500px" }}
             />
           </div>
         </div>
