@@ -18,6 +18,7 @@ export default function Profile() {
   const [isLoading, setIsLoading] = useState(false);
   const [myData, setMyData] = useState([]);
   const [email, setEmail] = useState("");
+  const [room, setRoom] = useState("");
   const [form, setForm] = useState({
     prevRoom: "",
     reqRoom: "",
@@ -39,12 +40,14 @@ export default function Profile() {
       .then((response) => {
         // console.log(response.data);
         setEmail(response.data.email_id);
+        setRoom(response.data.room_numb);
         if (response.data === 1) {
         } else {
           const id = response.data.email_id;
+          const room = response.data.room_numb;
           // console.log(id);
           axios.get(`/myRoomRequest/${id}`).then((response) => {
-            console.log("ye wala" + JSON.stringify(response.data));
+        //    console.log("ye wala" + JSON.stringify(response.data));
             setMyData(response.data);
           });
         }
@@ -55,7 +58,7 @@ export default function Profile() {
     event.preventDefault();
     const formData = {
       email_id: email,
-      prev_room: form.prevRoom,
+      prev_room: room,
       req_room: form.reqRoom,
       reason: form.reason,
       comments: form.comment,
@@ -64,7 +67,7 @@ export default function Profile() {
       phone: form.phone,
     };
     axios
-      .post("/postRoomRequest", formData)
+      .post("/post-Room-Request", formData)
       .then((response) => {
         // console.log(response.data); // log the response data
         alert("Your room change request was sent!");
@@ -228,14 +231,22 @@ export default function Profile() {
                         <span style={{ color: "#ff0000" }}> *</span>
                       </label>
                       <input
-                        type="text"
-                        name="prevRoom"
-                        placeholder="Previous room number"
-                        value={form.prevRoom}
-                        id="prevRoom"
-                        onChange={handleRegisterInputChange}
-                        required
-                        className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                   readOnly
+                   type="text"
+                   name="prevRoom"
+                   placeholder={room}
+                   id="prevRoom"
+                   onChange={handleRegisterInputChange}
+                   required
+                   className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"                      
+                        // type="text"
+                        // name="prevRoom"
+                        // placeholder="Previous room number"
+                        // value={form.prevRoom}
+                        // id="prevRoom"
+                        // onChange={handleRegisterInputChange}
+                        // required
+                        // className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                       />
                     </div>
 

@@ -21,6 +21,7 @@ CREATE TABLE hostel_details (
     hostel_wing TEXT,
     hostel_floor TEXT,
     hostel_room TEXT,
+    hostel_warden TEXT
 );
 
 CREATE TABLE login_verification (
@@ -36,6 +37,7 @@ CREATE TABLE student_info (
     entry_numb TEXT,
     hostel_id INTEGER,
     hostel_name TEXT,
+    room_numb TEXT,
 
     -- Personal Details
     full_name TEXT,

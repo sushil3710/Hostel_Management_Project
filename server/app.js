@@ -68,6 +68,7 @@ app.get("/getAllInfo/:id", applicantdB.getAllInfo);
 app.get("/get-profile-info", applicantdB.get_profile_info);
 
 app.get("/get-user-info", applicantdB.get_user_info);
+app.get("/get-student-profile", applicantdB.get_student_profile);
 
 app.get("/get-user-email", applicantdB.get_user_email);
 
@@ -130,6 +131,6 @@ app.get("/getAllRequest", roomExchanger.get_all_requests);  // done testing
 
 app.post("/updateStatus/:id", roomExchanger.statusUpdater); // done testing 
 
-app.post("/postRoomRequest", roomExchanger.request_for_exchange);  // done testing 
+app.post("/post-Room-Request", roomExchanger.request_for_exchange);  // done testing 
 
 module.exports = app;
