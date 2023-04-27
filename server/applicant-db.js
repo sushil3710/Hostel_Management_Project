@@ -328,7 +328,7 @@ const get_profile_info = async (req, res) => {
 const get_user_info = async (req, res) => {
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
-
+  console.log(authToken);
   var verified = null;
 
   verified = jwt.verify(authToken, jwtSecretKey);
@@ -339,14 +339,12 @@ const get_user_info = async (req, res) => {
   // }
 
   if (!verified) {
-    console.log("galt aa rha ");
     return res.send("1"); /** Error, logout on user side */
   }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
   if (userRole !== 2) {
-    console.log("galt aa rha ");
     return res.send("1");
   }
 
