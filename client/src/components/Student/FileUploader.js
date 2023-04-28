@@ -1,15 +1,3 @@
-// Requires
-//     onFileSelectSuccess
-//     onFileSelectError
-//     className
-//     aria_describedby
-//     id
-//     type
-//     accept
-//     maxSize
-
-// onFileSelectSuccess={(file) => {setProfilePicture(file);}}
-// onFileSelectError={({ error }) => alert(error)}
 
 import React, { useRef } from "react";
 

@@ -1,0 +1,17 @@
+
+.myBtn{
+    background-color : #1f2937 !important;
+    border: none !important;
+    padding: 1rem;
+}
+.activeButton{
+    background-color: #181A2A !important;
+    border: none !important;
+    padding: 1rem;
+}
+.formHere {
+    padding : 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }

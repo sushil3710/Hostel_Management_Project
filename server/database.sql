@@ -138,10 +138,6 @@ CREATE TABLE complaint_details (
   complaint_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-
-
--- 0 for super-admin, 1 for faculty-admins, 2 for applicant, 3 for Staff
-
 CREATE OR REPLACE FUNCTION insert_into_login_verification()
   RETURNS TRIGGER 
   LANGUAGE PLPGSQL

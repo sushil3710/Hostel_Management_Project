@@ -161,7 +161,7 @@ export default function PersonalInfo(props) {
                         <div className="shadow overflow-hidden sm:rounded-md">
                           <div className="px-4 py-5 bg-white sm:p-6">
                             <div className="grid grid-cols-6 gap-6">
-                              {/* Applicant's Name */}
+                              {/* Student's Name */}
                               <div className="col-span-6 sm:col-span-3">
                                 <label
                                   htmlFor="name"
@@ -208,7 +208,7 @@ export default function PersonalInfo(props) {
                                 </select>
                               </div>
 
-                              {/* Applicant's Father's Name */}
+                              {/* Student's Father's Name */}
                               <div className="col-span-6 sm:col-span-3">
                                 <label
                                   htmlFor="father-name"
@@ -231,7 +231,7 @@ export default function PersonalInfo(props) {
                                 />
                               </div>
 
-                              {/* Upload Applicant's photograph */}
+                              {/* Upload Student's photograph */}
                               <div className="col-span-full sm:col-span-full">
                                 <label
                                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"

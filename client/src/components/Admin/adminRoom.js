@@ -4,7 +4,7 @@ import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import spinner from "../../images/SpinnerWhite.gif";
 import { getToken } from "../SignIn_SignUp/Sessions";
-import "../Applicant/roomChange.css";
+import "../Student/roomChange.css";
 import axios from "axios";
 import AdminRoomCard from "../Admin/AdminRoomCard";
 import noDataPic from "../../images/Asset 8.svg";

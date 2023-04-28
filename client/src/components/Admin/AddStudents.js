@@ -11,7 +11,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import AddStudentModal from "./AddStudentModal";
 
 export default function AddStudents() {
-  // ek list with email id, role and (if faculty then department)
   const navigate = useNavigate();
   const [excelList, setExcelList] = useState([]);
   const [isFetching, setIsFetching] = useState(false);

@@ -9,7 +9,6 @@ import screenSpinner from "../../images/2300-spinner.gif";
 import adminsPic from "../../images/manage-admins.svg";
 
 export default function ManageAdmin() {
-  // ek list with email id, role and (if faculty then department)
   const navigate = useNavigate();
   const [adminList, setAdminList] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
@@ -23,10 +22,6 @@ export default function ManageAdmin() {
     switch (param) {
       case 0:
         return "ADMIN";
-      case 1:
-        return "FACULTY";
-      default:
-        return "STAFF";
     }
   }
 

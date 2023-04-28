@@ -10,7 +10,6 @@ import adminsPic from "../../images/manage-admins.svg";
 
 
 export default function AddStudents() {
-  // ek list with email id, role and (if faculty then department)
   const navigate = useNavigate();
   const [studentList, setStudentList] = useState([]);
   const [isFetching, setIsFetching] = useState(false);

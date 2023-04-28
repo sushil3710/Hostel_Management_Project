@@ -12,7 +12,7 @@ import HostelIcon from '@mui/icons-material/Apartment';
 import RoomPreferencesIcon from '@mui/icons-material/RoomPreferences';
 import DashboardNavBar from "./DashboardNavBar";
 
-export default function ApplicantHomePage() {
+export default function StudentHomepage() {
   const [profile, setProfile] = useState({});
   const [isFetching, setIsFetching] = useState(true);
   const [profileName, setProfileName] = useState("");

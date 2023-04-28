@@ -8,20 +8,20 @@ import AdminRoom from './components/Admin/adminRoom';
 import Error from "./components/Landing/Error";
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter";
 import GuideLines from "./components/Landing/GuideLines";
-import Profile from "./components/Applicant/Profile";
+import Profile from "./components/Student/StudentProfile";
 import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
 import ForgotPasswordPage from "./components/SignIn_SignUp/ForgotPasswordPage";
-import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
+import StudentHomepage from "./components/Student/StudentHomepage";
 
-import Complaint from "./components/Applicant/complaint";
+import Complaint from "./components/Student/Complaint";
 import Water from "./components/forms/water";
 import SeeComplaint from "./components/Admin/seeComplaint";
 import AddFees from "./components/Admin/AddFess";
 import SolvedComplaint from "./components/Admin/SolvedComplaints";
-import RoomChange from "./components/Applicant/roomChange";
-import MyComplaint from "./components/Applicant/MyComplaint";
-import FeesSection from "./components/Applicant/PendingFeesSection";
-import FeesHistorySection from "./components/Applicant/FeesHistorySection";
+import RoomChange from "./components/Student/roomChange";
+import MyComplaint from "./components/Student/MyComplaint";
+import FeesSection from "./components/Student/PendingFeesSection";
+import FeesHistorySection from "./components/Student/FeesHistorySection";
 
 // Admin
 import ManageAdmins from "./components/Admin/ManageAdmins";
@@ -61,13 +61,10 @@ function App() {
           path="/home"
           element={
             <PrivateRoute>
-              <ApplicantHomePage />
+              <StudentHomepage />
             </PrivateRoute>
           }
         />
-        {/* <Route path ="/electricityform" element={<Electricity/>}/>
-        <Route path ="/furnitureform" element={<Furniture/>}/>
-        <Route path ="/equipmentsform" element={<Equipments/>}/> */}
         <Route
           path="/my-profile"
           element={

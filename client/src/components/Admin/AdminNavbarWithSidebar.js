@@ -22,10 +22,6 @@ export default function AdminNavbarWithSidebar() {
     switch (param) {
       case "0":
         return "Admin";
-      case "1":
-        return "Faculty";
-      default:
-        return "Staff";
     }
   }
 

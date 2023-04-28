@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('./app');
-const pool = require("./db");
+const app = require('../app');
+const pool = require("../db");
 
 describe('POST /add-admin', () => {
     let authToken;

@@ -1,10 +1,6 @@
-// import React from "react";
-// import { useState, useEffect } from 'react';
-// import axios from "axios";
-// import get_user_info from "../../../../server/applicant-db";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import DashboardNavBar from "../Applicant/DashboardNavBar";
+import DashboardNavBar from "../Student/DashboardNavBar";
 import { getToken } from "../SignIn_SignUp/Sessions";
 
 
