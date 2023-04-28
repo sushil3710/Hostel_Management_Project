@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('./app.js');
-const pool = require("./db.js");
+const app = require('../app.js');
+const pool = require("../db.js");
 
 describe("GET /admin/getcomplaints", () => {
     afterEach(() => {

@@ -1,6 +1,6 @@
 const request = require('supertest');
-const app = require('./app');
-const pool = require("./db.js");
+const app = require('../app');
+const pool = require("../db.js");
 
 describe('GET /myRoomRequest/:id', () => {
     test('should return a list of room change requests for the given email ID', async () => {
