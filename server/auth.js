@@ -48,7 +48,7 @@ const signin_verify = async (req, res) => {
   let userData;
   if (applicantRow) {
     const match = await bcrypt.compare(password, applicantRow.passwd);
-    if (match || applicantRow.passwd === "root") {
+    if (match || applicantRow.passwd === password) {
       userData = {
         userEmail: email,
         userRole: 2,
@@ -71,19 +71,14 @@ const signin_verify = async (req, res) => {
     };
     var match;
 
-    if (email === '2020csb1132@iitrpr.ac.in' || email === '2020csb1118@iitrpr.ac.in' || email === '2020csb1109@iitrpr.ac.in') {
-      if (password === adminRow.passwd) {
-        match = true;
-      }
-      else {
-        match = false;
-      }
+    if (password === adminRow.passwd) {
+       match=true;
     }
     else {
       match = await bcrypt.compare(password, adminRow.passwd);
     }
 
-    if (match && adminRow.passwd === "root") {
+    if (match) {
 
       const jwtSecretKey = process.env.JWT_SECRET_KEY;
       const authToken = jwt.sign(userData, jwtSecretKey);
@@ -91,10 +86,6 @@ const signin_verify = async (req, res) => {
       switch (adminRow.admin_type) {
         case 0:
           return res.send({ result: 3, token: authToken, admin_type: 0 });
-        case 1:
-          return res.send({ result: 4, token: authToken, admin_type: 1 });
-        case 3:
-          return res.send({ result: 5, token: authToken, admin_type: 3 });
         default:
           return res.send({ result: 0 });
       }

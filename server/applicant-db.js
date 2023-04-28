@@ -13,13 +13,12 @@ dotenv.config();
 const upDir = path.join(__dirname, 'public');
 if (!fs.existsSync(upDir)) {
   fs.mkdirSync(upDir);
-  console.log(upDir);
 }
 
 const uploadDir = path.join(__dirname, 'public', 'HostelManagement');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
-  console.log(uploadDir);
+
 }
 /**
  * Update/save applicant communcation info
