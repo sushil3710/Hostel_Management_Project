@@ -120,8 +120,8 @@ const edit_admin = async (req, res) => {
   /** Edit admin_info */
   await bcrypt.hash(info.password, saltRounds, async function (err, hash) {
     const edit = await pool.query(
-      "UPDATE admins SET name = $1, passwd=$2,admin_type = $3 WHERE email_id = $4;",
-      [info.name, hash,info.admin_type, info.email_id]
+      "UPDATE admins SET name = $1, passwd=$2,admin_type = 0 WHERE email_id = $3;",
+      [info.name, hash, info.email_id]
     );
   });
 
@@ -190,7 +190,8 @@ const get_fees_record = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+ 
+  if (userRole !== 0) {
     return res.send("1");
   }
 

@@ -51,7 +51,7 @@ export default function EditAdminModal(props) {
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
     formData.append("password", data.password);
-    formData.append("admin_type", adminType);
+
 
     Axios.post("/edit-admin", formData, {
       headers: {

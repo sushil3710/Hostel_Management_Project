@@ -13,13 +13,12 @@ dotenv.config();
 const upDir = path.join(__dirname, 'public');
 if (!fs.existsSync(upDir)) {
   fs.mkdirSync(upDir);
-  console.log(upDir);
 }
 
 const uploadDir = path.join(__dirname, 'public', 'HostelManagement');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
-  console.log(uploadDir);
+
 }
 /**
  * Update/save applicant communcation info
@@ -328,7 +327,7 @@ const get_profile_info = async (req, res) => {
 const get_user_info = async (req, res) => {
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
-  console.log(authToken);
+  // console.log(authToken);
   var verified = null;
 
   verified = jwt.verify(authToken, jwtSecretKey);

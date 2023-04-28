@@ -62,7 +62,6 @@ export default function AddAdminModal() {
     formData.append("name", data.name);
     formData.append("email_id", data.email_id);
     formData.append("password", data.password);
-    formData.append("admin_type", adminType);
 
     Axios.post("/add-admin", formData, {
       headers: {

@@ -69,6 +69,7 @@ app.get("/get-profile-info", applicantdB.get_profile_info);
 
 app.get("/get-user-info", applicantdB.get_user_info);
 
+
 app.get("/get-fees-info", applicantdB.get_fees_info);
 
 app.get("/get-fees-history", applicantdB.get_fees_history);
