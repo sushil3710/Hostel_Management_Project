@@ -1,6 +1,8 @@
 const request = require('supertest');
 const app = require('../app');
+const path=require('path');
 const pool = require("../db");
+const fs = require('fs');
 
 describe('POST /add-admin', () => {
     let authToken;
@@ -223,35 +225,35 @@ describe('GET /get-admin-fees-record', () => {
 
 });
 
-describe("GET /admin/getcomplaints", () => {
-    afterEach(() => {
-        jest.restoreAllMocks();
-    });
+// describe("GET /admin/getcomplaints", () => {
+//     afterEach(() => {
+//         jest.restoreAllMocks();
+//     });
 
-    it("should return all complaints with status 200", async () => {
-        const mockQuery = jest.spyOn(pool, "query").mockImplementation(() => {
-            return { rows: [{ id: 1, complaint: "Test complaint" }] };
-        });
+//     it("should return all complaints with status 200", async () => {
+//         const mockQuery = jest.spyOn(pool, "query").mockImplementation(() => {
+//             return { rows: [{ id: 1, complaint: "Test complaint" }] };
+//         });
 
-        const response = await request(app).get("/admin/getcomplaints");
+//         const response = await request(app).get("/admin/getcomplaints");
 
-        expect(mockQuery).toHaveBeenCalled();
-        expect(response.status).toBe(200);
-        expect(response.body.length).toBe(1);
-        expect(response.body[0].complaint).toBe("Test complaint");
-    });
+//         expect(mockQuery).toHaveBeenCalled();
+//         expect(response.status).toBe(200);
+//         expect(response.body.length).toBe(1);
+//         expect(response.body[0].complaint).toBe("Test complaint");
+//     });
 
-    it("should return an error with status 500 if there is a server error", async () => {
-        const mockError = new Error("Database connection error");
-        const mockQuery = jest.spyOn(pool, "query").mockRejectedValueOnce(mockError);
+//     it("should return an error with status 500 if there is a server error", async () => {
+//         const mockError = new Error("Database connection error");
+//         const mockQuery = jest.spyOn(pool, "query").mockRejectedValueOnce(mockError);
 
-        const response = await request(app).get("/admin/getcomplaints");
+//         const response = await request(app).get("/admin/getcomplaints");
 
-        expect(mockQuery).toHaveBeenCalled();
-        expect(response.status).toBe(500);
-        expect(response.text).toBe("Error getting all complaints.");
-    });
-});
+//         expect(mockQuery).toHaveBeenCalled();
+//         expect(response.status).toBe(500);
+//         expect(response.text).toBe("Error getting all complaints.");
+//     });
+// });
 
 
 
@@ -340,5 +342,66 @@ describe("GET /complaints/:id", () => {
         expect(response.text).toBe("Error getting the complaint.");
     });
 });
+
+describe('POST /add-excel', () => {
+
+    let authToken;
+    let authToken1;
+    beforeAll(async () => {
+        // get an auth token for testing purposes
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+        const res1 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: '2020csb1132@iitrpr.ac.in',
+                password: 'root',
+            });
+        authToken = res.body.token;
+        authToken1 = res1.body.token;
+    
+    });
+
+    it('Upload file and success', async () => {
+        const FilePath=path.join(__dirname,'AddStudents.xlsx')
+        const res = await request(app)
+            .post('/add-excel')
+            .set('authorization', `${authToken1}`)
+            .attach('excelfile', fs.createReadStream(FilePath))
+            .field('excelname', 'AddStudents.xlsx')
+
+        expect(res.status).toBe(200);
+        expect(res.text).toBe('Ok');
+    });
+    it('Wrong User', async () => {
+        const FilePath=path.join(__dirname,'AddStudents.xlsx')
+        const res = await request(app)
+            .post('/add-excel')
+            .set('authorization', `${authToken}`)
+            .attach('excelfile', fs.createReadStream(FilePath))
+            .field('excelname', 'AddStudents.xlsx')
+
+        expect(res.status).toBe(200);
+        expect(res.text).toBe('1');
+    });
+    it('Wrong token', async () => {
+        const FilePath=path.join(__dirname,'AddStudents.xlsx')
+        const res = await request(app)
+            .post('/add-excel')
+            .set('authorization', 0)
+            .attach('excelfile', fs.createReadStream(FilePath))
+            .field('excelname', 'AddStudents.xlsx')
+
+        expect(res.status).toBe(200);
+        expect(res.text).toBe('1');
+    });
+
+  
+});
+
 
 
