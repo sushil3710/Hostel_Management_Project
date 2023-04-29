@@ -397,7 +397,43 @@ const get_fees_info = async (req, res) => {
   // console.log(results.rows[0]);
   return res.send({ results: results.rows });
 };
+async function request_for_exchange(req, res) {
+  var info = req.body;
 
+  try {
+    await pool.query("INSERT INTO room_change_request(email_id, prev_room, req_room,reason,comments,isexchange,phone,exchange_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8);",
+      [
+        info.email_id,
+        info.prev_room,
+        info.req_room,
+        info.reason,
+        info.comments,
+        info.isexchange,
+        info.phone,
+        info.exchange_id,
+      ]
+    );
+    res.status(200).send("Request successfully registered.");
+
+  } catch (err) {
+
+    res.status(500).send("Error registering for room change.");
+  }
+}
+async function get_my_requests(req, res) {
+  const { id } = req.params;
+  try {
+    const { rows } = await pool.query("SELECT * FROM room_change_request where email_id = $1 ORDER BY request_date desc", [id]);
+    if (rows.length === 0) {
+      res.status(500).send("Error getting your requests.");
+      return;
+    }
+    res.json(rows);
+  } catch (err) {
+
+    res.status(500).send("Error getting your requests.");
+  }
+}
 const get_fees_history = async (req, res) => {
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -440,8 +476,10 @@ module.exports = {
   get_profile_info,
   get_user_info,
   get_my_complaints,
+  get_my_requests,
   save_fees_details,
   get_fees_history,
+  request_for_exchange,
   save_data,
   get_fees_info,
 };
