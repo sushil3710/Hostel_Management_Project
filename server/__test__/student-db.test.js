@@ -313,3 +313,75 @@ describe('POST /save-communication-details', () => {
        
 //     });
 // });
+
+describe('POST /complaintSection/savedata', () => {
+    let insertedId;
+
+    it('should save a new complaint', async () => {
+        const complaintData = {
+            username: 'Test User',
+            emailid: 'testuser@example.com',
+            hostel: 'Test Hostel',
+            wing: 'A',
+            room: '101',
+            floor: '1',
+            complainttype: 'Noise',
+            complaint: 'Loud music at night',
+        };
+
+        const response = await request(app)
+            .post('/complaintSection/savedata')
+            .send(complaintData);
+
+        expect(response.status).toBe(200);
+        expect(response.text).toBe('Complaint successfully registered.');
+
+        // console.log(response);
+        // // Get the ID of the inserted data
+        // insertedId = response.body.complaint_id;
+    });
+
+    it('should handle errors', async () => {
+        // Mock the pool.query method to throw an error
+        const mockQuery = jest.spyOn(pool, 'query');
+        mockQuery.mockImplementation(() => {
+            throw new Error('Database error');
+        });
+
+        const complaintData = {
+            username: 'Test User',
+            emailid: 'testuser@example.com',
+            hostel: 'Test Hostel',
+            wing: 'A',
+            room: '101',
+            floor: '1',
+            complainttype: 'Noise',
+            complaint: 'Loud music at night',
+        };
+
+        const response = await request(app)
+            .post('/complaintSection/savedata')
+            .send(complaintData);
+
+        expect(response.status).toBe(500);
+        expect(response.text).toBe('Error registering complaint.');
+
+        // Restore the original implementation of pool.query
+        mockQuery.mockRestore();
+    });
+});
+
+describe("GET /getmycomplaints/:id", () => {
+    // test("should return a list of complaints for the specified email ID", async () => {
+    //   const response = await request(app).get("/getmycomplaints/r.patidar181001.1@gmail.com");
+    //   expect(response.statusCode).toBe(200);
+    //   expect(response.body.length).toBeGreaterThan(0);
+    //   expect(response.body[0]).toHaveProperty("email_id", "r.patidar181001.1@gmail.com");
+    // });
+
+    test("should return an error if the email ID is invalid", async () => {
+        const response = await request(app).get("/getmycomplaints/invalid");
+        expect(response.statusCode).toBe(500);
+        expect(response.text).toBe("Error getting the complaint.");
+    });
+});

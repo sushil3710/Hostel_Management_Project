@@ -7,25 +7,19 @@ const { exec } = require("child_process");
 const saltRounds = 10;
 const path = require("path");
 const fs = require("fs");
-const nodemailer = require("nodemailer");
 const XLSX = require("xlsx");
 var Promise = require('promise');
-const handlebars = require("handlebars");
-
 
 const upDir = path.join(__dirname, 'public');
 if (!fs.existsSync(upDir)) {
   fs.mkdirSync(upDir);
   
 }
-
 const uploadDir = path.join(__dirname, 'public', 'HostelManagement');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
  
 }
-
-
 dotenv.config();
 
 /** Add admin */
