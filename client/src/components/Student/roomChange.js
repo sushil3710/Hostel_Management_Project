@@ -1,10 +1,7 @@
 import React from "react";
-import PersonalInfo from "./PersonalInfo";
-import CommunicationDetails from "./CommunicationDetails";
 import DashboardNavBar from "./DashboardNavBar";
 import { useState, useEffect } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 import spinner from "../../images/SpinnerWhite.gif";
 import { getToken } from "../SignIn_SignUp/Sessions";
 import "./roomChange.css";
@@ -12,13 +9,14 @@ import axios from "axios";
 import RoomCard from "./RoomCard";
 
 import { useNavigate } from "react-router-dom";
-import DefaultProfilePicture from "../../images/default-profile-picture.svg";
 
 export default function Profile() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [myData, setMyData] = useState([]);
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
+  const [fullname, setname] = useState("");
   const [form, setForm] = useState({
     prevRoom: "",
     reqRoom: "",
@@ -38,18 +36,26 @@ export default function Profile() {
         },
       })
       .then((response) => {
-        // console.log(response.data);
-        setEmail(response.data.email_id);
-        setRoom(response.data.room_numb);
         if (response.data === 1) {
         } else {
-          const id = response.data.email_id;
-          const room = response.data.room_numb;
-          // console.log(id);
-          axios.get(`/myRoomRequest/${id}`).then((response) => {
-        //    console.log("ye wala" + JSON.stringify(response.data));
-            setMyData(response.data);
-          });
+          setEmail(response.data.email_id);
+          setRoom(response.data.room_numb);
+          setname(response.data.full_name);
+        }
+      });
+  });
+  useEffect(() => {
+    axios
+      .get("/myRoomRequest", {
+        headers: {
+          Authorization: getToken(),
+        },
+      })
+      .then((response) => {
+        if (response.data === 1) {
+          navigate("/logout");
+        } else {
+          setMyData(response.data);
         }
       });
   });
@@ -58,6 +64,7 @@ export default function Profile() {
     event.preventDefault();
     const formData = {
       email_id: email,
+      full_name:fullname,
       prev_room: room,
       req_room: form.reqRoom,
       reason: form.reason,
@@ -67,14 +74,20 @@ export default function Profile() {
       phone: form.phone,
     };
     axios
-      .post("/post-Room-Request", formData)
+      .post("/post-Room-Request", formData, {
+        headers: {
+          Authorization: getToken(),
+        },
+      })
       .then((response) => {
-        // console.log(response.data); // log the response data
-        alert("Your room change request was sent!");
+        if (response.data === 1) {
+          navigate("/logout");
+        } else {
+          alert("Your room change request was sent!");
+        }
       })
       .catch((error) => {
-        console.log(error); // log any errors
-        // if there was an error, show an error message to the user
+        console.log(error); 
         alert("Error submitting request.");
       });
     setActiveComponent("my-requests");
@@ -355,19 +368,10 @@ export default function Profile() {
                     />
                   </button>
                 )}
-
-                {/* <button
-                            onClick={closePersonalInfo}
-                            data-modal-toggle="personalDetailsModal"
-                            type="button"
-                            className="text-gray-500 focus:outline-none bg-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600"
-                          >
-                            Cancel
-                          </button> */}
               </div>
             </form>
           </div>
-        </>
+        </>     
       ) : (
         <></>
       )}

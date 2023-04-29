@@ -78,6 +78,7 @@ CREATE TABLE admins(
 
 CREATE TABLE room_change_request(
     id SERIAL PRIMARY KEY,
+    full_name text,
     email_id TEXT,
     prev_room TEXT,
     req_room TEXT,
@@ -91,10 +92,6 @@ CREATE TABLE room_change_request(
     request_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 
   );
-
-INSERT INTO room_change_request (email_id, prev_room, req_room, reason, comments, isexchange, phone, exchange_id) VALUES ('testuser@example.com', '101', '102', 'Need a bigger room', 'Noisy neighbors', 'yes', '9876543210', '1001');
-
- 
 
 CREATE TABLE excels(
   name TEXT, 

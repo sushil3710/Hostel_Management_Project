@@ -420,12 +420,28 @@ const get_fees_info = async (req, res) => {
   );
   return res.send({ results: results.rows });
 };
+
 async function request_for_exchange(req, res) {
   var info = req.body;
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
+  var verified = null;
+
+  verified = jwt.verify(authToken, jwtSecretKey);
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
   try {
-    await pool.query("INSERT INTO room_change_request(email_id, prev_room, req_room,reason,comments,isexchange,phone,exchange_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8);",
+    await pool.query("INSERT INTO room_change_request(full_name,email_id, prev_room, req_room,reason,comments,isexchange,phone,exchange_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9);",
       [
+        info.full_name,
         info.email_id,
         info.prev_room,
         info.req_room,
@@ -485,9 +501,25 @@ async function get_student_complaints(req, res) {
   }
 }
 async function get_my_requests(req, res) {
-  const { id } = req.params;
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  verified = jwt.verify(authToken, jwtSecretKey);
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
+
+  var email = jwt.decode(authToken).userEmail;
   try {
-    const { rows } = await pool.query("SELECT * FROM room_change_request where email_id = $1 ORDER BY request_date desc", [id]);
+    const { rows } = await pool.query("SELECT * FROM room_change_request where email_id = $1 ORDER BY request_date desc", [email]);
     if (rows.length === 0) {
       res.status(500).send("Error getting your requests.");
       return;

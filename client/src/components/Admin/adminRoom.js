@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import { Col, Button, Row, Container, Card, Form } from "react-bootstrap";
 import "../Student/roomChange.css";
 import axios from "axios";
+import { getToken } from "../SignIn_SignUp/Sessions";
+import { useNavigate } from "react-router-dom";
 import AdminRoomCard from "./AdminRoomCard";
 
 export default function AdminRoom() {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const [myData, setMyData] = useState([]);
   const [email, setEmail] = useState("");
   const [form, setForm] = useState({
@@ -22,11 +25,23 @@ export default function AdminRoom() {
   const [activeComponent, setActiveComponent] = useState("guide");
 
   useEffect(() => {
-    axios.get(`/getAllRequest/`).then((response) => {
-      console.log("ye wala" + JSON.stringify(response.data));
-      setMyData(response.data);
-    });
-  });
+    axios
+      .get("/getAllRequest", {
+        headers: {
+          Authorization: getToken(),
+        },
+      })
+      .then((response) => {
+        if (response.data === 1) {
+          navigate("/logout");
+        } else {
+          console.log(response);
+          setMyData(response.data);
+        }
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
 
   return (
     <>
@@ -98,6 +113,7 @@ export default function AdminRoom() {
             <AdminRoomCard
               email_id={data.email_id}
               id={data.id}
+              name={data.full_name}
               prevRoom={data.prev_room}
               reqRoom={data.req_room}
               reason={data.reason}

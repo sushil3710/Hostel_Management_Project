@@ -125,7 +125,7 @@ export default function StudentHomepage() {
 
               className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
               alt="Spinner"
-            // style={{ width: "800px", height: "500px" }}
+            style={{ width: "600px", height: "350px" }}
             />
           </div>
         </div>

@@ -809,7 +809,7 @@ async function get_all_complaints(req, res) {
 }
 
 
-async function get_admin_complaints(req, res) {
+async function get_complaints(req, res) {
   const { id } = req.params;
   try {
     const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_id=$1", [id]);
@@ -876,22 +876,112 @@ async function solveIt(req, res) {
   }
 }
 async function get_all_requests(req, res) {
-  try {
-    const { rows } = await pool.query("SELECT * FROM room_change_request");
-    if (rows.length === 0) {
-      res.status(500).send("Error getting your requests.");
-      return;
-    }
-    res.json(rows);
-  } catch (err) {
+  /**
+  * 1. Perform jwt auth
+  * 2. Delete the given admin
+  * 3. Delete the correpsonding entry from the login_verification table
+  */
 
-    res.status(500).send("Error getting your requests.");
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
   }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+  const results = await pool.query("SELECT * FROM room_change_request");
+
+  return res.send(results.rows);
+}
+
+async function get_all_info(req, res) {
+  const { id } = req.params;
+  /**
+  * 1. Perform jwt auth
+  * 2. Delete the given admin
+  * 3. Delete the correpsonding entry from the login_verification table
+  */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+  const results = await pool.query(
+    "SELECT * FROM student_info WHERE email_id = $1;",
+    [id]
+  );
+
+  return res.send(results.rows[0]);
+ 
 }
 
 async function statusUpdater(req, res) {
   const { id } = req.params;
   var info = req.body;
+  /**
+  * 1. Perform jwt auth
+  * 2. Delete the given admin
+  * 3. Delete the correpsonding entry from the login_verification table
+  */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
 
   try {
     const { rowCount } = await pool.query("UPDATE room_change_request SET request_status=$1 , admin_comment = $2 WHERE id = $3", [info.option, info.adminComment, id]);
@@ -948,9 +1038,10 @@ module.exports = {
   get_students,
   delete_student,
   get_all_complaints,
-  get_admin_complaints,
+  get_complaints,
   get_all_solved_complaints,
   solveIt,
+  get_all_info,
   statusUpdater,
   get_all_requests,
   view_excel,

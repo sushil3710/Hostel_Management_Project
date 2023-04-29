@@ -34,10 +34,6 @@ app.post("/auth/forgotpassword/verify", auth.forgot_password_verify);
 
 app.post("/contact-us", auth.contact_us);
 
-app.post("/complaintSection/savedata", studentDB.save_data);  //corrected
-
-app.post("/complaints/solve/:id", admindB.solveIt);   // corrected
-
 app.post(
   "/save-personal-info",
   upload.fields([
@@ -61,6 +57,8 @@ app.post(
   studentDB.save_fees_details
 );
 
+app.post("/complaintSection/savedata", studentDB.save_data);  //corrected
+
 app.get("/get-profile-info", studentDB.get_profile_info); //done
 
 app.get("/get-user-info", studentDB.get_user_info); // done
@@ -82,6 +80,9 @@ app.post("/delete-student", upload.fields([]), admindB.delete_student);
 app.post("/edit-admin-profile", upload.fields([]), admindB.edit_admin_profile);
 
 app.post("/view-excel", upload.fields([]), admindB.view_excel);
+
+app.post("/complaints/solve/:id", admindB.solveIt);   // corrected
+
 app.get(
   "/get-list-in-excel",
   ListDownloader.get_list_in_excel
@@ -112,15 +113,17 @@ app.get("/admin/getcomplaints", admindB.get_all_complaints);  //corrected
 
 app.get("/admin/solvedcomplaints", admindB.get_all_solved_complaints); // corrected 
 
-app.get("/complaints/:id", admindB.get_admin_complaints); // corrected
+app.get("/complaints/:id", admindB.get_complaints); // corrected
 
 app.get("/getmycomplaints", studentDB.get_my_complaints); // corrected
 
-app.get("/myRoomRequest/:id", studentDB.get_my_requests);   // done testing 
+app.get("/myRoomRequest", studentDB.get_my_requests);   // corrected
 
-app.get("/getAllRequest", admindB.get_all_requests);  // done testing 
+app.get("/getAllRequest", admindB.get_all_requests);  // corrected
 
-app.post("/updateStatus/:id", admindB.statusUpdater); // done testing 
+app.get("/getAllInfo/:id", admindB.get_all_info);  // corrected
+
+app.post("/updateStatus/:id", admindB.statusUpdater); // corrected
 
 app.post("/post-Room-Request", studentDB.request_for_exchange);  // done testing 
 
