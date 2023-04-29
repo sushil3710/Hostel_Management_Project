@@ -216,7 +216,7 @@ const add_fees_record = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+  if (userRole !== 0 ) {
     return res.send("1");
   }
   let info = req.body;
@@ -401,12 +401,9 @@ const add_excel = async (req, res) => {
       new Promise((resolve, reject) => {
         fs.writeFile(filepath, f[0].buffer, async (err) => {
           if (err) {
-            f[0].localStorageError = err;
-            next(err);
-            console.log(err);
-            reject(err);
-            return;
+            f[0].localStorageError = err;next(err);reject(err);
           }
+          
           url = format(
             `${process.env.STORAGE_BASE_URL}/HostelManagement/ExcelFiles/${filename}`);
 

@@ -5,7 +5,7 @@ import "../Student/roomChange.css";
 import axios from "axios";
 import AdminRoomCard from "./AdminRoomCard";
 
-export default function Profile() {
+export default function AdminRoom() {
   const [isLoading, setIsLoading] = useState(false);
   const [myData, setMyData] = useState([]);
   const [email, setEmail] = useState("");
