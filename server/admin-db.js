@@ -822,6 +822,37 @@ async function solveIt(req, res) {
     res.status(500).send("Error updating complaint status.");
   }
 }
+async function get_all_requests(req, res) {
+  try {
+    const { rows } = await pool.query("SELECT * FROM room_change_request");
+    if (rows.length === 0) {
+      res.status(500).send("Error getting your requests.");
+      return;
+    }
+    res.json(rows);
+  } catch (err) {
+
+    res.status(500).send("Error getting your requests.");
+  }
+}
+
+async function statusUpdater(req, res) {
+  const { id } = req.params;
+  var info = req.body;
+
+  try {
+    const { rowCount } = await pool.query("UPDATE room_change_request SET request_status=$1 , admin_comment = $2 WHERE id = $3", [info.option, info.adminComment, id]);
+
+    if (rowCount === 1) {
+      res.status(200).send(`Complaint with id ${id} has been marked as solved`);
+    } else {
+      res.status(404).send(`Complaint with id ${id} not found`);
+    }
+  } catch (err) {
+
+    res.status(500).send("Error updating complaint status.");
+  }
+}
 
 const view_excel = async (req, res) => {
   const url = req.body.fileurl;
@@ -867,5 +898,7 @@ module.exports = {
   get_complaints,
   get_all_solved_complaints,
   solveIt,
+  statusUpdater,
+  get_all_requests,
   view_excel,
 };

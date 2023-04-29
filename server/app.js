@@ -9,7 +9,6 @@ const admindB = require("./admin-db");
 const ListDownloader = require("./ListDownloader");
 const FeeScript = require("./feescript");
 var bodyParser = require("body-parser");
-const roomExchanger = require("./roomExchanger");
 
 const app = express();
 
@@ -119,14 +118,14 @@ app.get("/complaints/:id", admindB.get_complaints); // done testing
 
 app.get("/getmycomplaints/:id", studentDB.get_my_complaints); // done testing 
 
-app.get("/myRoomRequest/:id", roomExchanger.get_my_requests);   // done testing 
+app.get("/myRoomRequest/:id", studentDB.get_my_requests);   // done testing 
 
-app.get("/getAllRequest", roomExchanger.get_all_requests);  // done testing 
+app.get("/getAllRequest", admindB.get_all_requests);  // done testing 
 
 // app.post("/checkRoomAvailability", roomExchanger.checkForRoom)  // 
 
-app.post("/updateStatus/:id", roomExchanger.statusUpdater); // done testing 
+app.post("/updateStatus/:id", admindB.statusUpdater); // done testing 
 
-app.post("/post-Room-Request", roomExchanger.request_for_exchange);  // done testing 
+app.post("/post-Room-Request", studentDB.request_for_exchange);  // done testing 
 
 module.exports = app;
