@@ -20,27 +20,6 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 
 }
-/**
- * Update/save applicant communcation info
-//  */
-// const getAllInfo = async (req, res) => {
-//   const {id} = req.params ;
-//   // try {
-//   //   // console.log(verified);
-//   // } catch (error) {
-//   //   return res.send("1"); /** Error, logout on user side */
-//   // }
-
-//   /** Get role */
- 
-//   const results = await pool.query(
-//     "SELECT full_name, profile_image_url, email_id FROM student_info WHERE email_id = $1;",
-//     [id]
-//   );
-
-//   // console.log(results.rows[0]);
-//   return res.send(results.rows[0]);
-// };
 
 const save_communication_details = async (req, res) => {
   /**
@@ -94,9 +73,6 @@ const save_communication_details = async (req, res) => {
   return res.status(200).send("Ok");
 };
 
-/*
- * Update/save applicant personal info
- */
 const save_fees_details = async (req, res, next) => {
   /**
    * Verify using authToken
@@ -185,9 +161,7 @@ const save_fees_details = async (req, res, next) => {
     res.status(200).send("Ok") /** Confirm, rerender */
   );
 };
-/*
- * Update/save applicant personal info
- */
+
 const save_personal_info = async (req, res, next) => {
   /**
    * Verify using authToken
@@ -280,10 +254,6 @@ const save_personal_info = async (req, res, next) => {
   );
 };
 
-
-/**
- * Get applicant profile info
- */
 const get_profile_info = async (req, res) => {
   /**
    * Verify using authToken
@@ -330,11 +300,6 @@ const get_user_info = async (req, res) => {
   var verified = null;
 
   verified = jwt.verify(authToken, jwtSecretKey);
-  // try {
-  //   // console.log(verified);
-  // } catch (error) {
-  //   return res.send("1"); /** Error, logout on user side */
-  // }
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */

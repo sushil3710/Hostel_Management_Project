@@ -5,7 +5,7 @@ const path = require("path");
 const complaintSection = require("./complaintSection");
 const multer = require("multer");
 const upload = multer();
-const applicantdB = require("./applicant-db");
+const studentDB = require("./student-db");
 const admindB = require("./admin-db");
 const ListDownloader = require("./ListDownloader");
 const FeeScript = require("./feescript");
@@ -46,13 +46,13 @@ app.post(
   upload.fields([
     { name: "profile_image", maxCount: 1 },
   ]),
-  applicantdB.save_personal_info
+  studentDB.save_personal_info
 );
 
 app.post(
   "/save-communication-details",
   upload.fields([]),
-  applicantdB.save_communication_details
+  studentDB.save_communication_details
 );
 app.post(
   "/save-fees-details",
@@ -61,17 +61,17 @@ app.post(
       name: "fees_pdf", maxCount: 1
     }
   ]),
-  applicantdB.save_fees_details
+  studentDB.save_fees_details
 );
-// app.get("/getAllInfo/:id", applicantdB.getAllInfo);
+// app.get("/getAllInfo/:id", studentDB.getAllInfo);
 
-app.get("/get-profile-info", applicantdB.get_profile_info); //done
+app.get("/get-profile-info", studentDB.get_profile_info); //done
 
-app.get("/get-user-info", applicantdB.get_user_info); // done
+app.get("/get-user-info", studentDB.get_user_info); // done
 
-app.get("/get-fees-info", applicantdB.get_fees_info); // done
+app.get("/get-fees-info", studentDB.get_fees_info); // done
 
-app.get("/get-fees-history", applicantdB.get_fees_history); //done
+app.get("/get-fees-history", studentDB.get_fees_history); //done
 
 app.post("/add-admin", upload.fields([]), admindB.add_admin);
 

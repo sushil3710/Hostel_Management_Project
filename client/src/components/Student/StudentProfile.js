@@ -96,7 +96,7 @@ export default function Profile() {
 
   return (
     <>
-      <DashboardNavBar currentFlag={2} />
+      <DashboardNavBar currentFlag={6} />
       <div className="flex">
         <div className="flex-2 my-20 mx-20 block">
           <img

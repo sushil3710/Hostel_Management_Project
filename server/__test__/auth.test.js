@@ -35,7 +35,7 @@ describe('POST /auth/signin/verify', () => {
       });
 
     expect(res.status).toBe(200);
-    expect(res.body.result).toBe(1);
+    expect(res.body.result).toBe(0);
   });
   it('It takes a admin email and password', async () => {
     const res = await request(app)

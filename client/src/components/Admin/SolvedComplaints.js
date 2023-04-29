@@ -6,9 +6,7 @@ import ComplaintCard from "./ComplaintCard";
 
 const SolvedComplaint = () => {
 
-
     const [complaints, setComplaints] = useState([]);
-
     useEffect(() => {
         axios.get("/admin/solvedcomplaints")
             .then((response) => {
@@ -18,11 +16,7 @@ const SolvedComplaint = () => {
                 console.log(error);
             });
     }, []);
-
-
-
     return (
-
         <>
             <div>
                 {complaints.map((complaint) => (

@@ -54,7 +54,17 @@ export default function AdminNavbar({ showSidebar, setShowSidebar }) {
                 ? "Profile"
                 : location.split("/")[2] === "fees"
                   ? "Fees Section"
-                  : ""}
+                  : location.split("/")[2] === "add-students"
+                    ? "Add Students"
+                    : location.split("/")[2] === "view-students"
+                      ? "View Sudents"
+                      : location.split("/")[2] === "complaints"
+                        ? "Complaints"
+                        : location.split("/")[2] === "add-students"
+                          ? "Add Students"
+                          : location.split("/")[2] === "RoomChange"
+                            ? "Requests for Room Change"
+                            : ""}
           </h4>
           <Disclosure as="nav">
             {({ open }) => (

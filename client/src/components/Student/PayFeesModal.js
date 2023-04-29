@@ -51,20 +51,6 @@ export default function PayFeesModal(props) {
             setVariable(file);
         }
     };
-
-    function changeDateFormat(date_of_transaction) {
-        let date = new Date(date_of_transaction);
-
-        let month = date.getMonth() + 1;
-        let day = String(date.getDate());
-        if (day.length === 1) day = "0" + day;
-        if (month.length === 1) month = "0" + month;
-
-        date = date.getFullYear() + "-0" + month + "-" + day;
-
-        return date;
-    }
-
     const onClose = () => {
         reset();
     };
@@ -74,7 +60,7 @@ export default function PayFeesModal(props) {
         const formData = new FormData();
         formData.append("fees_id", props.fees_id);
         formData.append("full_name", props.full_name);
-        formData.append("entry_number", data.entry_number);
+        formData.append("entry_number", props.entry_number);
         formData.append("email", props.email);
         formData.append("fees_type", props.fees_type);
         formData.append("year", props.year);
@@ -170,8 +156,9 @@ export default function PayFeesModal(props) {
                                             </label>
                                             <input
                                                 type="text"
-                                                {...register("entry_number")}
+                                                value={props.entry_number}
                                                 id="entry_number"
+                                                readOnly
                                                 className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                                 required
                                             />

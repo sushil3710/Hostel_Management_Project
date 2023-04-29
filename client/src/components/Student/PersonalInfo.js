@@ -150,7 +150,7 @@ export default function PersonalInfo(props) {
                           Personal Details
                         </h3>
                         <p className="ml-5 text-left mt-1 text-gray-600 text-base">
-                          Please share your personal information.
+                          Don't Unnecessarily Change Your Personal Details
                         </p>
                       </div>
                     </div>
@@ -161,7 +161,7 @@ export default function PersonalInfo(props) {
                         <div className="shadow overflow-hidden sm:rounded-md">
                           <div className="px-4 py-5 bg-white sm:p-6">
                             <div className="grid grid-cols-6 gap-6">
-                              {/* Applicant's Name */}
+                              {/* Student's Name */}
                               <div className="col-span-6 sm:col-span-3">
                                 <label
                                   htmlFor="name"
@@ -189,7 +189,7 @@ export default function PersonalInfo(props) {
                                   htmlFor="guardian"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Father/Spouse
+                                  Father/Guardian
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <select
@@ -204,17 +204,17 @@ export default function PersonalInfo(props) {
                                 >
                                   <option value="">Select Guardian</option>
                                   <option value="Father">Father</option>
-                                  <option value="Spouse">Spouse</option>
+                                  <option value="Guardian">Guardian</option>
                                 </select>
                               </div>
 
-                              {/* Applicant's Father's Name */}
+                              {/* Student's Father's Name */}
                               <div className="col-span-6 sm:col-span-3">
                                 <label
                                   htmlFor="father-name"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Father/Spouse name
+                                  Father/Guardian name
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input
@@ -231,7 +231,7 @@ export default function PersonalInfo(props) {
                                 />
                               </div>
 
-                              {/* Upload Applicant's photograph */}
+                              {/* Upload Student's photograph */}
                               <div className="col-span-full sm:col-span-full">
                                 <label
                                   className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300"

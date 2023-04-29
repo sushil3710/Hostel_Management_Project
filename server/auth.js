@@ -31,7 +31,7 @@ const signin_verify = async (req, res) => {
 
   const { email, password } = req.body;
 
-  const applicantRow = await pool.query(
+  const studentRow = await pool.query(
     "SELECT * FROM student_info WHERE email_id = $1",
     [email]
   ).then((result) => result.rows[0]);
@@ -41,14 +41,14 @@ const signin_verify = async (req, res) => {
     [email]
   ).then((result) => result.rows[0]);
 
-  if (!applicantRow && !adminRow) {
+  if (!studentRow && !adminRow) {
     return res.send({ result: 2 });
   }
 
   let userData;
-  if (applicantRow) {
-    const match = await bcrypt.compare(password, applicantRow.passwd);
-    if (match || applicantRow.passwd === password) {
+  if (studentRow) {
+    const match = await bcrypt.compare(password, studentRow.passwd);
+    if (match || studentRow.passwd === password) {
       userData = {
         userEmail: email,
         userRole: 2,
@@ -191,7 +191,7 @@ const forgot_password_verify = async (req, res) => {
     "select * from student_info where email_id = $1",
     [email]
   );
-  const applicant_row = result1.rows[0];
+  const student_row = result1.rows[0];
 
   const result2 = await pool.query(
     "select * from admins where email_id = $1",
@@ -213,7 +213,7 @@ const forgot_password_verify = async (req, res) => {
 
   const match = await bcrypt.compare(otp, result_row.hashed_otp);
   if (match) {
-    if (applicant_row) {
+    if (student_row) {
       await bcrypt.hash(password, saltRounds, async function (err, hash) {
         await pool.query("update student_info set passwd=$1 where email_id=$2", [
           hash, email

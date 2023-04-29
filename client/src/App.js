@@ -3,33 +3,28 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getToken } from "./components/SignIn_SignUp/Sessions";
 import Logout from "./components/SignIn_SignUp/Logout";
 import ContactUs from "./components/Landing/ContactUs";
-import AdminRoom from './components/Admin/adminRoom';
-
+import AdminRoom from './components/Admin/AdminRoom';
 import Error from "./components/Landing/Error";
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter";
 import GuideLines from "./components/Landing/GuideLines";
-import Profile from "./components/Applicant/Profile";
+import Profile from "./components/Student/StudentProfile";
 import SignInStartPage from "./components/SignIn_SignUp/SignInStartPage";
 import ForgotPasswordPage from "./components/SignIn_SignUp/ForgotPasswordPage";
-import ApplicantHomePage from "./components/Applicant/ApplicantHomePage";
-
-import Complaint from "./components/Applicant/complaint";
-import Water from "./components/forms/water";
-import SeeComplaint from "./components/Admin/seeComplaint";
+import StudentHomepage from "./components/Student/StudentHomepage";
+import Complaint from "./components/Student/Complaint";
+import Water from "./components/Student/ComplaintForm";
+import SeeComplaint from "./components/Admin/ViewComplaint";
 import AddFees from "./components/Admin/AddFess";
 import SolvedComplaint from "./components/Admin/SolvedComplaints";
-import RoomChange from "./components/Applicant/roomChange";
-import MyComplaint from "./components/Applicant/MyComplaint";
-import FeesSection from "./components/Applicant/PendingFeesSection";
-import FeesHistorySection from "./components/Applicant/FeesHistorySection";
-
-// Admin
+import RoomChange from "./components/Student/roomChange";
+import MyComplaint from "./components/Student/MyComplaint";
+import FeesSection from "./components/Student/PendingFeesSection";
+import FeesHistorySection from "./components/Student/FeesHistorySection";
 import ManageAdmins from "./components/Admin/ManageAdmins";
 import WithNavbarAndSidebar from "./components/Admin/WithNavbarAndSidebar";
 import AdminProfile from "./components/Admin/AdminProfile";
 import AddStudents from "./components/Admin/AddStudents";
 import ViewStudents from "./components/Admin/ViewStudents";
-// import Complaint from "./components/complaint";
 
 function App() {
   // Pages that can only be accessed if you are logged in
@@ -61,13 +56,10 @@ function App() {
           path="/home"
           element={
             <PrivateRoute>
-              <ApplicantHomePage />
+              <StudentHomepage />
             </PrivateRoute>
           }
         />
-        {/* <Route path ="/electricityform" element={<Electricity/>}/>
-        <Route path ="/furnitureform" element={<Furniture/>}/>
-        <Route path ="/equipmentsform" element={<Equipments/>}/> */}
         <Route
           path="/my-profile"
           element={
@@ -100,7 +92,6 @@ function App() {
             </PrivateRoute>
           }
         />
-        
         <Route
           path="/waterform"
           element={
@@ -133,16 +124,14 @@ function App() {
             </PrivateRoute>
           }
         />
-
         <Route element={<WithNavbarAndSidebar />}>
         <Route
-            path="/adminRoomChange/"
+            path="/admin/RoomChange/"
             element={
               <PrivateRoute>
                 <AdminRoom />
               </PrivateRoute>
             }
-
           />
           <Route
             path="/admin/profile"
@@ -152,7 +141,6 @@ function App() {
               </PrivateRoute>
             }
           ></Route>
-
           <Route
             path="/admin/manage-admins/"
             element={
@@ -162,7 +150,7 @@ function App() {
             }
           />
           <Route
-            path="/AddStudents/add-students/"
+            path="/admin/add-students/"
             element={
               <PrivateRoute>
                 <AddStudents />
@@ -170,7 +158,7 @@ function App() {
             }
           />
           <Route
-            path="/ViewStudents/view-students/"
+            path="/admin/view-students/"
             element={
               <PrivateRoute>
                 <ViewStudents />
@@ -193,7 +181,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
           <Route
             path="/admin/solvedcomplaints"
             element={

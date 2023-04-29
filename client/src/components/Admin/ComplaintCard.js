@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container } from "react-bootstrap";
 import axios from "axios";
 
-function ComplaintCard({ id, name, description, date ,hostel ,room}) {
+function ComplaintCard({ id, name, description, date, hostel, room }) {
 
     const [isSolved, setIsSolved] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            try { 
+            try {
                 const response = await axios.get(`/complaints/${id}`);
                 const complaint = response.data[0];
                 console.log(response.data[0].complaint_status);
