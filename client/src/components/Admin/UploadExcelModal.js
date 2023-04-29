@@ -48,7 +48,6 @@ export default function UploadExcelModal() {
   const handleOpen = () => setOpen(true);
 
   const handleClose = () => {
-    // onClose();
     setOpen(false);
   };
 
@@ -80,9 +79,6 @@ export default function UploadExcelModal() {
         }
       })
       .catch((err) => console.log(err));
-
-    // }, [formData, navigate]);
-
     handleClose();
   };
 
@@ -162,11 +158,10 @@ export default function UploadExcelModal() {
                       type="file"
                       accept=".xlsx, .xls"
                       id="excelFile"
-                      name="excelFile" // add the name attribute
-                      // eslint-disable-next-line no-sequences
+                      name="excelFile"
                       onChange={(event) =>  { const file = event.target.files[0]; 
                         setExcelFile(file);
-                        setExcelFilename(file.name)}} // add the onChange event handler
+                        setExcelFilename(file.name)}}
                       className="block w-full p-2 text-sm border border-gray-300 rounded-md"
                     />
                     <div className="p-3 border-t border-gray-200 rounded-b">

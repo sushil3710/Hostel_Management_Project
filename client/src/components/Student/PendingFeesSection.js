@@ -69,7 +69,7 @@ function FeesSection(props) {
 
     return (
         <>
-            <DashboardNavBar currentFlag={3} />
+            <DashboardNavBar currentFlag={2} />
             <div style={{ display: 'flex' }}>
                 <div className="sidebar bg-gray-900 text-white w-64 flex flex-col min-h-screen" style={{ flex: '1 1 20%' }}>
                     <div className="sidebar-header py-4 px-6 bg-gray-800">
@@ -162,6 +162,7 @@ function FeesSection(props) {
                                                             <PayFeesModal
                                                                 full_name={user.full_name}
                                                                 email={user.email_id}
+                                                                entry_number={user.entry_numb}
                                                                 fees_id={fees_records[i].fees_id}
                                                                 fees_type={fees_records[i].fees_type}
                                                                 year={fees_records[i].year}
@@ -185,7 +186,9 @@ function FeesSection(props) {
                                         fees_records.length === 0 && (
                                             <div className="bg-white">
                                                 <div className="w-3/5 mx-auto my-50 text-center">
-                                                    <div className="h-5" />
+                                                        <div className="h-5" />
+                                                        <img alt="No data" src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=740&t=st=1682545936~exp=1682546536~hmac=dbf6914fbc7f8438ab0f087b3c594dacb7bfc726f627e8a800067b24ec8e21da" />
+
                                                     <p className="text-2xl font-semibold">
                                                         No Pending Fees Left !
                                                     </p>

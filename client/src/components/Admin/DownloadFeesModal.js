@@ -5,8 +5,6 @@ import { getToken } from "../SignIn_SignUp/Sessions";
 import { useNavigate } from "react-router-dom";
 import fileSaver from "file-saver";
 
-
-
 export default function DownloadFees(props) {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -32,7 +30,6 @@ export default function DownloadFees(props) {
           let fileName =
             "Fee_Details";
           fileSaver.saveAs(blob, fileName);
-          //onClose();
           setIsLoading(false);
           setOpen(false);
         }

@@ -74,10 +74,9 @@ function DashboardNavBar(props) {
                       >
                         Home
                       </Link>
-
                       <Link
-                        key="My Profile"
-                        to="/my-profile"
+                        key="Fees Section"
+                        to="/fees-section-pending-requests"
                         className={classNames(
                           2 === props.currentFlag
                             ? "bg-gray-900 text-white"
@@ -88,11 +87,11 @@ function DashboardNavBar(props) {
                           2 === props.currentFlag ? "page" : undefined
                         }
                       >
-                        My Profile
+                        Fees Section
                       </Link>
                       <Link
-                        key="Fees Section"
-                        to="/fees-section-pending-requests"
+                        key="Complaint Section"
+                        to="/registercomplaint"
                         className={classNames(
                           3 === props.currentFlag
                             ? "bg-gray-900 text-white"
@@ -103,11 +102,11 @@ function DashboardNavBar(props) {
                           3 === props.currentFlag ? "page" : undefined
                         }
                       >
-                        Fees Section
+                        Complaint Section
                       </Link>
                       <Link
-                        key="Complaint Section"
-                        to="/registercomplaint"
+                        key="My Complaint Section"
+                        to="/mycomplaint"
                         className={classNames(
                           4 === props.currentFlag
                             ? "bg-gray-900 text-white"
@@ -118,7 +117,7 @@ function DashboardNavBar(props) {
                           4 === props.currentFlag ? "page" : undefined
                         }
                       >
-                        Complaint Section
+                        My complaints
                       </Link>
 
                       <Link
@@ -136,10 +135,9 @@ function DashboardNavBar(props) {
                       >
                         Request for room change
                       </Link>
-                      
                       <Link
-                        key="My Complaint Section"
-                        to="/mycomplaint"
+                        key="My Profile"
+                        to="/my-profile"
                         className={classNames(
                           6 === props.currentFlag
                             ? "bg-gray-900 text-white"
@@ -150,8 +148,9 @@ function DashboardNavBar(props) {
                           6 === props.currentFlag ? "page" : undefined
                         }
                       >
-                        My complaints
+                        Edit Profile
                       </Link>
+                      
                     </div>
                   </div>
                 </div>

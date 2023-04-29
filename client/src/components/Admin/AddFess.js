@@ -59,7 +59,7 @@ export default function OfferingList() {
                     <h3 className="text-xl leading-none font-bold text-gray-900">
                         Fee Section
                     </h3>
-         
+
                     <div className="flex space-x-4">
                         <AddFeesModal />
                     </div>
@@ -124,35 +124,35 @@ export default function OfferingList() {
                                                 startCount - 1,
                                                 Math.min(startCount + limit - 1, fees_records.length) - 1
                                             ),].map((i) => (
-                                            <tr key={fees_records[i].fees_id}>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                                                    {fees_records[i].fees_id}
-                                                </td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                                                    {fees_records[i].fees_type}
-                                                </td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                                                    {fees_records[i].year}
-                                                </td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                                                    {fees_records[i].semester}
-                                                </td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                                                    {fees_records[i].fees_amount}
-                                                </td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
-                                                <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
-                                                    <DownloadFees 
-                                                    fee_id={fees_records[i].fees_id}/>
-                                                </td>
+                                                <tr key={fees_records[i].fees_id}>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                                                        {fees_records[i].fees_id}
+                                                    </td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                                                        {fees_records[i].fees_type}
+                                                    </td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                                                        {fees_records[i].year}
+                                                    </td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                                                        {fees_records[i].semester}
+                                                    </td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                                                        {fees_records[i].fees_amount}
+                                                    </td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider"></td>
+                                                    <td className="p-4 text-left text-sm text-gray-500 tracking-wider">
+                                                        <DownloadFees
+                                                            fee_id={fees_records[i].fees_id} />
+                                                    </td>
 
 
-                                                
-                                            </tr>
-                                        ))}
+
+                                                </tr>
+                                            ))}
                                     </tbody>
                                 )}
                             </table>
@@ -167,7 +167,7 @@ export default function OfferingList() {
                                 fees_records.length === 0 && (
                                     <div className="bg-white">
                                         <div className="w-3/5 mx-auto my-50 text-center">
-                                            <img alt="No data" src={noDataPic} />
+                                            <img alt="No data" src="https://img.freepik.com/free-vector/no-data-concept-illustration_114360-536.jpg?w=740&t=st=1682545936~exp=1682546536~hmac=dbf6914fbc7f8438ab0f087b3c594dacb7bfc726f627e8a800067b24ec8e21da" />
                                             <div className="h-5" />
                                             <p className="text-2xl font-semibold">
                                                 No fees open currently!

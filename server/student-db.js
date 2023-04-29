@@ -300,11 +300,6 @@ const get_user_info = async (req, res) => {
   var verified = null;
 
   verified = jwt.verify(authToken, jwtSecretKey);
-  // try {
-  //   // console.log(verified);
-  // } catch (error) {
-  //   return res.send("1"); /** Error, logout on user side */
-  // }
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */

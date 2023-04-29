@@ -150,7 +150,7 @@ export default function PersonalInfo(props) {
                           Personal Details
                         </h3>
                         <p className="ml-5 text-left mt-1 text-gray-600 text-base">
-                          Please share your personal information.
+                          Don't Unnecessarily Change Your Personal Details
                         </p>
                       </div>
                     </div>
@@ -189,7 +189,7 @@ export default function PersonalInfo(props) {
                                   htmlFor="guardian"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Father/Spouse
+                                  Father/Guardian
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <select
@@ -204,7 +204,7 @@ export default function PersonalInfo(props) {
                                 >
                                   <option value="">Select Guardian</option>
                                   <option value="Father">Father</option>
-                                  <option value="Spouse">Spouse</option>
+                                  <option value="Guardian">Guardian</option>
                                 </select>
                               </div>
 
@@ -214,7 +214,7 @@ export default function PersonalInfo(props) {
                                   htmlFor="father-name"
                                   className="block text-sm font-medium text-gray-700"
                                 >
-                                  Father/Spouse name
+                                  Father/Guardian name
                                   <span style={{ color: "#ff0000" }}> *</span>
                                 </label>
                                 <input

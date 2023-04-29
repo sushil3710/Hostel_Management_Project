@@ -12,7 +12,6 @@ export default function ManageAdmin() {
   const navigate = useNavigate();
   const [adminList, setAdminList] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
-  // 0 -> show nothing, 1 -> success message
   const [reRender, setReRender] = useState(0);
   if (sessionStorage.getItem("alert") !== "1") {
     sessionStorage.setItem("alert", "0");

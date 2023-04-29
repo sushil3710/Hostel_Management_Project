@@ -19,8 +19,6 @@ export default function StudentHomepage() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     axios
       .get("/get-user-info", {
@@ -42,7 +40,7 @@ export default function StudentHomepage() {
 
   return (
     <>
-      <DashboardNavBar currentFlag={2} />
+      <DashboardNavBar currentFlag={1} />
       {isFetching ? (
         <img
           className="mx-auto my-40 h-[200px] w-[200px]"
@@ -64,17 +62,17 @@ export default function StudentHomepage() {
                   backgroundImage: `url(${ProfileSettingsImageMobile})`,
                 }}
               />
-                    <div className="flex justify-between">
-                  <h1 className="text-3xl font-bold pt-8 lg:pt-0">
-                    {profile.full_name}
-                  </h1>
-                  </div>
-           
+              <div className="flex justify-between">
+                <h1 className="text-3xl font-bold pt-8 lg:pt-0">
+                  {profile.full_name}
+                </h1>
+              </div>
 
-<div className="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25" />
 
-              
-<p className="pt-4 text-base  flex items-center justify-center lg:justify-start">
+              <div className="mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-green-500 opacity-25" />
+
+
+              <p className="pt-4 text-base  flex items-center justify-center lg:justify-start">
                 <EmailIcon
                   className="mr-3"
                   fontSize="small"
@@ -101,7 +99,7 @@ export default function StudentHomepage() {
                 />{" "}
                 {profile.hostel_name}
               </p>
-              
+
               <p className="pt-4 text-base  flex items-center justify-center lg:justify-start">
                 <RoomPreferencesIcon
 
@@ -118,16 +116,16 @@ export default function StudentHomepage() {
           <div className="w-full lg:w-2/5">
             {/* Big profile image for side bar (desktop) */}
             <img
-                   src={
-                    profile.profile_image_url
-                      ? profile.profile_image_url
-                      : ProfileSettingsImage
-                  }
-                  // src={ProfileSettingsImage}
-          
+              src={
+                profile.profile_image_url
+                  ? profile.profile_image_url
+                  : ProfileSettingsImage
+              }
+              // src={ProfileSettingsImage}
+
               className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
               alt="Spinner"
-              // style={{ width: "800px", height: "500px" }}
+            // style={{ width: "800px", height: "500px" }}
             />
           </div>
         </div>

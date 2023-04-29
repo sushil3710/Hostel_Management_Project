@@ -68,12 +68,12 @@ CREATE TABLE student_info (
     alternate_mobile_number TEXT
 );
 
+--Currently Implemented for Admin only, caretaker role is not implemented yet
 CREATE TABLE admins(
   name TEXT, 
   email_id TEXT PRIMARY KEY,
   passwd TEXT,
   admin_type INT NOT NULL
-  
 );
 
 CREATE TABLE room_change_request(
