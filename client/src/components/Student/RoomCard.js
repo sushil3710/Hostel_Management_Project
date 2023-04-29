@@ -44,17 +44,6 @@ function RoomCard({
       });
   });
 
-  // const handleSolvedClick = async (id) => {
-  //     console.log(id);
-  //     try {
-  //         const response = await axios.post(`/complaints/solve/${id}`);
-  //         console.log(response.data);
-  //         setIsSolved(true);
-  //     } catch (err) {
-  //         console.error(err);
-  //     }
-  // };
-
   return (
     <div class="p-10">
       <div class=" w-full lg:max-w-full lg:flex">

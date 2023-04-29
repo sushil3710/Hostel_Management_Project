@@ -7,25 +7,19 @@ const { exec } = require("child_process");
 const saltRounds = 10;
 const path = require("path");
 const fs = require("fs");
-const nodemailer = require("nodemailer");
 const XLSX = require("xlsx");
 var Promise = require('promise');
-const handlebars = require("handlebars");
-
 
 const upDir = path.join(__dirname, 'public');
 if (!fs.existsSync(upDir)) {
   fs.mkdirSync(upDir);
   
 }
-
 const uploadDir = path.join(__dirname, 'public', 'HostelManagement');
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
  
 }
-
-
 dotenv.config();
 
 /** Add admin */
@@ -775,7 +769,56 @@ await pool.query(
 
   return res.send("Ok");
 };
+async function get_all_complaints(req, res) {
+  try {
+    const { rows } = await pool.query("SELECT * FROM complaint_details");
+    res.json(rows);
+  } catch (err) {
 
+    res.status(500).send("Error getting all complaints.");
+  }
+}
+
+
+async function get_complaints(req, res) {
+  const { id } = req.params;
+  try {
+    const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_id=$1", [id]);
+    if (rows.length === 0) {
+      res.status(500).send("Error getting the complaint.");
+      return;
+    }
+    res.json(rows);
+  } catch (err) {
+
+    res.status(500).send("Error getting the complaint.");
+  }
+}
+async function get_all_solved_complaints(req, res) {
+  try {
+    const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_status='done'");
+    res.json(rows);
+  } catch (err) {
+
+    res.status(500).send("Error getting all complaints.");
+  }
+}
+
+async function solveIt(req, res) {
+  const { id } = req.params;
+
+  try {
+    const { rowCount } = await pool.query("UPDATE complaint_details SET complaint_status='done' WHERE complaint_id=$1", [id]);
+
+    if (rowCount === 1) {
+      res.status(200).send(`Complaint with id ${id} has been marked as solved`);
+    } else {
+      res.status(404).send(`Complaint with id ${id} not found`);
+    }
+  } catch (err) {
+    res.status(500).send("Error updating complaint status.");
+  }
+}
 
 const view_excel = async (req, res) => {
   const url = req.body.fileurl;
@@ -817,5 +860,9 @@ module.exports = {
   add_student,
   get_students,
   delete_student,
+  get_all_complaints,
+  get_complaints,
+  get_all_solved_complaints,
+  solveIt,
   view_excel,
 };
