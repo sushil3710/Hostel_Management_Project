@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const auth = require("./auth");
 const path = require("path");
-const complaintSection = require("./complaintSection");
 const multer = require("multer");
 const upload = multer();
 const studentDB = require("./student-db");
@@ -36,9 +35,9 @@ app.post("/auth/forgotpassword/verify", auth.forgot_password_verify);
 
 app.post("/contact-us", auth.contact_us);
 
-app.post("/complaintSection/savedata", complaintSection.save_data);  // testing done
+app.post("/complaintSection/savedata", studentDB.save_data);  // testing done
 
-app.post("/complaints/solve/:id", complaintSection.solveIt);   // testing done
+app.post("/complaints/solve/:id", admindB.solveIt);   // testing done
 
 
 app.post(
@@ -112,13 +111,13 @@ app.post("/delete-excel", upload.fields([]), admindB.delete_excel);
 
 app.get("/get-excel", admindB.get_excel);
  
-app.get("/admin/getcomplaints", complaintSection.get_all_complaints);  //done testing
+app.get("/admin/getcomplaints", admindB.get_all_complaints);  //done testing
 
-app.get("/admin/solvedcomplaints", complaintSection.get_all_solved_complaints); // done testing 
+app.get("/admin/solvedcomplaints", admindB.get_all_solved_complaints); // done testing 
 
-app.get("/complaints/:id", complaintSection.get_complaints); // done testing 
+app.get("/complaints/:id", admindB.get_complaints); // done testing 
 
-app.get("/getmycomplaints/:id", complaintSection.get_my_complaints); // done testing 
+app.get("/getmycomplaints/:id", studentDB.get_my_complaints); // done testing 
 
 app.get("/myRoomRequest/:id", roomExchanger.get_my_requests);   // done testing 
 

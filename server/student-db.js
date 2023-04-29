@@ -322,6 +322,47 @@ const get_user_info = async (req, res) => {
   // console.log(results.rows[0]);
   return res.send(results.rows[0]);
 };
+async function get_my_complaints(req, res) {
+  const { id } = req.params;
+
+  try {
+    const { rows } = await pool.query("SELECT * FROM complaint_details WHERE email_id=$1", [id]);
+
+    if (rows.length === 0) {
+      res.status(500).send("Error getting the complaint.");
+      return;
+    }
+    res.json(rows);
+  } catch (err) {
+
+    res.status(500).send("Error getting the complaint.");
+  }
+}
+
+async function save_data(req, res) {
+  var info = req.body;
+
+  try {
+    const { rows } = await pool.query("INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details) VALUES($1,$2,$3,$4,$5,$6,$7,$8);",
+      [
+        info.username,
+        info.emailid,
+        info.hostel,
+        info.wing,
+        info.room,
+        info.floor,
+        info.complainttype,
+        info.complaint,
+      ]
+    );
+
+    res.status(200).send("Complaint successfully registered.");
+
+  } catch (err) {
+
+    res.status(500).send("Error registering complaint.");
+  }
+}
 
 const get_fees_info = async (req, res) => {
   authToken = req.headers.authorization;
@@ -398,8 +439,10 @@ module.exports = {
   save_communication_details,
   get_profile_info,
   get_user_info,
+  get_my_complaints,
   save_fees_details,
   get_fees_history,
+  save_data,
   get_fees_info,
 };
 
