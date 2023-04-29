@@ -42,10 +42,10 @@ describe('POST /add-admin', () => {
             .set('authorization', `${authToken1}`);
             
         expect(res.status).toBe(200);
-        // await pool.query(
-        //     "DELETE FROM admins WHERE email_id = $1;",
-        //     ['johndoe@exxxample.com']
-        //   );
+        await pool.query(
+            "DELETE FROM admins WHERE email_id = $1;",
+            ['johndoe@exxxample.com']
+          );
         // expect(res.send).toBe("ok");
     });
     it('Takes a authtoken and give the user info', async () => {
@@ -59,18 +59,7 @@ describe('POST /add-admin', () => {
         expect(res.status).toBe(200);
         // expect(res.send).toBe("2");
     });
-    // it('should return an error message if email_id already exists', async () => {
-    //     const res = await request(app)
-    //         .post('/add-admin')
-    //         .set('authorization', `Bearer ${authToken}`)
-    //         .send({
-    //             name: 'John Doe',
-    //             email_id: 'rohitkinha1612@gmail.com', // an email_id that already exists
-    //             password: 'mypassword'
-    //         });
-    //     expect(res.status).toBe(400);
-    //     expect(res.body.message).toBe('Email ID already exists');
-    // });
+
 });
 
 
