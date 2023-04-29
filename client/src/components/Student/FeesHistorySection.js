@@ -1,13 +1,10 @@
 import DashboardNavBar from "./DashboardNavBar";
 import React from "react";
-import { PaperClipIcon } from "@heroicons/react/solid";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getToken } from "../SignIn_SignUp/Sessions";
-import noDataPic from "../../images/Asset 8.svg";
 import screenSpinner from "../../images/2300-spinner.gif";
-import PayFeesModal from "./PayFeesModal";
 
 function FeesHistorySection(props) {
     const navigate = useNavigate();

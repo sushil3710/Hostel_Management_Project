@@ -770,6 +770,35 @@ await pool.query(
   return res.send("Ok");
 };
 async function get_all_complaints(req, res) {
+  /**
+  * 1. Perform jwt auth
+  * 2. Delete the given admin
+  * 3. Delete the correpsonding entry from the login_verification table
+  */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
   try {
     const { rows } = await pool.query("SELECT * FROM complaint_details");
     res.json(rows);
@@ -780,7 +809,7 @@ async function get_all_complaints(req, res) {
 }
 
 
-async function get_complaints(req, res) {
+async function get_admin_complaints(req, res) {
   const { id } = req.params;
   try {
     const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_id=$1", [id]);
@@ -795,6 +824,35 @@ async function get_complaints(req, res) {
   }
 }
 async function get_all_solved_complaints(req, res) {
+  /**
+  * 1. Perform jwt auth
+  * 2. Delete the given admin
+  * 3. Delete the correpsonding entry from the login_verification table
+  */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
   try {
     const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_status='done'");
     res.json(rows);
@@ -803,10 +861,8 @@ async function get_all_solved_complaints(req, res) {
     res.status(500).send("Error getting all complaints.");
   }
 }
-
 async function solveIt(req, res) {
   const { id } = req.params;
-
   try {
     const { rowCount } = await pool.query("UPDATE complaint_details SET complaint_status='done' WHERE complaint_id=$1", [id]);
 
@@ -892,7 +948,7 @@ module.exports = {
   get_students,
   delete_student,
   get_all_complaints,
-  get_complaints,
+  get_admin_complaints,
   get_all_solved_complaints,
   solveIt,
   statusUpdater,

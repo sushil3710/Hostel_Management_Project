@@ -2,30 +2,30 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Container } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { getToken } from "../SignIn_SignUp/Sessions";
 
 function ComplaintCard({ id, name, description, date, hostel, room }) {
-
+    const navigate = useNavigate();
     const [isSolved, setIsSolved] = useState(false);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`/complaints/${id}`);
+        axios.get(`/complaints/${id}`)
+            .then((response) => {
                 const complaint = response.data[0];
                 console.log(response.data[0].complaint_status);
                 setIsSolved(complaint.complaint_status === "done");
-            } catch (err) {
-                console.error(err);
-            }
-        };
-        fetchData();
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, [id]);
+    
 
     const handleSolvedClick = async (id) => {
         console.log(id);
         try {
             const response = await axios.post(`/complaints/solve/${id}`);
-            console.log(response.data);
             setIsSolved(true);
         } catch (err) {
             console.error(err);

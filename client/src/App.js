@@ -93,7 +93,7 @@ function App() {
           }
         />
         <Route
-          path="/waterform"
+          path="/complaintform"
           element={
             <PrivateRoute>
               <Water />

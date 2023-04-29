@@ -2,15 +2,26 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ComplaintCard from "./ComplaintCard";
+import { useNavigate, useParams, Link } from "react-router-dom";
+import { getToken } from "../SignIn_SignUp/Sessions";
 
 
-const SolvedComplaint = () => {
+const SolvedComplaint = () =>  {
+    const navigate = useNavigate();
 
     const [complaints, setComplaints] = useState([]);
     useEffect(() => {
-        axios.get("/admin/solvedcomplaints")
+        axios.get("/admin/solvedcomplaints", {
+            headers: {
+                Authorization: getToken(),
+            },
+        })
             .then((response) => {
-                setComplaints(response.data);
+                if (response.data === 1) {
+                    navigate("/logout");
+                } else {
+                    setComplaints(response.data);
+                }
             })
             .catch((error) => {
                 console.log(error);

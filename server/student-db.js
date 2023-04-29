@@ -323,10 +323,26 @@ const get_user_info = async (req, res) => {
   return res.send(results.rows[0]);
 };
 async function get_my_complaints(req, res) {
-  const { id } = req.params;
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  var verified = null;
+
+  verified = jwt.verify(authToken, jwtSecretKey);
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
+
+  var email = jwt.decode(authToken).userEmail;
 
   try {
-    const { rows } = await pool.query("SELECT * FROM complaint_details WHERE email_id=$1", [id]);
+    const { rows } = await pool.query("SELECT * FROM complaint_details WHERE email_id=$1", [email]);
 
     if (rows.length === 0) {
       res.status(500).send("Error getting the complaint.");
@@ -341,6 +357,21 @@ async function get_my_complaints(req, res) {
 
 async function save_data(req, res) {
   var info = req.body;
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+  var verified = null;
+
+  verified = jwt.verify(authToken, jwtSecretKey);
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
 
   try {
     const { rows } = await pool.query("INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details) VALUES($1,$2,$3,$4,$5,$6,$7,$8);",
@@ -371,12 +402,6 @@ const get_fees_info = async (req, res) => {
   var verified = null;
 
   verified = jwt.verify(authToken, jwtSecretKey);
-  // try {
-  //   // console.log(verified);
-  // } catch (error) {
-  //   return res.send("1"); /** Error, logout on user side */
-  // }
-
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
   }
@@ -388,13 +413,11 @@ const get_fees_info = async (req, res) => {
   }
 
   var email = jwt.decode(authToken).userEmail;
-  // console.log(email);
 
   const results = await pool.query(
     "SELECT * FROM fees_records WHERE NOT EXISTS( SELECT 1 FROM fees_records_table WHERE fees_records_table.fees_id = fees_records.fees_id AND fees_records_table.email_id = $1);",
     [email]
   );
-  // console.log(results.rows[0]);
   return res.send({ results: results.rows });
 };
 async function request_for_exchange(req, res) {
@@ -420,6 +443,47 @@ async function request_for_exchange(req, res) {
     res.status(500).send("Error registering for room change.");
   }
 }
+
+async function get_student_complaints(req, res) {
+  const { id } = req.params;
+  /**
+ * 1. Perform jwt auth
+ * 2. Delete the given admin
+ * 3. Delete the correpsonding entry from the login_verification table
+ */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  verified = jwt.verify(authToken, jwtSecretKey);
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 2) {
+    return res.send("1");
+  }
+
+  var email = jwt.decode(authToken).userEmail;
+  try {
+    const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_id=$1", [id]);
+    if (rows.length === 0) {
+      res.status(500).send("Error getting the complaint.");
+      return;
+    }
+    res.json(rows);
+  } catch (err) {
+
+    res.status(500).send("Error getting the complaint.");
+  }
+}
 async function get_my_requests(req, res) {
   const { id } = req.params;
   try {
@@ -441,11 +505,6 @@ const get_fees_history = async (req, res) => {
   var verified = null;
 
   verified = jwt.verify(authToken, jwtSecretKey);
-  // try {
-  //   // console.log(verified);
-  // } catch (error) {
-  //   return res.send("1"); /** Error, logout on user side */
-  // }
 
   if (!verified) {
     return res.send("1"); /** Error, logout on user side */
@@ -477,6 +536,7 @@ module.exports = {
   get_user_info,
   get_my_complaints,
   get_my_requests,
+  get_student_complaints,
   save_fees_details,
   get_fees_history,
   request_for_exchange,

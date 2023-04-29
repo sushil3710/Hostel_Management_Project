@@ -102,7 +102,7 @@ const Complaint = () => {
     ]
 
     const handleComplaintForm = (complaintType) => {
-        window.location.href = `/waterform`;
+        window.location.href = `/complaintform`;
     }
 
 
