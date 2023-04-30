@@ -191,8 +191,8 @@ INSERT INTO TEMPLATES(template_id,name,column_list) VALUES(2, 'FEES LIST', ARRAY
 INSERT INTO admins(name, email_id,passwd, admin_type) VALUES('Rohit',  '2020csb1118@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Sushil', '2020csb1132@iitrpr.ac.in','root', 0);
 INSERT INTO admins(name, email_id,passwd, admin_type) VALUES('Raghav',  '2020csb1115@iitrpr.ac.in','root', 0);
-INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb1117@iitrpr.ac.in','root', 0);
-INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root', 0);
+INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Rohan', '2020csb1117@iitrpr.ac.in','root' ,   0);
+INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1109@iitrpr.ac.in','root',  0);
 
 INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Rohit K','2020CSB1118','rohankhanna190@gmail.com','root','BE455','2','Beas');
 INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Rohit Kinha','2020CSB1108','rohitkinha1612@gmail.com','root','SE455','1','Satluj');
