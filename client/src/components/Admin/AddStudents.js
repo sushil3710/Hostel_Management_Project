@@ -43,13 +43,9 @@ export default function AddStudents() {
 
   const add_students = (fileurl) => {
 
-    const modifiedUrl = fileurl.substring(fileurl.indexOf("ExcelFiles/"));
-
+   
     const formData = new FormData();
-    // console.log("modifiedUrl:", modifiedUrl)
-
-    const modifiedUrlString = String(modifiedUrl);
-    formData.append("fileurl", modifiedUrlString);
+    formData.append("fileurl", fileurl);
     console.log(formData)
     Axios.post("/add-students", formData, {
       headers: {
@@ -75,13 +71,9 @@ export default function AddStudents() {
   }
   const ViewExcel = (fileurl) => {
 
-    const modifiedUrl = fileurl.substring(fileurl.indexOf("ExcelFiles/") + 11);
-
     const formData = new FormData();
 
-    const modifiedUrlString = String(modifiedUrl);
-    formData.append("fileurl", modifiedUrlString);
-    formData.append("1", "2");
+    formData.append("fileurl", fileurl);
     console.log(formData)
     Axios.post("/view-excel", formData, {
       headers: {

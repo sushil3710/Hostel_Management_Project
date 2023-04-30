@@ -198,5 +198,6 @@ INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel
 INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Rohit Kinha','2020CSB1108','rohitkinha1612@gmail.com','root','SE455','1','Satluj');
 INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Raghav P','2020CSB1119','r.patidar181001.1@gmail.com','1','SW455','1','Satluj');
 INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Raghav patidar','2020CSB1109','r.patidar181001@gmail.com','1','BW435','2','Beas');
+INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Sushil','2020CSB1132','sushilkumarkhatana8980@gmail.com','1','BW436','2','Beas');
 
 INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details,complaint_status) VALUES('Raghav','2020csb1115@iitrpr.ac.in','test hostel','A','121','1','noise','Dummy','pending');

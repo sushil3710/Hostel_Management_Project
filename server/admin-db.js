@@ -304,7 +304,7 @@ const get_admin_profile = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+  if (userRole !== 0) {
     return res.send("1");
   }
 
@@ -346,7 +346,7 @@ const edit_admin_profile = async (req, res) => {
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+  if (userRole !== 0) {
     return res.send("1");
   }
 
@@ -405,7 +405,7 @@ const add_excel = async (req, res) => {
           }
           
           url = format(
-            `${process.env.STORAGE_BASE_URL}/HostelManagement/ExcelFiles/${filename}`);
+            `${process.env.STORAGE_BASE_URL}/public/HostelManagement/ExcelFiles/${filename}`);
 
              await pool.query(
               "Insert into excels(name, file_url,status) values($1,$2,0);",
@@ -514,10 +514,13 @@ const newString = fileUrl.substring(startIndex);
 
 const add_students = async (req, res) => {
   const url = req.body.fileurl;
+
  // console.log(url)
   if (url === "" || url==undefined) return res.send("0");
-
-  const excelpath = path.join(__dirname,'public','HostelManagement',url);
+  const startIndex = url.indexOf("//") + 2;
+  const endIndex = url.indexOf("//", startIndex) + 2;
+  const result = url.substring(endIndex);
+  const excelpath = path.join(__dirname,result);
 
   const workbook = await XLSX.readFile(excelpath);
 
@@ -541,42 +544,42 @@ const add_students = async (req, res) => {
       // If the row has an email address, insert it and the other data into the database
       if(Hostel_ID===1){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Satluj',$5)",
+          "INSERT INTO student_info(email_id,full_name,entry_numb,hostel_id,passwd,hostel_name,room_numb) VALUES ($1, $2, $3, $4,'root','Satluj',$5)",
           [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===2){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Beas',$5)",
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name,room_numb) VALUES ($1, $2, $3, $4,'root','Beas',$5)",
           [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===3){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Chenab',$5)",
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name,room_numb) VALUES ($1, $2, $3, $4,'root','Chenab',$5)",
           [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===4){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Raavi',$5)",
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name,room_numb) VALUES ($1, $2, $3, $4,'root','Raavi',$5)",
           [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===5){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Brahmaputra',$5)",
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name,room_numb) VALUES ($1, $2, $3, $4,'root','Brahmaputra',$5)",
           [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
       }
       else if(Hostel_ID===6){
         await pool.query(
-          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name) VALUES ($1, $2, $3, $4,'root','Jhelum',$5)",
+          "INSERT INTO student_info (email_id,full_name,entry_numb,hostel_id,passwd,hostel_name,room_numb) VALUES ($1, $2, $3, $4,'root','Jhelum',$5)",
           [Email_ID, Name, Entry_Number,Hostel_ID,Room_Number]
         );
 
@@ -769,13 +772,13 @@ await pool.query(
 
   return res.send("Ok");
 };
+
 async function get_all_complaints(req, res) {
   /**
   * 1. Perform jwt auth
   * 2. Delete the given admin
   * 3. Delete the correpsonding entry from the login_verification table
   */
-
   /**
    * Verify using authToken
    */
@@ -823,6 +826,8 @@ async function get_complaints(req, res) {
     res.status(500).send("Error getting the complaint.");
   }
 }
+
+
 async function get_all_solved_complaints(req, res) {
   /**
   * 1. Perform jwt auth
@@ -1000,22 +1005,40 @@ async function statusUpdater(req, res) {
 const view_excel = async (req, res) => {
   const url = req.body.fileurl;
 
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  if (!verified) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+
+
   if (url === "" || url === undefined) return res.send("0");
 
-  const excelpath = path.join(
-    __dirname,
-    "public",
-    "HostelManagement",
-    "ExcelFiles",
-    url
-  );
+  const startIndex = url.indexOf("//") + 2;
+  const endIndex = url.indexOf("//", startIndex) + 2;
+  const result = url.substring(endIndex);
+  const excelpath = path.join(__dirname,result);
 
   exec(`start excel "${excelpath}"`, (error, stdout, stderr) => {
     if (error) {
-      console.error(`exec error: ${error}`);
       return res.send("0");
-    }
-   
+    }    
+
   });
 
   return res.send("2");

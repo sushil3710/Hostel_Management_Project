@@ -4,9 +4,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { getToken } from "../SignIn_SignUp/Sessions";
+import Profile1 from "../../images/profilepic (1).jpg";
+
+
 
 function AdminRoomCard({ id, email_id, prevRoom, reqRoom, reason, comment, admin_comment, phone, isexchange, exchange_id, request_status, reqDate }) {
-    const [url, setUrl] = useState('User name');
+    const [url, setUrl] = useState("");
     const navigate = useNavigate();
     const [name, setName] = useState('User name');
     const [email, setEmail] = useState('not defined');
@@ -166,8 +169,14 @@ return (
                     }
                 </div>
                 <div class="flex items-center">
-                    <img class="w-10 h-10 rounded-full mr-4" src={url} alt="Avatar of Writer" />
-                    <div class="text-sm">
+                {/* {url===null ? (
+  <img src={url} alt="Profile" />) : (
+  <img src={FaceIcon} alt="Profile" />
+)} */}
+                               <img
+                                   src={url? url: Profile1} alt="ProfilePic" 
+                                   style={{ width: '150px', height: '150px' }}/>
+                         <div class="text-sm">
                         <p class="text-gray-900 leading-none">{name}</p>
                         <p class="text-gray-600">{reqDate}</p>
                     </div>
