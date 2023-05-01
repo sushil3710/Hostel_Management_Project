@@ -460,46 +460,6 @@ async function request_for_exchange(req, res) {
   }
 }
 
-async function get_student_complaints(req, res) {
-  const { id } = req.params;
-  /**
- * 1. Perform jwt auth
- * 2. Delete the given admin
- * 3. Delete the correpsonding entry from the login_verification table
- */
-
-  /**
-   * Verify using authToken
-   */
-  authToken = req.headers.authorization;
-  let jwtSecretKey = process.env.JWT_SECRET_KEY;
-
-  var verified = null;
-
-  verified = jwt.verify(authToken, jwtSecretKey);
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
-
-  /** Get role */
-  var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 2) {
-    return res.send("1");
-  }
-
-  var email = jwt.decode(authToken).userEmail;
-  try {
-    const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_id=$1", [id]);
-    if (rows.length === 0) {
-      res.status(500).send("Error getting the complaint.");
-      return;
-    }
-    res.json(rows);
-  } catch (err) {
-
-    res.status(500).send("Error getting the complaint.");
-  }
-}
 async function get_my_requests(req, res) {
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
@@ -568,7 +528,6 @@ module.exports = {
   get_user_info,
   get_my_complaints,
   get_my_requests,
-  get_student_complaints,
   save_fees_details,
   get_fees_history,
   request_for_exchange,

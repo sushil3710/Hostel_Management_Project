@@ -3,11 +3,6 @@
 drop database hostel;
 create database hostel;
 \c hostel
-CREATE TABLE signup_verification (
-    email_id TEXT PRIMARY KEY,
-    hashed_otp TEXT,
-    expiration_time TIMESTAMP
-);
 
 CREATE TABLE forgot_password_verification (
     email_id TEXT PRIMARY KEY,
@@ -196,8 +191,11 @@ INSERT INTO admins(name, email_id,passwd ,admin_type) VALUES('Pragat', '2020csb1
 
 INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Rohit K','2020CSB1118','rohankhanna190@gmail.com','root','BE455','2','Beas');
 INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Rohit Kinha','2020CSB1108','rohitkinha1612@gmail.com','root','SE455','1','Satluj');
-INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Raghav P','2020CSB1119','r.patidar181001.1@gmail.com','1','SW455','1','Satluj');
-INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Raghav patidar','2020CSB1109','r.patidar181001@gmail.com','1','BW435','2','Beas');
-INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Sushil','2020CSB1132','sushilkumarkhatana8980@gmail.com','1','BW436','2','Beas');
+INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Raghav P','2020CSB1119','r.patidar181001.1@gmail.com','root','SW455','1','Satluj');
+INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Raghav patidar','2020CSB1109','r.patidar181001@gmail.com','root','BW435','2','Beas');
+INSERT INTO student_info( full_name,entry_numb,email_id ,passwd,room_numb,hostel_id,hostel_name) values ('Sushil','2020CSB1132','sushilkumarkhatana8980@gmail.com','root','BW436','2','Beas');
 
-INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details,complaint_status) VALUES('Raghav','2020csb1115@iitrpr.ac.in','test hostel','A','121','1','noise','Dummy','pending');
+INSERT INTO complaint_details(name, email_id, hostel_name,wing_side,room_number,floor_number,complaint_type,complaint_details,complaint_status) VALUES('Sushil','sushilkumarkhatana8980@gmail.com','test hostel','A','121','1','noise','Dummy','pending');
+INSERT INTO room_change_request(full_name,email_id,prev_room,req_room,reason,comments,isexchange,phone,exchange_id,request_date) VALUES ('Sushil','sushilkumarkhatana8980@gmail.com','BE213','BE300','jkl','safd','false','safdg','dfgs','1000-01-01 00:00:00');
+
+--

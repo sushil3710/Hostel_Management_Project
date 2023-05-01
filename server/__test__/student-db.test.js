@@ -23,20 +23,20 @@ describe('GET /get-user-info', () => {
         authToken1 = res1.body.token;
 
     });
-    it('Takes a authtoken and give the user info', async () => {
+    it('Takes a authtoken and give the user info of student', async () => {
         const res = await request(app)
             .get('/get-user-info')
             .set('authorization', `${authToken}`);
         expect(res.status).toBe(200);
         expect(res.body.email_id).toBe('rohitkinha1612@gmail.com');
     });
-    it('Takes a authtoken and give the user info', async () => {
+    it('Takes a wrong user token authtoken which is a token of admin type', async () => {
         const res = await request(app)
             .get('/get-user-info')
             .set('authorization', `${authToken1}`);
         expect(res.status).toBe(200);
+        expect(res.text).toBe('1');
     });
-
 });
 describe('GET /get-profile-info', () => {
     let authToken;
@@ -66,11 +66,12 @@ describe('GET /get-profile-info', () => {
         expect(res.status).toBe(200);
         expect(res.body.email_id).toBe('rohitkinha1612@gmail.com');
     });
-    it('Takes a authtoken and give the user info', async () => {
+    it('Takes a wrong authtoken which is of admin type', async () => {
         const res = await request(app)
             .get('/get-profile-info')
             .set('authorization', `${authToken1}`);
         expect(res.status).toBe(200);
+        expect(res.text).toBe('1');
     });
 
 });
@@ -100,8 +101,9 @@ describe('GET /get-fees-info', () => {
             .get('/get-fees-info')
             .set('authorization', `${authToken}`);
         expect(res.status).toBe(200);
+        expect(res.body.results).toBeDefined();
     });
-    it('Takes a authtoken and give the user info', async () => {
+    it('Takes a wrong authtoken which is of admin type', async () => {
         const res = await request(app)
             .get('/get-fees-info')
             .set('authorization', `${authToken1}`);
@@ -136,8 +138,9 @@ describe('GET /get-fees-history', () => {
             .get('/get-fees-history')
             .set('authorization', `${authToken}`);
         expect(res.status).toBe(200);
+        expect(res.body.results).toBeDefined();
     });
-    it('Takes a authtoken and give the user info', async () => {
+    it('Takes a wrong authtoken which is of admin type', async () => {
         const res = await request(app)
             .get('/get-fees-history')
             .set('authorization', `${authToken1}`);
@@ -146,9 +149,10 @@ describe('GET /get-fees-history', () => {
     });
 
 });
-describe('GET /get-fees-history', () => {
+describe('GET /getmycomplaints', () => {
     let authToken;
     let authToken1;
+    let authToken3;
     beforeAll(async () => {
         // get an auth token for testing purposes
         const res = await request(app)
@@ -163,25 +167,239 @@ describe('GET /get-fees-history', () => {
                 email: '2020csb1118@iitrpr.ac.in',
                 password: 'root',
             });
+        const res2 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'sushilkumarkhatana8980@gmail.com',
+                password: 'root',
+            });
         authToken = res.body.token;
         authToken1 = res1.body.token;
-
+        authToken3 = res2.body.token;
     });
-    it('Takes a authtoken and give the user info', async () => {
+    it('Takes a authtoken and give the complaints of a particular student which has no complaint so far.', async () => {
         const res = await request(app)
-            .get('/get-fees-history')
+            .get('/getmycomplaints')
             .set('authorization', `${authToken}`);
+        expect(res.status).toBe(500);
+    });
+    it('Takes a authtoken and give the complaints of a particular student which has some complaints so far.', async () => {
+        const res = await request(app)
+            .get('/getmycomplaints')
+            .set('authorization', `${authToken3}`);
         expect(res.status).toBe(200);
     });
-    it('Takes a authtoken and give the user info', async () => {
+    it('Takes a wrong authtoken which is of admin type', async () => {
         const res = await request(app)
-            .get('/get-fees-history')
+            .get('/getmycomplaints')
             .set('authorization', `${authToken1}`);
         expect(res.status).toBe(200);
         expect(res.text).toBe('1');
     });
 
 });
+describe('GET /myRoomRequest', () => {
+    let authToken;
+    let authToken1;
+    let authToken3;
+    beforeAll(async () => {
+        // get an auth token for testing purposes
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+        const res1 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: '2020csb1118@iitrpr.ac.in',
+                password: 'root',
+            });
+        const res2 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'sushilkumarkhatana8980@gmail.com',
+                password: 'root',
+            });
+        authToken = res.body.token;
+        authToken1 = res1.body.token;
+        authToken3 = res2.body.token;
+    });
+    it('Takes a authtoken and give the complaints of a particular student which has no complaint so far.', async () => {
+        const res = await request(app)
+            .get('/myRoomRequest')
+            .set('authorization', `${authToken}`);
+        expect(res.status).toBe(500);
+    });
+    it('Takes a authtoken and give the complaints of a particular student which has some complaints so far.', async () => {
+        const res = await request(app)
+            .get('/myRoomRequest')
+            .set('authorization', `${authToken3}`);
+        expect(res.status).toBe(200);
+    });
+    it('Takes a wrong authtoken which is of admin type', async () => {
+        const res = await request(app)
+            .get('/myRoomRequest')
+            .set('authorization', `${authToken1}`);
+        expect(res.status).toBe(200);
+        expect(res.text).toBe('1');
+    });
+
+});
+
+describe('POST /complaintSection/savedata', () => {
+    let authToken;
+    let authToken1;
+    let authToken3;
+    beforeAll(async () => {
+        client = await pool.connect();
+        // get an auth token for testing purposes
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+        const res1 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: '2020csb1118@iitrpr.ac.in',
+                password: 'root',
+            });
+        const res2 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'r.patidar181001@gmail.com',
+                password: 'root',
+            });
+        authToken = res.body.token;
+        authToken1 = res1.body.token;
+        authToken3 = res2.body.token;
+    });
+    afterAll(async () => {
+        await client.release();
+    });
+    it('should return 200 and a success message when valid data is sent with a valid token', async () => {
+        const data = {
+            username: 'Raghav',
+            emailid: 'r.patidar181001@gmail.com',
+            hostel: 'Beas',
+            wing: 'East Wing',
+            room: '101',
+            floor: '1',
+            complainttype: 'Maintenance',
+            complaint: 'My room needs a new light bulb.',
+        };
+
+        const response = await request(app)
+            .post('/complaintSection/savedata')
+            .send(data)
+            .set('authorization', `${authToken3}`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.text).toBe('Complaint successfully registered.');
+        const res = await client.query("delete from complaint_details where email_id = $1", ['r.patidar181001@gmail.com']);
+    });
+
+    it('should return 401 when an invalid token is sent', async () => {
+        const data = {
+            username: 'Raghav',
+            emailid: 'r.patidar181001@gmail.com',
+            hostel: 'Beas',
+            wing: 'East Wing',
+            room: '101',
+            floor: '1',
+            complainttype: 'Maintenance',
+            complaint: 'My room needs a new light bulb.',
+        };
+
+        const response = await request(app)
+            .post('/complaintSection/savedata')
+            .send(data)
+            .set('authorization', `${authToken1}`);
+        expect(response.status).toBe(200);
+        expect(response.text).toBe('1');
+    });
+});
+
+describe('POST /post-Room-Request', () => {
+    let authToken;
+    let authToken1;
+    let authToken3;
+    beforeAll(async () => {
+        client = await pool.connect();
+        // get an auth token for testing purposes
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+        const res1 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: '2020csb1118@iitrpr.ac.in',
+                password: 'root',
+            });
+        const res2 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'r.patidar181001@gmail.com',
+                password: 'root',
+            });
+        authToken = res.body.token;
+        authToken1 = res1.body.token;
+        authToken3 = res2.body.token;
+    });
+    afterAll(async () => {
+        await client.release();
+    });
+    it('should return 200 and a success message when valid data is sent with a valid token', async () => {
+        const requestBody = {
+            full_name: 'Raghav',
+            email_id: 'r.patidar181001@gmail.com',
+            prev_room: 'A101',
+            req_room: 'B202',
+            reason: 'I want a bigger room',
+            comments: 'No additional comments',
+            isexchange: 'false',
+            phone: '1234567890',
+            exchange_id: '1234'
+        };
+
+        const response = await request(app)
+            .post('/post-Room-Request')
+            .send(requestBody)
+            .set('authorization', `${authToken3}`);
+
+        expect(response.statusCode).toBe(200);
+        expect(response.text).toBe('Request successfully registered.');
+        const res = await client.query("delete from room_change_request where email_id = $1", ['r.patidar181001@gmail.com']);
+    });
+
+    it('should return 401 when an invalid token is sent', async () => {
+        const requestBody = {
+            full_name: 'Raghav',
+            email_id: 'r.patidar181001@gmail.com',
+            prev_room: 'A101',
+            req_room: 'B202',
+            reason: 'I want a bigger room',
+            comments: 'No additional comments',
+            isexchange: 'false',
+            phone: '1234567890',
+            exchange_id: '1234'
+        };
+
+        const response = await request(app)
+            .post('/post-Room-Request')
+            .send(requestBody)
+            .set('authorization', `${authToken1}`);
+        expect(response.status).toBe(200);
+        expect(response.text).toBe('1');
+    });
+});
+
 
 describe('POST /save-communication-details', () => {
     let authToken;
@@ -202,7 +420,6 @@ describe('POST /save-communication-details', () => {
             });
         authToken = res.body.token;
         authToken1 = res1.body.token;
-
     });
 
     test('updates student info with valid auth token and form data', async () => {
@@ -240,148 +457,76 @@ describe('POST /save-communication-details', () => {
         expect(studentInfo.mobile_number).toBe('555-1234');
         expect(studentInfo.alternate_mobile_number).toBe('555-5678');
     });
-
-});
-// describe('POST /save-personal-info', () => {
-//     let authToken;
-//     let authToken1;
-//     beforeAll(async () => {
-//         // get an auth token for testing purposes
-//         const res = await request(app)
-//             .post('/auth/signin/verify')
-//             .send({
-//                 email: 'rohitkinha1612@gmail.com',
-//                 password: 'root',
-//             });
-//         const res1 = await request(app)
-//             .post('/auth/signin/verify')
-//             .send({
-//                 email: '2020csb1118@iitrpr.ac.in',
-//                 password: 'root',
-//             });
-//         authToken = res.body.token;
-//         authToken1 = res1.body.token;
-
-//     });
-
-//     test('saves personal info to database with valid auth token and file', async () => {
-//         const formData = {
-//             full_name: 'John Doe',
-//             guardian: 'Jane Doe',
-//             fathers_name: 'Joe Doe',
-//             date_of_birth: '1990-01-01',
-//             aadhar_card_number: '123456789012',
-//             category: 'General',
-//             is_pwd: 'No',
-//             blood_group: 'O+',
-//             nationality: 'Indian',
-//             gender: 'Male'
-//         };
-
-//         const res = await request(app)
-//             .post('/save-personal-info')
-//             .set('Content-Type', 'multipart/form-data')
-//             .set('authorization', `${authToken}`)
-//             .field('full_name', formData.full_name)
-//             .field('guardian', formData.guardian)
-//             .field('fathers_name', formData.fathers_name)
-//             .field('date_of_birth', formData.date_of_birth)
-//             .field('aadhar_card_number', formData.aadhar_card_number)
-//             .field('category', formData.category)
-//             .field('is_pwd', formData.is_pwd)
-//             .field('blood_group', formData.blood_group)
-//             .field('nationality', formData.nationality)
-//             .field('gender', formData.gender)
-//             .attach('profile_image', './testData/profile_photo.jpg'); // replace with path to your test file
-
-//         expect(res.statusCode).toBe(200);
-//         expect(res.text).toBe('Ok');
-
-//         // check if data was saved to database
-//         const result = await pool.query(`SELECT * FROM student_info WHERE email_id = $1`, ['rohitkinha1612@gmail.com']);
-//         expect(result.rows[0].full_name).toBe(formData.full_name);
-//         expect(result.rows[0].guardian).toBe(formData.guardian);
-//         expect(result.rows[0].fathers_name).toBe(formData.fathers_name);
-//         expect(result.rows[0].date_of_birth).toBe(formData.date_of_birth);
-//         expect(result.rows[0].aadhar_card_number).toBe(formData.aadhar_card_number);
-//         expect(result.rows[0].category).toBe(formData.category);
-//         expect(result.rows[0].is_pwd).toBe(formData.is_pwd);
-//         expect(result.rows[0].blood_group).toBe(formData.blood_group);
-//         expect(result.rows[0].nationality).toBe(formData.nationality);
-//         expect(result.rows[0].gender).toBe(formData.gender);
-
-       
-//     });
-// });
-
-describe('POST /complaintSection/savedata', () => {
-    let insertedId;
-
-    it('should save a new complaint', async () => {
-        const complaintData = {
-            username: 'Test User',
-            emailid: 'testuser@example.com',
-            hostel: 'Test Hostel',
-            wing: 'A',
-            room: '101',
-            floor: '1',
-            complainttype: 'Noise',
-            complaint: 'Loud music at night',
-        };
-
-        const response = await request(app)
-            .post('/complaintSection/savedata')
-            .send(complaintData);
-
-        expect(response.status).toBe(200);
-        expect(response.text).toBe('Complaint successfully registered.');
-
-        // console.log(response);
-        // // Get the ID of the inserted data
-        // insertedId = response.body.complaint_id;
-    });
-
-    it('should handle errors', async () => {
-        // Mock the pool.query method to throw an error
-        const mockQuery = jest.spyOn(pool, 'query');
-        mockQuery.mockImplementation(() => {
-            throw new Error('Database error');
-        });
-
-        const complaintData = {
-            username: 'Test User',
-            emailid: 'testuser@example.com',
-            hostel: 'Test Hostel',
-            wing: 'A',
-            room: '101',
-            floor: '1',
-            complainttype: 'Noise',
-            complaint: 'Loud music at night',
-        };
-
-        const response = await request(app)
-            .post('/complaintSection/savedata')
-            .send(complaintData);
-
-        expect(response.status).toBe(500);
-        expect(response.text).toBe('Error registering complaint.');
-
-        // Restore the original implementation of pool.query
-        mockQuery.mockRestore();
+    it('Takes a wrong authtoken which is of admin type', async () => {
+        const res = await request(app)
+            .post(`/save-communication-details`)
+            .set('authorization', `${authToken1}`);
+        expect(res.status).toBe(200);
+        expect(res.text).toBe('1');
     });
 });
 
-describe("GET /getmycomplaints/:id", () => {
-    // test("should return a list of complaints for the specified email ID", async () => {
-    //   const response = await request(app).get("/getmycomplaints/r.patidar181001.1@gmail.com");
-    //   expect(response.statusCode).toBe(200);
-    //   expect(response.body.length).toBeGreaterThan(0);
-    //   expect(response.body[0]).toHaveProperty("email_id", "r.patidar181001.1@gmail.com");
-    // });
+describe('POST /save-communication-details', () => {
+    let authToken;
+    let authToken1;
+    beforeAll(async () => {
+        // get an auth token for testing purposes
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+        const res1 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: '2020csb1118@iitrpr.ac.in',
+                password: 'root',
+            });
+        authToken = res.body.token;
+        authToken1 = res1.body.token;
+    });
 
-    test("should return an error if the email ID is invalid", async () => {
-        const response = await request(app).get("/getmycomplaints/invalid");
-        expect(response.statusCode).toBe(500);
-        expect(response.text).toBe("Error getting the complaint.");
+    test('updates student info with valid auth token and form data', async () => {
+        const res = await request(app)
+            .post(`/save-communication-details`)
+            .set('authorization', `${authToken}`)
+            .send({
+                communication_address: '123 Main St',
+                communication_city: 'Anytown',
+                communication_state: 'CA',
+                communication_pincode: '12345',
+                permanent_address: '321 Elm St',
+                permanent_city: 'Anytown',
+                permanent_state: 'CA',
+                permanent_pincode: '54321',
+                mobile_number: '555-1234',
+                alternate_mobile_number: '555-5678'
+            });
+
+        expect(res.statusCode).toBe(200);
+        expect(res.text).toBe('Ok');
+
+        // retrieve the updated student info from the database
+        const result = await pool.query(`SELECT * FROM student_info WHERE email_id = $1`, ['rohitkinha1612@gmail.com']);
+        const studentInfo = result.rows[0];
+
+        expect(studentInfo.communication_address).toBe('123 Main St');
+        expect(studentInfo.communication_city).toBe('Anytown');
+        expect(studentInfo.communication_state).toBe('CA');
+        expect(studentInfo.communication_pincode).toBe('12345');
+        expect(studentInfo.permanent_address).toBe('321 Elm St');
+        expect(studentInfo.permanent_city).toBe('Anytown');
+        expect(studentInfo.permanent_state).toBe('CA');
+        expect(studentInfo.permanent_pincode).toBe('54321');
+        expect(studentInfo.mobile_number).toBe('555-1234');
+        expect(studentInfo.alternate_mobile_number).toBe('555-5678');
+    });
+    it('Takes a wrong authtoken which is of admin type', async () => {
+        const res = await request(app)
+            .post(`/save-communication-details`)
+            .set('authorization', `${authToken1}`);
+        expect(res.status).toBe(200);
+        expect(res.text).toBe('1');
     });
 });
