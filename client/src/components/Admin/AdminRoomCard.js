@@ -168,14 +168,14 @@ return (
                         </>)
                     }
                 </div>
-                <div class="flex items-center">
+                <div style={{gap : '1rem'}}class="flex items-center">
                 {/* {url===null ? (
   <img src={url} alt="Profile" />) : (
   <img src={FaceIcon} alt="Profile" />
 )} */}
                                <img
                                    src={url? url: Profile1} alt="ProfilePic" 
-                                   style={{ width: '150px', height: '150px' }}/>
+                                   style={{ width: '150px', height: '150px', borderRadius : '100%' }}/>
                          <div class="text-sm">
                         <p class="text-gray-900 leading-none">{name}</p>
                         <p class="text-gray-600">{reqDate}</p>
