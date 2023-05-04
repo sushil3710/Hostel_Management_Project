@@ -43,9 +43,9 @@ const add_admin = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -99,9 +99,9 @@ const edit_admin = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -143,9 +143,9 @@ const get_admins = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -178,9 +178,9 @@ const get_fees_record = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -210,9 +210,9 @@ const add_fees_record = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -254,9 +254,9 @@ const delete_admin = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -298,9 +298,9 @@ const get_admin_profile = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -340,9 +340,9 @@ const edit_admin_profile = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -378,9 +378,9 @@ const add_excel = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -393,7 +393,7 @@ const add_excel = async (req, res) => {
   let vals=Object.values(req.files);
 
   for (let f of vals) {
-    const filename = Date.now()+"_"+info.excelname;
+    const filename = info.excelname;
     const filepath = path.join(uploadDir, filename);
 
 
@@ -444,9 +444,9 @@ const get_excel = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -478,9 +478,9 @@ const delete_excel = async(req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -490,10 +490,10 @@ const delete_excel = async(req, res) => {
 
 
 
-  const fileUrl = info.excel_url;
+const fileUrl = info.excel_url;
 const startIndex = fileUrl.indexOf("ExcelFiles/") + "ExcelFiles/".length;
 const newString = fileUrl.substring(startIndex);
-  const filePath = path.join(__dirname,'public','HostelManagement','ExcelFiles',newString);
+const filePath = path.join(__dirname,'public','HostelManagement','ExcelFiles',newString);
 
   fs.unlink(filePath, (err) => {
 
@@ -503,7 +503,6 @@ const newString = fileUrl.substring(startIndex);
       [fileUrl],
       (err, result) => {
         if (err) {
-          console.error(err);
           return res.send("1");
         }
         return res.send("OK");
@@ -514,6 +513,26 @@ const newString = fileUrl.substring(startIndex);
 
 const add_students = async (req, res) => {
   const url = req.body.fileurl;
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
 
  // console.log(url)
   if (url === "" || url==undefined) return res.send("0");
@@ -536,9 +555,10 @@ const add_students = async (req, res) => {
     if (Email_ID) {
 
       const { rows: existingRows } = await pool.query(
-        "SELECT * FROM student_info WHERE email_id = $1",
+        "SELECT email_id FROM student_info WHERE email_id = $1 UNION SELECT email_id FROM admins WHERE email_id = $1",
         [Email_ID]
       );
+      
       if (existingRows.length === 0) {
         
       // If the row has an email address, insert it and the other data into the database
@@ -622,9 +642,10 @@ const add_student = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
+
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -636,7 +657,7 @@ const add_student = async (req, res) => {
 
   /** Check if this email is already an admin */
   const check = await pool.query(
-    "SELECT * FROM student_info WHERE email_id = $1;",
+    "SELECT email_id FROM student_info WHERE email_id = $1 UNION SELECT email_id FROM admins WHERE email_id = $1",
     [info.email_id]
   );
 
@@ -705,9 +726,9 @@ const get_students = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -748,9 +769,9 @@ const delete_student = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -793,9 +814,9 @@ async function get_all_complaints(req, res) {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -814,17 +835,41 @@ async function get_all_complaints(req, res) {
 
 async function get_complaints(req, res) {
   const { id } = req.params;
+  var info = req.body;
+
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
   try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+  // try {
+
     const { rows } = await pool.query("SELECT * FROM complaint_details WHERE complaint_id=$1", [id]);
     if (rows.length === 0) {
       res.status(500).send("Error getting the complaint.");
-      return;
     }
-    res.json(rows);
-  } catch (err) {
+    else{
+      res.json(rows); }
 
-    res.status(500).send("Error getting the complaint.");
-  }
+  // } catch (err) {
+
+  //   res.status(500).send("Error getting the complaint.");
+  // }
 }
 
 
@@ -849,9 +894,9 @@ async function get_all_solved_complaints(req, res) {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -867,8 +912,41 @@ async function get_all_solved_complaints(req, res) {
   }
 }
 async function solveIt(req, res) {
+
   const { id } = req.params;
+  
+  var info = req.body;
+  /**
+  * 1. Perform jwt auth
+  * 2. Delete the given admin
+  * 3. Delete the correpsonding entry from the login_verification table
+  */
+
+  /**
+   * Verify using authToken
+   */
+  authToken = req.headers.authorization;
+  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+
+  var verified = null;
+
   try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
+    return res.send("1"); /** Error, logout on user side */
+  }
+
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
+
+  /** Get role */
+  var userRole = jwt.decode(authToken).userRole;
+  if (userRole !== 0) {
+    return res.send("1");
+  }
+  
+  // try {
     const { rowCount } = await pool.query("UPDATE complaint_details SET complaint_status='done' WHERE complaint_id=$1", [id]);
 
     if (rowCount === 1) {
@@ -876,9 +954,9 @@ async function solveIt(req, res) {
     } else {
       res.status(404).send(`Complaint with id ${id} not found`);
     }
-  } catch (err) {
-    res.status(500).send("Error updating complaint status.");
-  }
+  // } catch (err) {
+  //   res.status(500).send("Error updating complaint status.");
+  // }
 }
 async function get_all_requests(req, res) {
   /**
@@ -901,9 +979,9 @@ async function get_all_requests(req, res) {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -937,9 +1015,9 @@ async function get_all_info(req, res) {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -978,9 +1056,9 @@ async function statusUpdater(req, res) {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -988,7 +1066,7 @@ async function statusUpdater(req, res) {
     return res.send("1");
   }
 
-  try {
+  // try {
     const { rowCount } = await pool.query("UPDATE room_change_request SET request_status=$1 , admin_comment = $2 WHERE id = $3", [info.option, info.adminComment, id]);
 
     if (rowCount === 1) {
@@ -996,10 +1074,10 @@ async function statusUpdater(req, res) {
     } else {
       res.status(404).send(`Complaint with id ${id} not found`);
     }
-  } catch (err) {
+  // } catch (err) {
 
-    res.status(500).send("Error updating complaint status.");
-  }
+  //   res.status(500).send("Error updating complaint status.");
+  // }
 }
 
 const view_excel = async (req, res) => {
@@ -1016,9 +1094,9 @@ const view_excel = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;

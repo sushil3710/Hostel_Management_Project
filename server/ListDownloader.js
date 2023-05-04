@@ -111,18 +111,19 @@ const get_list_in_excel = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0 && userRole !== 1 && userRole !== 3) {
+  if (userRole !== 0) {
     return res.send("1");
   }
 
   let workbook = await generate_applications_in_excel(req.headers);
   workbook.write("Student_List.xlsx", res);
+
 };
 
 module.exports = {

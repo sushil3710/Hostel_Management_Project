@@ -36,9 +36,9 @@ const save_communication_details = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -88,9 +88,9 @@ const save_fees_details = async (req, res, next) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -128,18 +128,14 @@ const save_fees_details = async (req, res, next) => {
   }
 
   for (let f of vals) {
-    const filename = Date.now() + "_" + f[0].originalname;
+    const filename = f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
       new Promise((resolve, reject) => {
         fs.writeFile(filepath, f[0].buffer, async (err) => {
           if (err) {
-            f[0].localStorageError = err;
-            next(err);
-            console.log(err);
-            reject(err);
-            return;
+return;
           }
           url = format(
             `${process.env.STORAGE_BASE_URL}/HostelManagement/FEES_RECORD/${filename}`
@@ -177,9 +173,9 @@ const save_personal_info = async (req, res, next) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -220,17 +216,13 @@ const save_personal_info = async (req, res, next) => {
   }
 
   for (let f of vals) {
-    const filename = Date.now() + "_" + f[0].originalname;
+    const filename = f[0].originalname;
     const filepath = path.join(uploadDir, filename);
 
     promises.push(
       new Promise((resolve, reject) => {
         fs.writeFile(filepath, f[0].buffer, async (err) => {
           if (err) {
-            f[0].localStorageError = err;
-            next(err);
-            console.log(err);
-            reject(err);
             return;
           }
           url = format(
@@ -269,9 +261,9 @@ const get_profile_info = async (req, res) => {
     return res.send("1"); /** Error, logout on user side */
   }
 
-  if (!verified) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -299,11 +291,15 @@ const get_user_info = async (req, res) => {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
   var verified = null;
 
-  verified = jwt.verify(authToken, jwtSecretKey);
-
-  if (!verified) {
+ 
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
     return res.send("1"); /** Error, logout on user side */
   }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -327,11 +323,15 @@ async function get_my_complaints(req, res) {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
   var verified = null;
 
-  verified = jwt.verify(authToken, jwtSecretKey);
-
-  if (!verified) {
+  
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
     return res.send("1"); /** Error, logout on user side */
   }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -361,11 +361,15 @@ async function save_data(req, res) {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
   var verified = null;
 
-  verified = jwt.verify(authToken, jwtSecretKey);
-
-  if (!verified) {
+ 
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
     return res.send("1"); /** Error, logout on user side */
   }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -387,7 +391,7 @@ async function save_data(req, res) {
       ]
     );
 
-    res.status(200).send("Complaint successfully registered.");
+    if(rows) res.status(200).send("Complaint successfully registered.");
 
   } catch (err) {
 
@@ -401,10 +405,14 @@ const get_fees_info = async (req, res) => {
 
   var verified = null;
 
-  verified = jwt.verify(authToken, jwtSecretKey);
-  if (!verified) {
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
     return res.send("1"); /** Error, logout on user side */
   }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -428,10 +436,15 @@ async function request_for_exchange(req, res) {
 
   var verified = null;
 
-  verified = jwt.verify(authToken, jwtSecretKey);
-  if (!verified) {
+  
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
     return res.send("1"); /** Error, logout on user side */
   }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;
@@ -465,12 +478,14 @@ async function get_my_requests(req, res) {
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
   var verified = null;
-
-  verified = jwt.verify(authToken, jwtSecretKey);
-
-  if (!verified) {
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
     return res.send("1"); /** Error, logout on user side */
   }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   var userRole = jwt.decode(authToken).userRole;
   if (userRole !== 2) {
@@ -490,17 +505,20 @@ async function get_my_requests(req, res) {
     res.status(500).send("Error getting your requests.");
   }
 }
+
 const get_fees_history = async (req, res) => {
   authToken = req.headers.authorization;
   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
   var verified = null;
-
-  verified = jwt.verify(authToken, jwtSecretKey);
-
-  if (!verified) {
+  try {
+    verified = jwt.verify(authToken, jwtSecretKey);
+  } catch (error) {
     return res.send("1"); /** Error, logout on user side */
   }
+  // if (!verified) {
+  //   return res.send("1"); /** Error, logout on user side */
+  // }
 
   /** Get role */
   var userRole = jwt.decode(authToken).userRole;

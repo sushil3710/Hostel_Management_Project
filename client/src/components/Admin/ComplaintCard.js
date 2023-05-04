@@ -10,26 +10,39 @@ function ComplaintCard({ id, name, description, date, hostel, room }) {
     const [isSolved, setIsSolved] = useState(false);
 
     useEffect(() => {
-        axios.get(`/complaints/${id}`)
-            .then((response) => {
+          axios.get(`/complaints/${id}`, {
+            headers: {
+                Authorization: getToken(),
+            },
+        }).then((response) => {
+            if (response.data === 1) {
+                navigate("/logout");
+            } else {
                 const complaint = response.data[0];
-                console.log(response.data[0].complaint_status);
                 setIsSolved(complaint.complaint_status === "done");
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, [id]);
+            }
+        }).catch((err) => console.log(err));
+    }, []);
+
     
 
     const handleSolvedClick = async (id) => {
         console.log(id);
-        try {
-            const response = await axios.post(`/complaints/solve/${id}`);
-            setIsSolved(true);
-        } catch (err) {
-            console.error(err);
-        }
+       
+        await axios.post(`/complaints/solve/${id}`, {
+                headers: {
+                    Authorization: getToken(),
+                },
+            }).then((response) => {
+                if (response.data === 1) {
+                    navigate("/logout");
+                } else {
+                    setIsSolved(true);
+                }
+            })
+            .catch((err) => console.log(err));
+                
+   
     };
 
     return (

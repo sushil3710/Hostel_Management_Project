@@ -5,6 +5,8 @@ const pool = require("../db");
 const fs = require('fs');
 const { format } = require("util");
 const { validateHeaderValue } = require('http');
+var Promise = require('promise');
+
 
 const upDir = path.join(__dirname, '..', 'public');
 if (!fs.existsSync(upDir)) {
@@ -60,6 +62,19 @@ describe('POST /add-admin', () => {
                 password: 'password1a23'
             })
             .set('authorization', `${authToken1}`);
+
+        expect(res.status).toBe(200);
+
+    });
+    it('Takes a authtoken and adds an admin', async () => {
+        const res = await request(app)
+            .post('/add-admin')
+            .send({
+                name: 'Johnny D',
+                email_id: 'johnd222oe@admin.com',
+                password: 'password1a23'
+            })
+            .set('authorization', '-11');
 
         expect(res.status).toBe(200);
 
@@ -499,18 +514,58 @@ describe('GET /getAllInfo/:id', () => {
 
 
 describe("GET /complaints/:id", () => {
-    // test("should return a complaint with the specified ID", async () => {
-    //   const response = await request(app).get("/complaints/19");
-    //   expect(response.statusCode).toBe(200);
-    //   expect(response.body.length).toBeGreaterThan(0);
-    //   expect(response.body[0]).toHaveProperty("complaint_id", 19);
+    let authToken;
+    let authToken1;
+    beforeAll(async () => {
+        // get an auth token for testing purposes
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+        const res1 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: '2020csb1132@iitrpr.ac.in',
+                password: 'root',
+            });
+        authToken = res.body.token;
+        authToken1 = res1.body.token;
+
+    });
+    test("complaints not found", async () => {
+        const response = await request(app)
+        .get("/complaints/1000")
+        .set('authorization', `${authToken1}`)
+
+        expect(response.statusCode).toBe(500);
+    });
+    test("complaints Done ", async () => {
+        const response = await request(app)
+        .get("/complaints/1")
+        .set('authorization', `${authToken1}`)
+
+        expect(response.statusCode).toBe(200);
+    });
+    test("Invalid user", async () => {
+        const response = await request(app)
+        .get("/complaints/1")
+        .set('authorization', `${authToken}`)
+
+        expect(response.statusCode).toBe(200);
+    });
+    // test("should return an error if the ID is invalid", async () => {
+    //     const response = await request(app).get("/complaints/1000");
+    //     expect(response.statusCode).toBe(500);
+    //     // expect(response.text).toBe("Error getting the complaint.");
+    // });
+    // test("should return an error if the ID is invalid", async () => {
+    //     const response = await request(app).get("/complaints/1");
+    //     expect(response.statusCode).toBe(200);
+    //     // expect(response.status).toBe("Got the complaint.");
     // });
 
-    test("should return an error if the ID is invalid", async () => {
-        const response = await request(app).get("/complaints/1000");
-        expect(response.statusCode).toBe(500);
-        expect(response.text).toBe("Error getting the complaint.");
-    });
 });
 
 describe('POST /add-excel', () => {
@@ -533,8 +588,21 @@ describe('POST /add-excel', () => {
             });
         authToken = res.body.token;
         authToken1 = res1.body.token;
+     
 
     });
+    afterAll(async () => {
+       
+        const filePath = path.join(__dirname, '..','public', 'HostelManagement', 'ExcelFiles', 'TestStudents.xlsx');
+      
+        await pool.query(
+          "DELETE FROM excels WHERE name='TestStudents.xlsx';"
+        );
+        await fs.promises.unlink(filePath);
+      });
+      
+
+
 
     it('Upload file and success', async () => {
         const FilePath = path.join(__dirname, 'testData', 'TestStudents.xlsx')
@@ -542,22 +610,29 @@ describe('POST /add-excel', () => {
             .post('/add-excel')
             .set('authorization', `${authToken1}`)
             .attach('excelfile', fs.createReadStream(FilePath))
-            .field('excelname', 'AddStudents.xlsx')
+            .field('excelname', 'TestStudents.xlsx')
 
+    
         expect(res.status).toBe(200);
         expect(res.text).toBe('Ok');
+    
+ 
 
     });
+
     it('Wrong User', async () => {
         const FilePath = path.join(__dirname, 'testData', 'TestStudents.xlsx')
         const res = await request(app)
             .post('/add-excel')
             .set('authorization', `${authToken}`)
             .attach('excelfile', fs.createReadStream(FilePath))
-            .field('excelname', 'AddStudents.xlsx')
+            .field('excelname', 'TestStudents.xlsx')
 
         expect(res.status).toBe(200);
         expect(res.text).toBe('1');
+        // await pool.query(
+        //     "DELETE FROM excels WHERE name='TestStudents.xlsx';"
+        //   );
     });
     it('Wrong token', async () => {
         const FilePath = path.join(__dirname, 'testData', 'TestStudents.xlsx')
@@ -565,12 +640,25 @@ describe('POST /add-excel', () => {
             .post('/add-excel')
             .set('authorization', 0)
             .attach('excelfile', fs.createReadStream(FilePath))
-            .field('excelname', 'AddStudents.xlsx')
+            .field('excelname', 'TestStudents.xlsx')
 
         expect(res.status).toBe(200);
         expect(res.text).toBe('1');
+        // await pool.query(
+        //     "DELETE FROM excels WHERE name='TestStudents.xlsx';"
+        //   );
     });
 
+
+    // afterAll(async () => {
+    //     const filePath = path.join(__dirname, 'public', 'HostelManagement', 'ExcelFiles', 'TestStudents.xlsx');
+      
+    //     fs.unlink(filePath);
+    //           await pool.query(
+    //         "DELETE FROM excels WHERE name='TestStudents.xlsx';"
+    //       );
+      
+    //   });
 
 });
 
@@ -649,7 +737,7 @@ describe('POST /delete-excel', () => {
         authToken1 = res1.body.token;
 
         const filePath = path.join(__dirname, 'testData', 'TestStudents.xlsx'); // Replace with the path to your excel file
-        const fileName = 'TestStudents.xlsx'; // Replace with the desired file name
+        const fileName = 'TestStudentsDel.xlsx'; // Replace with the desired file name
 
         // Read the excel file
         const fileData = fs.readFileSync(filePath);
@@ -659,7 +747,7 @@ describe('POST /delete-excel', () => {
         fs.writeFileSync(outputFilePath, fileData);
 
         const fileUrl = format(
-            `${process.env.STORAGE_BASE_URL}/HostelManagement/ExcelFiles/${fileName}`);
+            `${process.env.STORAGE_BASE_URL}//public/HostelManagement/ExcelFiles/${fileName}`);
 
         const query = 'INSERT INTO excels (name, file_url,status) VALUES ($1, $2,0)';
         await pool.query(query, [fileName, fileUrl]);
@@ -668,10 +756,9 @@ describe('POST /delete-excel', () => {
 
 
     it('Delete file and success', async () => {
-        const result = await pool.query("Select * from excels where name='TestStudents.xlsx';");
+        const result = await pool.query("Select * from excels where name='TestStudentsDel.xlsx';");
         const dbres = result.rows[0].file_url;
-        // console.log(dbres)
-
+     
         const res = await request(app)
             .post('/delete-excel')
             .set('authorization', `${authToken1}`)
@@ -681,12 +768,11 @@ describe('POST /delete-excel', () => {
 
     });
     it('Wrong User', async () => {
-        // const result = await pool.query("Select * from excels where name='TestStudents.xlsx';");
-        // const dbres=result.rows[0].file_url;
+
         const res = await request(app)
             .post('/delete-excel')
             .set('authorization', `${authToken}`)
-            .send({ excel_url: "http://localhost:8080//HostelManagement/ExcelFiles/TestStudents.xlsx" })
+            .send({ excel_url: "http://localhost:8080//HostelManagement/ExcelFiles/TestStudentsDel.xlsx" })
         expect(res.status).toBe(200);
         expect(res.text).toBe('1');
 
@@ -736,10 +822,20 @@ describe('POST /add-students', () => {
         );")
         const query = await pool.query("Delete from student_info where entry_numb='2020TEST0000';");
 
+    });
+    afterAll(async () => {
 
-
+        const query2 = await pool.query("DELETE \
+        FROM login_verification\
+        WHERE email_id IN (\
+            SELECT email_id\
+            FROM student_info\
+            WHERE entry_numb = '2020TEST0000'\
+        );")
+        const query = await pool.query("Delete from student_info where entry_numb='2020TEST0000';");
 
     });
+
 
     it('Add students and success', async () => {
 
@@ -846,6 +942,7 @@ describe('GET /get-students', () => {
             });
         authToken = res.body.token;
         authToken1 = res1.body.token;
+  
 
     });
     it('Wrong User Role ', async () => {
@@ -891,6 +988,7 @@ describe('POST /add-student', () => {
             });
         authToken = res.body.token;
         authToken1 = res1.body.token;
+       
         const query = await pool.query("Delete from student_info where email_id='johndoe1@example.com'\
          OR email_id='johndoe2@example.com'\
          OR email_id='johndoe3@example.com'\
@@ -908,6 +1006,26 @@ describe('POST /add-student', () => {
 
 
     });
+    // afterAll(async () => {
+    //     // get an auth token for testing purposes
+
+    //     await pool.query("Delete from student_info where email_id='johndoe1@example.com'\
+    //      OR email_id='johndoe2@example.com'\
+    //      OR email_id='johndoe3@example.com'\
+    //      OR email_id='johndoe4@example.com' \
+    //      OR email_id='johndoe5@example.com' \
+    //      OR email_id='johndoe6@example.com' \
+    //      ;");
+    //     await pool.query("Delete from login_verification where email_id='johndoe1@example.com'\
+    //      OR email_id='johndoe2@example.com'\
+    //      OR email_id='johndoe3@example.com'\
+    //      OR email_id='johndoe4@example.com' \
+    //      OR email_id='johndoe5@example.com' \
+    //      OR email_id='johndoe6@example.com' \
+    //      ;");
+
+
+    // });
 
     it('Adds a Student', async () => {
         const res = await request(app)
@@ -924,9 +1042,12 @@ describe('POST /add-student', () => {
 
         expect(res.status).toBe(200);
         expect(res.text).toBe("Ok");
+        await pool.query("Delete from student_info where email_id='johndoe1@example.com';")
+        await pool.query("Delete from login_verification where email_id='johndoe1@example.com';")
 
 
     });
+
     it('Adds a Student', async () => {
         const res = await request(app)
             .post('/add-student')
@@ -942,9 +1063,12 @@ describe('POST /add-student', () => {
 
         expect(res.status).toBe(200);
         expect(res.text).toBe("Ok");
+        await pool.query("Delete from student_info where email_id='johndoe2@example.com';")
+        await pool.query("Delete from login_verification where email_id='johndoe2@example.com';")
 
 
     });
+
     it('Adds a Student', async () => {
         const res = await request(app)
             .post('/add-student')
@@ -961,8 +1085,11 @@ describe('POST /add-student', () => {
 
         expect(res.status).toBe(200);
         expect(res.text).toBe("Ok");
+        await pool.query("Delete from student_info where email_id='johndoe3@example.com';")
+        await pool.query("Delete from login_verification where email_id='johndoe3@example.com';")
 
     });
+
     it('Adds a Student', async () => {
         const res = await request(app)
             .post('/add-student')
@@ -978,9 +1105,12 @@ describe('POST /add-student', () => {
 
         expect(res.status).toBe(200);
         expect(res.text).toBe("Ok");
+        await pool.query("Delete from student_info where email_id='johndoe4@example.com';")
+        await pool.query("Delete from login_verification where email_id='johndoe4@example.com';")
 
 
     });
+
     it('Adds a Student', async () => {
         const res = await request(app)
             .post('/add-student')
@@ -997,9 +1127,13 @@ describe('POST /add-student', () => {
 
         expect(res.status).toBe(200);
         expect(res.text).toBe("Ok");
+        await pool.query("Delete from student_info where email_id='johndoe5@example.com';")
+        await pool.query("Delete from login_verification where email_id='johndoe5@example.com';")
 
 
     });
+
+
     it('Adds a Student', async () => {
         const res = await request(app)
             .post('/add-student')
@@ -1016,6 +1150,28 @@ describe('POST /add-student', () => {
 
         expect(res.status).toBe(200);
         expect(res.text).toBe("Ok");
+        await pool.query("Delete from student_info where email_id='johndoe6@example.com';")
+        await pool.query("Delete from login_verification where email_id='johndoe6@example.com';")
+
+
+    });
+
+    it('Already exists', async () => {
+        const res = await request(app)
+            .post('/add-student')
+            .send({
+                name: 'John Doe',
+                email_id: '2020csb1132@iitrpr.ac.in',
+                entry_numb: '2222EEB1201',
+                password: 'password123',
+                room_numb: 'BS321',
+                hostel_id: '6'
+            })
+            .set('authorization', `${authToken1}`);
+
+
+        expect(res.status).toBe(200);
+        expect(res.text).toBe("2");
 
 
     });
@@ -1033,7 +1189,7 @@ describe('POST /add-student', () => {
         expect(res.text).toBe("1");
 
     });
-    it('Not verified', async () => {
+    it('verified error', async () => {
         const res = await request(app)
             .post('/add-student')
             .send({
@@ -1067,6 +1223,8 @@ describe('POST /delete-admin', () => {
             });
         authToken = res.body.token;
         authToken1 = res1.body.token;
+        await pool.query("Insert into admins(name,email_id,admin_type) values('TestName','testid@test',0)");
+      
 
     });
     it('Wrong user', async () => {
@@ -1083,7 +1241,7 @@ describe('POST /delete-admin', () => {
         const res = await request(app)
             .post('/delete-admin')
             .send({
-                email_id: 'johndoe@admin.com',
+                email_id: 'testid@test',
             })
             .set('authorization', `${authToken1}`);
 
@@ -1159,7 +1317,7 @@ describe('POST /delete-student', () => {
         expect(res.status).toBe(200);
 
     });
-    it('Already delete', async () => {
+    it('Not Present', async () => {
         const res = await request(app)
             .post('/delete-student')
             .send({
@@ -1184,7 +1342,6 @@ describe('POST /delete-student', () => {
     });
 
 });
-
 
 
 describe('POST /add-fees-record', () => {
@@ -1225,24 +1382,25 @@ describe('POST /add-fees-record', () => {
         const res = await request(app)
             .post('/add-fees-record')
             .send({
-                fees_type: 'Mess',
+                fees_type: 'Hostel',
                 year: '2020',
                 semester: '2',
-                amount: '1000'
+                amount: '19090'
             })
             .set('authorization', `${authToken1}`);
 
         expect(res.status).toBe(200);
-
+        await pool.query("delete from fees_records where fees_amount=$1",['19090'])
     });
 
     it('Wrong verify', async () => {
         const res = await request(app)
             .post('/add-fees-record')
             .send({
-                name: 'Sushil',
-                email_id: '2020csb1132@iitrpr.ac.in',
-                password: '234'
+                fees_type: 'Mess',
+                year: '2020',
+                semester: '2',
+                amount: '1000'
             })
             .set('authorization', 0);
         expect(res.status).toBe(200);
@@ -1289,20 +1447,130 @@ describe('POST /view-excel', () => {
         expect(res.text).toBe("2");
     });
 
-    it('Wrong Token', async () => {
+    it('Unidentified url', async () => {
         const res = await request(app)
             .post('/view-excel')
             .set('authorization', 0)
-            .send({ fileurl: "" });
+            .send({ fghhurl: "jjn" });
         expect(res.status).toBe(200);
         expect(res.text).toBe("1");
     });
+    
+    // it('Unidentified url', async () => {
+    //     const res = await request(app)
+    //         .post('/view-excel')
+    //         .set('authorization', `${authToken1}`)
+    //         .send({ fileurl: "No file error 0 can't open" });
+    //     expect(res.status).toBe(200);
+    //     expect(res.text).toBe("0");
+    // });
 
 });
 
 
+describe("POST /updateStatus/:id", () => {
 
+    let authToken;
+    let authToken1;
+    beforeAll(async () => {
+        // get an auth token for testing purposes
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+        const res1 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: '2020csb1132@iitrpr.ac.in',
+                password: 'root',
+            });
+        authToken = res.body.token;
+        authToken1 = res1.body.token;
 
+    });
+    test("Update status  complaint not found", async () => {
+        const response = await request(app)
+        .post("/updateStatus/100")
+        .set('authorization', `${authToken1}`)
+
+        expect(response.statusCode).toBe(404);
+    });
+    test("Update staus Done ", async () => {
+        const response = await request(app)
+        .post("/updateStatus/1")
+        .set('authorization', `${authToken1}`)
+
+        expect(response.statusCode).toBe(200);
+    });
+    test("Invalid user", async () => {
+        const response = await request(app)
+        .post("/updateStatus/100")
+        .set('authorization', `${authToken}`)
+
+        expect(response.statusCode).toBe(200);
+    });
+    test("Verify error", async () => {
+        const response = await request(app)
+        .post("/updateStatus/100")
+        .set('authorization', 0)
+
+        expect(response.statusCode).toBe(200);
+    });
+});
+
+describe("POST /complaints/solve/:id", () => {
+
+    let authToken;
+    let authToken1;
+    beforeAll(async () => {
+        // get an auth token for testing purposes
+        const res = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: 'rohitkinha1612@gmail.com',
+                password: 'root',
+            });
+        const res1 = await request(app)
+            .post('/auth/signin/verify')
+            .send({
+                email: '2020csb1132@iitrpr.ac.in',
+                password: 'root',
+            });
+        authToken = res.body.token;
+        authToken1 = res1.body.token;
+
+    });
+    test("complaint not found", async () => {
+        const response = await request(app)
+        .post("/complaints/solve/1000")
+        .set('authorization', `${authToken1}`)
+        expect(response.statusCode).toBe(404);
+    });
+    test("Solve complaint Done ", async () => {
+        const response = await request(app)
+        .post("/complaints/solve/1")
+        .set('authorization', `${authToken1}`)
+
+        expect(response.statusCode).toBe(200);
+        await pool.query("UPDATE complaint_details SET complaint_status='pending' WHERE complaint_id=1",);
+    });
+    test("Invalid user", async () => {
+        const response = await request(app)
+        .post("/complaints/solve/1")
+        .set('authorization', `${authToken}`)
+
+        expect(response.statusCode).toBe(200);
+    });
+    test("Verify error", async () => {
+        const response = await request(app)
+        .post("/complaints/solve/1")
+        .set('authorization', 0)
+
+        expect(response.statusCode).toBe(200);
+    });
+});
 
 
 
