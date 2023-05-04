@@ -4,6 +4,8 @@
 
 This website is a software solution that streamlines hostel operations. It provides separate login portals for students and admins to manage and access profiles. The website features a complaints and request management system for students to report issues and requests for room changes. It also includes a fees management system for admins to manage payments and financial transactions related to hostel operations. Overall, it offers a centralized platform for efficient hostel management, improving the experience for all stakeholders.
 
+# 1.Features
+
 ## Setup
 
 Run `npm i` in both the `server` and `client` directories **separately** to install the dependencies.
