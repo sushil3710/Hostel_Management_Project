@@ -32,7 +32,7 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 
 #### 6. Database
 
-#### 7. App running on http://localhost:3000/
+#### 7. App running on `http://localhost:3000/`
 
 1. Create a database in your postgres shell (psql) using the command `create database hostel;`.
 2. Connect to the `hostel` database by running `\c hostel;`.
