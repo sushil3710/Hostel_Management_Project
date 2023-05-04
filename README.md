@@ -12,16 +12,21 @@ This website provides an easy and effective way for students for registering the
 
 ## User guide
 
+### How to build locally
 
-### Setup
+#### Clone repository
+
+#### Open project in VSCode
+
+#### Setup
 
 Run `npm i` in both the `server` and `client` directories **separately** to install the dependencies.
 
-### Client
+#### Client
 
 `cd` to the client directory and run `npm start` command in one terminal to start the client-side/frontend.
 
-### Server
+#### Server
 
 `cd` to the server directory and run `npm run dev` command in another terminal to start the server/backend.
 
