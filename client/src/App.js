@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getToken } from "./components/SignIn_SignUp/Sessions";
 import Logout from "./components/SignIn_SignUp/Logout";
 import ContactUs from "./components/Landing/ContactUs";
-import AdminRoom from './components/Admin/AdminRoom';
+import AdminRoom from './components/Admin/adminRoom';
 import Error from "./components/Landing/Error";
 import WithHeaderFooter from "./components/Landing/WithHeaderFooter";
 import GuideLines from "./components/Landing/GuideLines";

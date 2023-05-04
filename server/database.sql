@@ -1,4 +1,4 @@
--- Active: 1680711743255@@127.0.0.1@5432@mtech
+
 \c postgres
 drop database hostel;
 create database hostel;
