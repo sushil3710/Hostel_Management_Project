@@ -1,20 +1,21 @@
 # README
-
 # Website-Portal-for-hostel-management
 
 This website provides an easy and effective way for students for registering their complaints and communicating to responsible hostel authorities and for admins to manage different aspects of hostel and maintaining code of conduct.
 
-## Features
+## Features 
+* Login for both admin and students for all hostels.
+* It offers a student to edit his/her profile, submit fees details, send a complaint regarding any issue such as water, electricity , etc. It also allows a student to request for a room.
+* It offers a admin to add students into the portal though a excel file as well as gives the option to add a single student. It offers admin to have a look of fee documents, complaints and room change requests for different students. It also allows a admin to add other admins.
 
-1. Login for both admin and students for all hostels.
-2. Complaint system for students.
-3. Profile to display room number, hostel, name etc.
+## User guide 
 
-## User guide
+### How to use WebApp 
+* Please find the link of hosted website [hostel-managemet-portal](https://hostel-management-portal.vercel.app/)
 
 ### How to build locally
 
-#### 1. Clone repository
+#### 1. Extract Zip folder
 
 #### 2. Open project in VSCode
 

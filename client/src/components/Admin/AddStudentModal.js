@@ -122,7 +122,7 @@ export default function AddStudentModal() {
           >
             <div className="bg-white rounded-lg shadow relative">
               <div className="flex items-start justify-between p-5 border-b rounded-t">
-                <h3 className="text-xl font-semibold">Add admin</h3>
+                <h3 className="text-xl font-semibold">Add Student</h3>
                 <button
                   onClick={handleClose}
                   type="button"

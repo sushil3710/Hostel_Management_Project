@@ -1113,9 +1113,9 @@ const view_excel = async (req, res) => {
   const excelpath = path.join(__dirname,result);
 
   exec(`start excel "${excelpath}"`, (error, stdout, stderr) => {
-    if (error) {
-      return res.send("0");
-    }    
+    // if (error) {
+    //   return res.send("0");
+    // }    
 
   });
 
