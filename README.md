@@ -53,7 +53,7 @@ This website provides an easy and effective way for students for registering the
 
 #### 4. Updating .env file in server directory
 * `PG_USER` = `postgres`         ////  here we need to write the user of our postgres by default it is postgres
-* `PG_PASSWORD` = `1212`         ////  here update the password of your postgres password
+* `PG_PASSWORD` = `1212`         ////  here update the password of your postgres password `This is important to change`.
 * `PG_HOST` = `localhost`        ////  Keep it same as we are running locally   
 * `PG_PORT` = `5432`             ////  Keep it same 
 * `PG_DATABASE` = `hostel`       ////  Keep it hostel itself as we have created a separate database now.
