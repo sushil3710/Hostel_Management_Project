@@ -79,3 +79,17 @@ This website provides an easy and effective way for students for registering the
 * Ignore all the warnings and if some errors are encountered those maybe mostly because of incompatible node version.
 * You can try `npm install --legacy-peer-deps`.
 * Now our website is live on `http://localhost:3000/`
+
+#### 6. Testing the website
+* To test the data manually with features like uploading excel to add students, uploading profile image and downloading the fee details, some samples for the same are added in the folder `./server/test/testData`.
+* To test the server using jest follow following steps
+* Open a new terminal and go into the server directory
+* `cd server`
+* `npm test`
+* On running the above commands all the testcase should have passed as they were designed accordingly.
+* If after manual testing and then running `npm test` some cases fail try reseting the database.
+
+#### 7. Coverage Report
+* After running the testcases, a coverage report is generated in `./server/coverage/Icov-report/` directory
+* Copy the path of `index.html` file and open the same in a browser and we can see the test report and coverage report.
+
