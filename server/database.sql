@@ -1,9 +1,3 @@
-
-\c postgres
-drop database hostel;
-create database hostel;
-\c hostel
-
 CREATE TABLE forgot_password_verification (
     email_id TEXT PRIMARY KEY,
     hashed_otp TEXT,
