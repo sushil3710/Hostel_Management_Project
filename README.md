@@ -35,7 +35,4 @@ Run `npm i` in both the `server` and `client` directories **separately** to inst
 1. Create a database in your postgres shell (psql) using the command `create database hostel;`.
 2. Connect to the `hostel` database by running `\c hostel;`.
 3. Run all the commands in the `database.sql` (in server directory) file in psql.
-
-####
-
-1. Also add you own email and app password in .env file.
+4. Also add you own email and app password in .env file.
