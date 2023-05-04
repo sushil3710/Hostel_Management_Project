@@ -1,6 +1,6 @@
+# README
 
-
-# Website-Portal
+# Website-Portal-for-hostel-management
 
 ## Setup
 
