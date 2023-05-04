@@ -2,11 +2,12 @@
 
 # Website-Portal-for-hostel-management
 
-This website is a software solution that streamlines hostel operations. It provides separate login portals for students and admins to manage and access profiles. The website features a complaints and request management system for students to report issues and requests for room changes. It also includes a fees management system for admins to manage payments and financial transactions related to hostel operations. Overall, it offers a centralized platform for efficient hostel management, improving the experience for all stakeholders.
+This website provides an easy and effective way for students for registering their complaints and communicating to responsible hostel authorities and for admins to manage different aspects of hostel like solving complaints, fees management and maintaining code of conduct.
 
 ## Features
 
 1.Login for both admin and students for all hostels
+2.Complaint system for different type
 
 ## Setup
 
