@@ -13,21 +13,21 @@ This website provides an easy and effective way for students for registering the
 ### How to use WebApp 
 * Please find the link of hosted website [hostel-managemet-portal](https://hostel-management-portal.vercel.app/) .
 * By default the user will see a homepage.
-* To login into the admin side use the email - "2020csb1118@iitrpr.ac.in" and password - "root".
-* To login into the student side use the email - "rohitkinha1612@gmail.com" and password - "root".
+* To login into the admin side use the email - `2020csb1118@iitrpr.ac.in` and password - `root`.
+* To login into the student side use the email - `rohitkinha1612@gmail.com` and password - `root`.
 * Please note that some features that are related to some kind of storage will not work like download and uploading of excel files or profile image will not work as no storage is provided by free hosting services such as vercel or render.
 * To test those features please run locally on the system. 
 
 ### How to build locally
 
 #### Before building the project locally make sure of these software requirements : 
-* The system should have the latest version of node and npm in it preferable the stable ones version which currently is '18.16.0' for node and npm '9.66'.
-* Apart from node the system should have postgres v15.0 or above installed in it.
+* The system should have the latest version of node and npm in it preferable the stable ones version which currently is `18.16.0` for node and npm `9.66`.
+* Apart from node the system should have postgres `v15.0` or above installed in it.
  
 #### Guide to update the node version in linux :
-* First check the current verison by 'node -v'
-* Then install n package in the terminal by 'sudo npm install -g n'
-* The run 'n 18.16.0' in the terminal
+* First check the current verison by `node -v`
+* Then install n package in the terminal by `sudo npm install -g n`
+* The run `n 18.16.0` in the terminal
 * Again check the version of node and check if it is upgraded or not
 
 #### 1. Extract Zip folder
@@ -40,24 +40,42 @@ This website provides an easy and effective way for students for registering the
 * The src folder contains basically two folders - client and server.
 * We need to run each of them in separate terminals.
 
+#### 3. Creating a postgres database locally
+* Make sure you have the required version of postgres install.
+* Open the shell of your postgres in terminal
+* Create a new database named `hostel`
+* Then connect to hostel database and copy paste the script present in the `database.sql` file into the hostel psql shell.
+* Once the database is created successfully, now we need to update the .env file in the server file/
+* Steps are :
+* 1. `CREATE DATABASE hostel;`
+* 2. `\c hostel;`
+* 3. Run all the commands in the database.sql(in server directory) file in psql.
 
-#### 3. Setup
+#### 4. Updating .env file in server directory
+* `PG_USER` = `postgres`         ////  here we need to write the user of our postgres by default it is postgres
+* `PG_PASSWORD` = `1212`         ////  here update the password of your postgres password
+* `PG_HOST` = `localhost`        ////  Keep it same as we are running locally   
+* `PG_PORT` = `5432`             ////  Keep it same 
+* `PG_DATABASE` = `hostel`       ////  Keep it hostel itself as we have created a separate database now.
 
-Run `npm i` in both the `server` and `client` directories **separately** to install the dependencies.
+#### 5. Now we will setup and run server side 
+* Open a new terminal and go into server directory.
+* `cd server`
+* Install all dependancies 
+* `npm install`
+* Run the server in development mode
+* `npm run dev`
+* If we get a console message 'Server is live and listening on port 8080 then our server side is live'
+* We can verify the same by going into browser and running `http://localhost:8080`, we should receive a 'Hello World'
 
-#### 4. Client
-
-`cd` to the client directory and run `npm start` command in one terminal to start the client-side/frontend.
-
-#### 5. Server
-
-`cd` to the server directory and run `npm run dev` command in another terminal to start the server/backend.
-
-#### 6. Database
-
-#### 7. App running on ` http://localhost:3000/ `
-
-1. Create a database in your postgres shell (psql) using the command `create database hostel;`.
-2. Connect to the `hostel` database by running `\c hostel;`.
-3. Run all the commands in the `database.sql` (in server directory) file in psql.
-4. Also add you own email and app password in .env file.
+#### 5. Setting up client side
+* Open a new terminal and go into the client directory
+* `cd client`
+* Install all dependancies 
+* `npm install`
+* Running the frontend
+* `npm start `
+* The above steps will take sometime to execute, maybe few minutes incase of poor internet connectivity.
+* Ignore all the warnings and if some errors are encountered those maybe mostly because of incompatible node version.
+* You can try `npm install --legacy-peer-deps`.
+* Now our website is live on `http://localhost:3000/`
