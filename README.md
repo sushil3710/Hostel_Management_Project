@@ -11,13 +11,35 @@ This website provides an easy and effective way for students for registering the
 ## User guide 
 
 ### How to use WebApp 
-* Please find the link of hosted website [hostel-managemet-portal](https://hostel-management-portal.vercel.app/)
+* Please find the link of hosted website [hostel-managemet-portal](https://hostel-management-portal.vercel.app/) .
+* By default the user will see a homepage.
+* To login into the admin side use the email - "2020csb1118@iitrpr.ac.in" and password - "root".
+* To login into the student side use the email - "rohitkinha1612@gmail.com" and password - "root".
+* Please note that some features that are related to some kind of storage will not work like download and uploading of excel files or profile image will not work as no storage is provided by free hosting services such as vercel or render.
+* To test those features please run locally on the system. 
 
 ### How to build locally
 
+#### Before building the project locally make sure of these software requirements : 
+* The system should have the latest version of node and npm in it preferable the stable ones version which currently is '18.16.0' for node and npm '9.66'.
+* Apart from node the system should have postgres v15.0 or above installed in it.
+ 
+#### Guide to update the node version in linux :
+* First check the current verison by 'node -v'
+* Then install n package in the terminal by 'sudo npm install -g n'
+* The run 'n 18.16.0' in the terminal
+* Again check the version of node and check if it is upgraded or not
+
 #### 1. Extract Zip folder
 
-#### 2. Open project in VSCode
+* Inside the zip folder there will be two folders one docs and src and a README.txt file.
+* The docs folder include the design and SRS realted to the project whereas the src folder contains all the source code of the project.
+
+#### 2. Open project in some editor like vsCode for better visualisation
+
+* The src folder contains basically two folders - client and server.
+* We need to run each of them in separate terminals.
+
 
 #### 3. Setup
 
