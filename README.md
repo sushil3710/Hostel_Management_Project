@@ -7,7 +7,9 @@ This website provides an easy and effective way for students for registering the
 ## Features
 
 1. Login for both admin and students for all hostels.
-2. Complaint system for different type.
+2. Complaint system for students.
+3. Profile to display room number, hostel, name etc.
+
 
 ## Setup
 
