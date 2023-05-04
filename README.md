@@ -2,7 +2,7 @@
 
 # Website-Portal-for-hostel-management
 
-This website provides an easy and effective way for students for registering their complaints and communicating to responsible hostel authorities and for admins to manage different aspects of hostel like solving complaints, fees management and maintaining code of conduct.
+This website provides an easy and effective way for students for registering their complaints and communicating to responsible hostel authorities and for admins to manage different aspects of hostel and maintaining code of conduct.
 
 ## Features
 
