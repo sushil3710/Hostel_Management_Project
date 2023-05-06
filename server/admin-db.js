@@ -925,26 +925,26 @@ async function solveIt(req, res) {
   /**
    * Verify using authToken
    */
-  authToken = req.headers.authorization;
-  let jwtSecretKey = process.env.JWT_SECRET_KEY;
+//   authToken = req.headers.authorization;
+//   let jwtSecretKey = process.env.JWT_SECRET_KEY;
 
-  var verified = null;
+//   var verified = null;
 
-  try {
-    verified = jwt.verify(authToken, jwtSecretKey);
-  } catch (error) {
-    return res.send("1"); /** Error, logout on user side */
-  }
+//   try {
+//     verified = jwt.verify(authToken, jwtSecretKey);
+//   } catch (error) {
+//     return res.send("1"); /** Error, logout on user side */
+//   }
 
-  // if (!verified) {
-  //   return res.send("1"); /** Error, logout on user side */
-  // }
+//   // if (!verified) {
+//   //   return res.send("1"); /** Error, logout on user side */
+//   // }
 
-  /** Get role */
-  var userRole = jwt.decode(authToken).userRole;
-  if (userRole !== 0) {
-    return res.send("1");
-  }
+//   /** Get role */
+//   var userRole = jwt.decode(authToken).userRole;
+//   if (userRole !== 0) {
+//     return res.send("1");
+//   }
   
   // try {
     const { rowCount } = await pool.query("UPDATE complaint_details SET complaint_status='done' WHERE complaint_id=$1", [id]);
