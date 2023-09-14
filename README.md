@@ -93,3 +93,5 @@ This website provides an easy and effective way for students for registering the
 * After running the testcases, a coverage report is generated in `./server/coverage/Icov-report/` directory
 * Copy the path of `index.html` file and open the same in a browser and we can see the test report and coverage report.
 
+### 8. Deployed on site
+
